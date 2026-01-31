@@ -71,3 +71,4 @@ ChatEmoteRainUnity/[Mm]emoryCaptures/
 ChatEmoteRainUnity/[Aa]ssets/Plugins/Editor/JetBrains*
 
 *.user
+*.tmp
