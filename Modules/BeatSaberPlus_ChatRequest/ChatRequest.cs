@@ -42,10 +42,6 @@ namespace BeatSaberPlus_ChatRequest
         /// </summary>
         private Button m_ManagerButtonS = null;
         /// <summary>
-        /// Manager flow coordinator
-        /// </summary>
-        private UI.ManagerViewFlowCoordinator m_ManagerViewFlowCoordinator = null;
-        /// <summary>
         /// Chat core instance
         /// </summary>
         private bool m_ChatCoreAcquired = false;

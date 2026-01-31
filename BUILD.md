@@ -1,7 +1,7 @@
 # Build (стан робочих модулів)
 
 ## Останній запуск (Release)
-Збірка виконувалась окремо по модулях (послідовно), щоб швидко локалізувати проблеми.
+Збірка виконувалась окремо по проєктах (Release), щоб швидко перевірити зміни.
 
 ### Успішно зібрались і скопійовані в Beat Saber `Plugins`
 - `ChatPlexSDK_BS`
@@ -12,16 +12,13 @@
 - `Modules/BeatSaberPlus_NoteTweaker`
 - `Modules/BeatSaberPlus_SongChartVisualizer`
 - `Modules/BeatSaberPlus_ChatIntegrations`
-- `Modules/BeatSaberPlus_MenuMusic`
-- `Modules/BeatSaberPlus_SongOverlay`
-- `Samples/BeatSaberPlus_ModuleTemplate`
 
 ### Попередження (не блокують білд)
-- `MSB3101` про `AssemblyReference.cache` (Access denied) у деяких проєктах.
-- `CS0618` у `MenuMusic/Data/Music.cs` (deprecated `UnityWebRequest.isNetworkError` / `isHttpError`).
+- `MSB3101` про `AssemblyReference.cache` (Access denied) у `BeatSaberPlus_ChatIntegrations`.
 
 ### Примітки
 - `PrivateModules/BeatSaberPlus_CustomEdition` прибрано з solution: `.csproj` відсутній на диску.
+- 31.01.2026: `build.ps1` без параметра `-Project` для `BeatSaberPlus.sln` повернув `FAILED` без діагностики; збірку перевірено через `MSBuild.exe` напряму.
 
 ## Команда (ручний запуск)
 ```powershell

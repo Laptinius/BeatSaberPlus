@@ -857,7 +857,6 @@ namespace BeatSaberPlus_ChatRequest
             {
                 try
                 {
-                    string l_Reply = "@$UserName map " + l_Key + " not found.";
                     if (p_Valid && p_BeatMap != null)
                     {
                         var l_Entry = new Models.SongEntry()
@@ -870,14 +869,14 @@ namespace BeatSaberPlus_ChatRequest
                         AddSongEntryToAllowlist(l_Entry);
 
                         SendChatMessage(
-                            "@$UserName (bsr $BSRKey) $SongName / $LevelAuthorName is now in the allowlist!",
+                            "@$UserName (bsr $BSRKey) $SongName / $LevelAuthorName тепер у білому списку!",
                             p_Service,
                             p_Message,
                             l_Entry
                         );
                     }
                     else
-                        SendChatMessage("@$UserName map $BSRKey not found.", p_Service, p_Message, null, ("$BSRKey", l_Key));
+                        SendChatMessage("@$UserName мапу $BSRKey не знайдено.", p_Service, p_Message, null, ("$BSRKey", l_Key));
                 }
                 catch (System.Exception p_Exception)
                 {
@@ -921,7 +920,6 @@ namespace BeatSaberPlus_ChatRequest
             {
                 try
                 {
-                    string l_Reply = "@$UserName map " + l_Key + " not found.";
                     if (p_Valid && p_BeatMap != null)
                     {
                         var l_Entry = new Models.SongEntry()
@@ -934,14 +932,14 @@ namespace BeatSaberPlus_ChatRequest
                         AddSongEntryToBlocklist(l_Entry);
 
                         SendChatMessage(
-                            "@$UserName (bsr $BSRKey) $SongName / $LevelAuthorName is now in the blocklist!",
+                            "@$UserName (bsr $BSRKey) $SongName / $LevelAuthorName тепер у чорному списку!",
                             p_Service,
                             p_Message,
                             l_Entry
                         );
                     }
                     else
-                        SendChatMessage("@$UserName map $BSRKey not found.", p_Service, p_Message, null, ("$BSRKey", l_Key));
+                        SendChatMessage("@$UserName мапу $BSRKey не знайдено.", p_Service, p_Message, null, ("$BSRKey", l_Key));
                 }
                 catch (System.Exception p_Exception)
                 {

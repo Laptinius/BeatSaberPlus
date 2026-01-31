@@ -279,6 +279,38 @@ namespace BeatSaberPlus_ChatRequest
 
             if (Commands != null && !Commands.LinkCommand_CurrentSong.Contains("$SongLink"))
                 Commands.LinkCommand_CurrentSong += " $SongLink";
+
+            if (!p_OnCreation && m_RawLoaded != null)
+                MigrateLegacyEnglishMessages();
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+
+        private void MigrateLegacyEnglishMessages()
+        {
+            if (Commands == null || Messages == null)
+                return;
+
+            if (ContainsAnyInvariant(Commands.BSRCommand_RequestOK, "requested by", "added to queue"))
+                Commands.BSRCommand_RequestOK = "(bsr $BSRKey) $SongName / $LevelAuthorName $Vote% запитано @$UserName, додано до черги.";
+
+            if (ContainsAnyInvariant(Messages.OnCooldown, "command is on cooldown"))
+                Messages.OnCooldown = "@$UserName команда на перезарядці!";
+        }
+
+        private static bool ContainsAnyInvariant(string source, params string[] needles)
+        {
+            if (string.IsNullOrEmpty(source) || needles == null || needles.Length == 0)
+                return false;
+
+            foreach (var needle in needles)
+            {
+                if (!string.IsNullOrEmpty(needle) && source.IndexOf(needle, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return true;
+            }
+
+            return false;
         }
     }
 }

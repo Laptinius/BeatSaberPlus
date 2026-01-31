@@ -120,9 +120,9 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
             var l_Seconds = p_Remaining - (l_Minutes * 60);
 
             if (l_Minutes != 0)
-                return $"! @{p_User.DisplayName} command is on cooldown, {l_Minutes}m{l_Seconds}s remaining!";
+                return $"! @{p_User.DisplayName} команда на перезарядці, залишилось {l_Minutes}хв{l_Seconds}с!";
 
-            return $"! @{p_User.DisplayName} command is on cooldown, {l_Seconds}s remaining!";
+            return $"! @{p_User.DisplayName} команда на перезарядці, залишилось {l_Seconds}с!";
         }
     }
 }

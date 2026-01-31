@@ -68,17 +68,17 @@ namespace BeatSaberPlus_ChatRequest.Models
         /// </summary>
         public override void OnShow()
         {
-            Tooltip = "<b>Requested by</b> " + TitlePrefix + (TitlePrefix.Length != 0 ? " " : "") + RequesterName;
+            Tooltip = "<b>Запит від</b> " + TitlePrefix + (TitlePrefix.Length != 0 ? " " : "") + RequesterName;
 
             if (RequestTime.HasValue)
             {
                 var l_Elapsed = CP_SDK.Misc.Time.UnixTimeNow() - CP_SDK.Misc.Time.ToUnixTime(RequestTime.Value);
                 if (l_Elapsed < (60 * 60))
-                    Tooltip += "\n<align=\"center\">" + Math.Max(1, l_Elapsed / 60).ToString() + " minute(s) ago</align>";
+                    Tooltip += "\n<align=\"center\">" + Math.Max(1, l_Elapsed / 60).ToString() + " хв тому</align>";
                 else if (l_Elapsed < (60 * 60 * 24))
-                    Tooltip += "\n<align=\"center\">" + Math.Max(1, l_Elapsed / (60 * 60)).ToString() + " hour(s) ago</align>";
+                    Tooltip += "\n<align=\"center\">" + Math.Max(1, l_Elapsed / (60 * 60)).ToString() + " год тому</align>";
                 else
-                    Tooltip += "\n<align=\"center\">" + Math.Max(1, l_Elapsed / (60 * 60 * 24)).ToString() + " day(s) ago</align>";
+                    Tooltip += "\n<align=\"center\">" + Math.Max(1, l_Elapsed / (60 * 60 * 24)).ToString() + " дн тому</align>";
             }
 
             if (!string.IsNullOrEmpty(Message))

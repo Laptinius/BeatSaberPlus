@@ -156,7 +156,6 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         : Interfaces.IAction<Chat_InternalMessage, Models.Action>
     {
         private XUIText   m_Message         = null;
-        private XUIToggle m_AddTTSPrefix    = null;
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////

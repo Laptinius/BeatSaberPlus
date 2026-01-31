@@ -155,7 +155,7 @@ namespace BeatSaberPlus_ChatRequest.UI
             ShowMessageModal("Пісню надіслано в чат.");
 
             var l_Plugin = ChatRequest.Instance;
-            l_Plugin.SendChatMessage($"\"{m_LastDetail.name.Replace(".", " . ")}\" by {m_LastDetail.metadata.levelAuthorName.Replace(".", " . ")} => https://beatsaver.com/maps/{m_LastDetail.id}", null, null);
+            l_Plugin.SendChatMessage($"\"{m_LastDetail.name.Replace(".", " . ")}\" від {m_LastDetail.metadata.levelAuthorName.Replace(".", " . ")} => https://beatsaver.com/maps/{m_LastDetail.id}", null, null);
         }
         /// <summary>
         /// On beat saver pressed
