@@ -18,7 +18,7 @@ namespace BeatSaberPlus_NoteTweaker
 
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Note Tweaker";
-        public override string                              Description         => "Customize base notes!";
+        public override string                              Description         => "Налаштовує базові ноти!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#note-tweaker";
         public override bool                                UseChatFeatures     => false;
         public override bool                                IsEnabled           { get => NTConfig.Instance.Enabled; set { NTConfig.Instance.Enabled = value; NTConfig.Instance.Save(); } }

@@ -66,10 +66,10 @@ namespace ChatPlexMod_Chat.UI
             var l_WhiteSprite = CP_SDK.Unity.SpriteU.CreateFromTexture(Texture2D.whiteTexture);
 
             Templates.FullRectLayout(
-                Templates.TitleBar("Prediction"),
+                Templates.TitleBar("Прогноз"),
 
                 XUIHLayout.Make(
-                    XUIText.Make("Subject")
+                    XUIText.Make("Тема")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                         .SetColor(Color.yellow)
                         .SetFontSize(4.5f)
@@ -83,11 +83,11 @@ namespace ChatPlexMod_Chat.UI
                 .OnReady(x => x.HOrVLayoutGroup.childForceExpandHeight = true)
                 .OnReady(x => x.CSizeFitter.horizontalFit = ContentSizeFitter.FitMode.Unconstrained),
 
-                XUIText.Make("Option 1").SetFontSize(5.5f).Bind(ref m_Labels),
-                XUIText.Make("Option 1").SetFontSize(6.0f).SetStyle(TMPro.FontStyles.Bold).Bind(ref m_Percentages),
-                XUIText.Make("Option 1").SetFontSize(4.0f).Bind(ref m_Points),
-                XUIText.Make("Option 1").SetFontSize(4.0f).Bind(ref m_Ratios),
-                XUIText.Make("Option 1").SetFontSize(4.0f).Bind(ref m_Votees),
+                XUIText.Make("Варіант 1").SetFontSize(5.5f).Bind(ref m_Labels),
+                XUIText.Make("Варіант 1").SetFontSize(6.0f).SetStyle(TMPro.FontStyles.Bold).Bind(ref m_Percentages),
+                XUIText.Make("Варіант 1").SetFontSize(4.0f).Bind(ref m_Points),
+                XUIText.Make("Варіант 1").SetFontSize(4.0f).Bind(ref m_Ratios),
+                XUIText.Make("Варіант 1").SetFontSize(4.0f).Bind(ref m_Votees),
 
                 XUIHLayout.Make(
                     XUIPrimaryButton.Make("Lock votes", OnLockButton).Bind(ref m_LockButton)
@@ -219,7 +219,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnLockButton()
         {
-            ShowConfirmationModal("Lock the votes?", (p_Confirm) =>
+            ShowConfirmationModal("Заблокувати голоси?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -242,7 +242,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnPickBlueButton()
         {
-            ShowConfirmationModal("Make blue win?", (p_Confirm) =>
+            ShowConfirmationModal("Зробити синій варіант переможцем?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -265,7 +265,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnPickPinkButton()
         {
-            ShowConfirmationModal("Make pink win?", (p_Confirm) =>
+            ShowConfirmationModal("Зробити рожевий варіант переможцем?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -288,7 +288,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnCancelButton()
         {
-            ShowConfirmationModal("Cancel prediction?", (p_Confirm) =>
+            ShowConfirmationModal("Скасувати прогноз?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;

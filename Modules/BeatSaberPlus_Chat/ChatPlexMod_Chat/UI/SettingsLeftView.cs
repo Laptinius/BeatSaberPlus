@@ -21,7 +21,7 @@ namespace ChatPlexMod_Chat.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information / Credits"),
+                Templates.TitleBar("Інформація / Подяки"),
 
                 Templates.ScrollableInfos(50,
                     XUIText.Make(s_InformationStr)
@@ -49,7 +49,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnResetButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset all chat settings?", (x) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути всі налаштування чату?", (x) =>
             {
                 if (!x)
                     return;
@@ -72,7 +72,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnResetPositionButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset chat position?", (x) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути позицію чату?", (x) =>
             {
                 if (!x)
                     return;
@@ -94,7 +94,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnWebConfigurationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             CP_SDK.Chat.Service.OpenWebConfiguration();
         }
 
@@ -106,7 +106,7 @@ namespace ChatPlexMod_Chat.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(Chat.Instance.DocumentationURL);
         }
     }

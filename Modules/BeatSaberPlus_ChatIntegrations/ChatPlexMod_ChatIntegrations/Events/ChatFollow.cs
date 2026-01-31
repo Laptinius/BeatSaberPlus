@@ -54,7 +54,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make("This event will be triggered whenever someone follows your channel!")
+                    XUIText.Make("Ця подія спрацьовує щоразу, коли хтось фоловить ваш канал!")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                 ).SetBackground(true)
             };

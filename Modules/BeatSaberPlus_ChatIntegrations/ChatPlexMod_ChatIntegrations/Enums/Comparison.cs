@@ -16,11 +16,11 @@ namespace ChatPlexMod_ChatIntegrations.Enums
 
         public static List<string> S = new List<string>()
         {
-            "Less",
-            "LessOrEqual",
-            "Equal",
-            "GreaterOrEqual",
-            "Greater"
+            "Менше",
+            "Менше або дорівнює",
+            "Дорівнює",
+            "Більше або дорівнює",
+            "Більше"
         };
 
         public static int ValueCount => S.Count;

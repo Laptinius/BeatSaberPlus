@@ -27,7 +27,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Execute a dummy event";
+        public override string Description => "Виконати фіктивну подію";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -35,8 +35,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         public override sealed void BuildUI(Transform p_Parent)
         {
             var l_Events   = ChatIntegrations.Instance.GetEventsByType(typeof(Events.Dummy));
-            var l_Choices  = new List<string>() { "<i>None</i>" };
-            var l_Selected = "<i>None</i>";
+            var l_Choices  = new List<string>() { "<i>Немає</i>" };
+            var l_Selected = "<i>Немає</i>";
             l_Events.Sort((x, y) => (x.GetTypeName() + x.GenericModel.Name).CompareTo(y.GetTypeName() + y.GenericModel.Name));
 
             foreach (var l_EventBase in l_Events)
@@ -52,13 +52,13 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Dummy event to execute",
+                Templates.SettingsHGroup("Фіктивна подія для запуску",
                     XUIDropdown.Make()
                     .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                     .Bind(ref m_Dropdown)
                 ),
 
-                Templates.SettingsHGroup("Continue execution if failed",
+                Templates.SettingsHGroup("Продовжувати виконання при помилці",
                     XUIToggle.Make()
                         .SetValue(Model.Continue).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Continue)
@@ -73,7 +73,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
         private void OnSettingChanged()
         {
-            if (m_Dropdown.Element.GetValue() == "<i>None</i>")
+            if (m_Dropdown.Element.GetValue() == "<i>Немає</i>")
                 Model.BaseValue = "";
 
             var l_SelectedEvent = ChatIntegrations.Instance.GetEventByName(m_Dropdown.Element.GetValue());
@@ -82,7 +82,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             else
             {
                 Model.BaseValue = "";
-                m_Dropdown.SetValue("<i>None</i>", false);
+                m_Dropdown.SetValue("<i>Немає</i>", false);
             }
 
             Model.Continue = m_Continue.Element.GetValue();
@@ -122,7 +122,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Toggle an event";
+        public override string Description => "Увімкнути або вимкнути подію";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -132,8 +132,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             m_NameToGUID.Clear();
 
             var l_Events    = ChatIntegrations.Instance.GetEventsByType(null);
-            var l_Choices   = new List<string>() { "<i>None</i>" };
-            var l_Selected  = "<i>None</i>";
+            var l_Choices   = new List<string>() { "<i>Немає</i>" };
+            var l_Selected  = "<i>Немає</i>";
             l_Events.Sort((x, y) => (x.GetTypeName() + x.GenericModel.Name).CompareTo(y.GetTypeName() + y.GenericModel.Name));
 
             foreach (var l_EventBase in l_Events)
@@ -148,13 +148,13 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Dummy event to execute",
+                Templates.SettingsHGroup("Подія для перемикання",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Event)
                 ),
 
-                Templates.SettingsHGroup("Change type",
+                Templates.SettingsHGroup("Тип перемикання",
                     XUIDropdown.Make()
                         .SetOptions(Enums.Toggle.S).SetValue(Enums.Toggle.ToStr(Model.ChangeType)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ChangeType)
@@ -169,7 +169,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
         private void OnSettingChanged()
         {
-            if (m_Event.Element.GetValue() == "<i>None</i>")
+            if (m_Event.Element.GetValue() == "<i>Немає</i>")
                 Model.BaseValue = "";
 
             if (m_NameToGUID.TryGetValue(m_Event.Element.GetValue(), out var l_SelectedGUID))
@@ -177,7 +177,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             else
             {
                 Model.BaseValue = "";
-                m_Event.SetValue("<i>None</i>", false);
+                m_Event.SetValue("<i>Немає</i>", false);
             }
 
             Model.ChangeType = Enums.Toggle.ToInt(m_ChangeType.Element.GetValue());

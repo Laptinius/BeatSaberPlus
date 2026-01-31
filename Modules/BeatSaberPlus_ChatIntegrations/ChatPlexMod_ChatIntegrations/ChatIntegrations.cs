@@ -24,7 +24,7 @@ namespace ChatPlexMod_ChatIntegrations
 
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Chat Integrations";
-        public override string                              Description         => "Create cool & tights integration with your chat!";
+        public override string                              Description         => "Створюй круті інтеграції з чатом!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#chat-integrations";
         public override bool                                UseChatFeatures     => true;
         public override bool                                IsEnabled           { get => CIConfig.Instance.Enabled; set { CIConfig.Instance.Enabled = value; CIConfig.Instance.Save(); } }

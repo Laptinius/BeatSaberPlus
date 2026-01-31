@@ -13,7 +13,7 @@ namespace BeatSaberPlus_GameTweaker
     {
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Game Tweaker";
-        public override string                              Description         => "Customize your game play & menu experience!";
+        public override string                              Description         => "Налаштовує геймплей і меню!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#game-tweaker";
         public override bool                                UseChatFeatures     => false;
         public override bool                                IsEnabled           { get => GTConfig.Instance.Enabled; set { GTConfig.Instance.Enabled = value; GTConfig.Instance.Save(); } }

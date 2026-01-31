@@ -20,7 +20,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class Event_AlwaysFail
         : Interfaces.ICondition<Event_AlwaysFail, Models.Condition>
     {
-        public override string Description      => "Always fail the event";
+        public override string Description      => "Завжди провалювати подію";
         public override string UIPlaceHolder    => "<b><i>Make the event to always fail</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -45,7 +45,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Ensure that an event is disabled";
+        public override string Description => "Переконатися, що подія вимкнена";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -55,8 +55,8 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
             m_NameToGUID.Clear();
 
             var l_Events    = ChatIntegrations.Instance.GetEventsByType(null);
-            var l_Choices   = new List<string>() { "<i>None</i>" };
-            var l_Selected  = "<i>None</i>";
+            var l_Choices   = new List<string>() { "<i>Немає</i>" };
+            var l_Selected  = "<i>Немає</i>";
             l_Events.Sort((x, y) => (x.GetTypeName() + x.GenericModel.Name).CompareTo(y.GetTypeName() + y.GenericModel.Name));
 
             foreach (var l_EventBase in l_Events)
@@ -71,7 +71,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Event",
+                Templates.SettingsHGroup("Подія",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Event)
@@ -86,7 +86,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
 
         private void OnSettingChanged()
         {
-            if (m_Event.Element.GetValue() == "<i>None</i>")
+            if (m_Event.Element.GetValue() == "<i>Немає</i>")
                 Model.EventGUID = "";
 
             if (m_NameToGUID.TryGetValue(m_Event.Element.GetValue(), out var l_SelectedGUID))
@@ -94,7 +94,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
             else
             {
                 Model.EventGUID = "";
-                m_Event.SetValue("<i>None</i>", false);
+                m_Event.SetValue("<i>Немає</i>", false);
             }
         }
 
@@ -145,7 +145,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Ensure that an event is enabled";
+        public override string Description => "Переконатися, що подія увімкнена";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -155,8 +155,8 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
             m_NameToGUID.Clear();
 
             var l_Events    = ChatIntegrations.Instance.GetEventsByType(null);
-            var l_Choices   = new List<string>() { "<i>None</i>" };
-            var l_Selected  = "<i>None</i>";
+            var l_Choices   = new List<string>() { "<i>Немає</i>" };
+            var l_Selected  = "<i>Немає</i>";
             l_Events.Sort((x, y) => (x.GetTypeName() + x.GenericModel.Name).CompareTo(y.GetTypeName() + y.GenericModel.Name));
 
             foreach (var l_EventBase in l_Events)
@@ -171,7 +171,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Event",
+                Templates.SettingsHGroup("Подія",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Event)
@@ -186,7 +186,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
 
         private void OnSettingChanged()
         {
-            if (m_Event.Element.GetValue() == "<i>None</i>")
+            if (m_Event.Element.GetValue() == "<i>Немає</i>")
                 Model.EventGUID = "";
 
             if (m_NameToGUID.TryGetValue(m_Event.Element.GetValue(), out var l_SelectedGUID))
@@ -194,7 +194,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
             else
             {
                 Model.EventGUID = "";
-                m_Event.SetValue("<i>None</i>", false);
+                m_Event.SetValue("<i>Немає</i>", false);
             }
         }
 

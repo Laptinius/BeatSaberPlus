@@ -54,9 +54,9 @@ namespace ChatPlexMod_ChatIntegrations.UI
         protected override void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Chat Integrations | Settings"),
+                Templates.TitleBar("Chat Integrations | Налаштування"),
 
-                XUIText.Make("Please select an event to edit on right screen")
+                XUIText.Make("Будь ласка, виберіть подію для редагування праворуч")
                     .SetFontSize(4.5f)
             )
             .SetBackground(true, null, true)
@@ -66,13 +66,13 @@ namespace ChatPlexMod_ChatIntegrations.UI
             m_EmptyFrame.SetActive(false);
 
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Chat Integrations | Settings"),
+                Templates.TitleBar("Chat Integrations | Налаштування"),
 
                 XUITabControl.Make(
-                    ("Trigger",             BuildTriggerTab()),
-                    ("Conditions",          BuildConditionsTab()),
-                    ("On Success Actions",  BuildOnSuccessActionsTab()),
-                    ("On Fail Actions",     BuildOnFailActionsTab())
+                    ("Тригер",              BuildTriggerTab()),
+                    ("Умови",               BuildConditionsTab()),
+                    ("Дії при успіху",      BuildOnSuccessActionsTab()),
+                    ("Дії при помилці",     BuildOnFailActionsTab())
                 )
                 .Bind(ref m_TabControl)
             )
@@ -148,7 +148,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
 
                     XUIHLayout.Make(
                         XUIPrimaryButton  .Make("+",      OnConditionTabCreate)   .SetWidth(10.0f),
-                        XUISecondaryButton.Make("Toggle", OnConditionToggleButton).SetWidth(22.0f),
+                        XUISecondaryButton.Make("Увімк./вимк.", OnConditionToggleButton).SetWidth(22.0f),
                         XUISecondaryButton.Make("-",      OnConditionDeleteButton).SetWidth(10.0f)
                     )
                     .SetPadding(0)
@@ -200,7 +200,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
 
                     XUIHLayout.Make(
                         XUIPrimaryButton  .Make("+",      OnOnSuccessActionTabCreate)   .SetWidth(10.0f),
-                        XUISecondaryButton.Make("Toggle", OnOnSuccessActionToggleButton).SetWidth(22.0f),
+                        XUISecondaryButton.Make("Увімк./вимк.", OnOnSuccessActionToggleButton).SetWidth(22.0f),
                         XUISecondaryButton.Make("-",      OnOnSuccessActionDeleteButton).SetWidth(10.0f)
                     )
                     .SetPadding(0)
@@ -252,7 +252,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
 
                     XUIHLayout.Make(
                         XUIPrimaryButton  .Make("+",      OnOnFailActionTabCreate)   .SetWidth(10.0f),
-                        XUISecondaryButton.Make("Toggle", OnOnFailActionToggleButton).SetWidth(22.0f),
+                        XUISecondaryButton.Make("Увімк./вимк.", OnOnFailActionToggleButton).SetWidth(22.0f),
                         XUISecondaryButton.Make("-",      OnOnFailActionDeleteButton).SetWidth(10.0f)
                     )
                     .SetPadding(0)
@@ -396,14 +396,14 @@ namespace ChatPlexMod_ChatIntegrations.UI
         {
             if (m_SelectedConditionListItem == null)
             {
-                ShowMessageModal("Please select a condition first!");
+                ShowMessageModal("Спочатку виберіть умову!");
                 return;
             }
 
             var l_Condition = m_SelectedConditionListItem.Condition;
             if (l_Condition.IsEnabled)
             {
-                ShowConfirmationModal($"Do you want to disable condition\n\"{l_Condition.GetTypeName()}\"?", (p_Confirm) =>
+                ShowConfirmationModal($"Вимкнути умову\n\"{l_Condition.GetTypeName()}\"?", (p_Confirm) =>
                 {
                     if (!p_Confirm)
                         return;
@@ -414,7 +414,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
             }
             else
             {
-                ShowConfirmationModal($"Do you want to enable condition\n\"{l_Condition.GetTypeName()}\"?", (p_Confirm) =>
+                ShowConfirmationModal($"Увімкнути умову\n\"{l_Condition.GetTypeName()}\"?", (p_Confirm) =>
                 {
                     if (!p_Confirm)
                         return;
@@ -431,7 +431,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
         {
             if (m_SelectedConditionListItem == null)
             {
-                ShowMessageModal("Please select a condition first!");
+                ShowMessageModal("Спочатку виберіть умову!");
                 return;
             }
 
@@ -526,14 +526,14 @@ namespace ChatPlexMod_ChatIntegrations.UI
         {
             if (m_SelectedOnSuccessActionListItem == null)
             {
-                ShowMessageModal("Please select an action first!");
+                ShowMessageModal("Спочатку виберіть дію!");
                 return;
             }
 
             var l_OnSuccessAction = m_SelectedOnSuccessActionListItem.Action;
             if (l_OnSuccessAction.IsEnabled)
             {
-                ShowConfirmationModal($"Do you want to disable action\n\"{l_OnSuccessAction.GetTypeName()}\"?", (p_Confirm) =>
+                ShowConfirmationModal($"Вимкнути дію\n\"{l_OnSuccessAction.GetTypeName()}\"?", (p_Confirm) =>
                 {
                     if (!p_Confirm)
                         return;
@@ -544,7 +544,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
             }
             else
             {
-                ShowConfirmationModal($"Do you want to enable action\n\"{l_OnSuccessAction.GetTypeName()}\"?", (p_Confirm) =>
+                ShowConfirmationModal($"Увімкнути дію\n\"{l_OnSuccessAction.GetTypeName()}\"?", (p_Confirm) =>
                 {
                     if (!p_Confirm)
                         return;
@@ -561,7 +561,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
         {
             if (m_SelectedOnSuccessActionListItem == null)
             {
-                ShowMessageModal("Please select an action first!");
+                ShowMessageModal("Спочатку виберіть дію!");
                 return;
             }
 
@@ -656,14 +656,14 @@ namespace ChatPlexMod_ChatIntegrations.UI
         {
             if (m_SelectedOnFailActionListItem == null)
             {
-                ShowMessageModal("Please select an action first!");
+                ShowMessageModal("Спочатку виберіть дію!");
                 return;
             }
 
             var l_OnFailAction = m_SelectedOnFailActionListItem.Action;
             if (l_OnFailAction.IsEnabled)
             {
-                ShowConfirmationModal($"Do you want to disable action\n\"{l_OnFailAction.GetTypeName()}\"?", (p_Confirm) =>
+                ShowConfirmationModal($"Вимкнути дію\n\"{l_OnFailAction.GetTypeName()}\"?", (p_Confirm) =>
                 {
                     l_OnFailAction.IsEnabled = false;
                     m_SelectedOnFailActionListItem.Refresh();
@@ -671,7 +671,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
             }
             else
             {
-                ShowConfirmationModal($"Do you want to enable action\n\"{l_OnFailAction.GetTypeName()}\"?", (p_Confirm) =>
+                ShowConfirmationModal($"Увімкнути дію\n\"{l_OnFailAction.GetTypeName()}\"?", (p_Confirm) =>
                 {
                     l_OnFailAction.IsEnabled = true;
                     m_SelectedOnFailActionListItem.Refresh();
@@ -685,7 +685,7 @@ namespace ChatPlexMod_ChatIntegrations.UI
         {
             if (m_SelectedOnFailActionListItem == null)
             {
-                ShowMessageModal("Please select an action first!");
+                ShowMessageModal("Спочатку виберіть дію!");
                 return;
             }
 

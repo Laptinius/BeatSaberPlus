@@ -10,7 +10,7 @@
         /// </summary>
         public ChatBits()
         {
-            Name = "New chat bits event";
+            Name = "Нова подія бітсів у чаті";
         }
     }
 }

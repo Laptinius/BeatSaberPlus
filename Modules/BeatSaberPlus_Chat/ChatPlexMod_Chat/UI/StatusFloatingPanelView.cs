@@ -35,7 +35,7 @@ namespace ChatPlexMod_Chat.UI
                 XUIImage.Make(l_ViewerIconSprite)
                     .SetWidth(8f).SetHeight(8f),
 
-                XUIText.Make("Offline")
+                XUIText.Make("Офлайн")
                     .SetFontSize(5f)
                     .Bind(ref m_Text)
             )
@@ -112,7 +112,7 @@ namespace ChatPlexMod_Chat.UI
         private void UpdateViewerCount(bool p_IsUp, int p_Viewers)
         {
             if (p_IsUp) m_Text.SetText(p_Viewers.ToString());
-            else        m_Text.SetText("<color=red>Offline");
+            else        m_Text.SetText("<color=red>Офлайн");
         }
     }
 }

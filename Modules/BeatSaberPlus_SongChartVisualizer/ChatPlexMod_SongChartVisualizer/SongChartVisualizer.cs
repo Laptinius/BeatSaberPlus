@@ -16,7 +16,7 @@ namespace ChatPlexMod_SongChartVisualizer
 
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Song Chart Visualizer";
-        public override string                              Description         => "Get spoiled about the map difficulty!";
+        public override string                              Description         => "Дізнавайся про складність мапи наперед!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#song-chart-visualizer";
         public override bool                                UseChatFeatures     => false;
         public override bool                                IsEnabled           { get => SCVConfig.Instance.Enabled; set { SCVConfig.Instance.Enabled = value; SCVConfig.Instance.Save(); } }

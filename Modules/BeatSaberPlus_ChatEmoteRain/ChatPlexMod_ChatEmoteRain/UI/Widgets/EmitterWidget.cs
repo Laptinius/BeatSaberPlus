@@ -49,7 +49,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI.Widgets
             Action<CP_SDK.UI.Components.CText> l_ControlsTextStyle = (x) => x.SetStyle(FontStyles.Bold).SetColor(Color.yellow);
 
             XUIVLayout.Make(
-                XUIText.Make("Please select an emitter in the list!").OnReady(l_ControlsTextStyle)
+                XUIText.Make("Будь ласка, виберіть емітер у списку!").OnReady(l_ControlsTextStyle)
             )
             .SetSpacing(1f).SetPadding(0, 2, 0, 2)
             .OnReady(x => x.CSizeFitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.Unconstrained)
@@ -61,9 +61,9 @@ namespace ChatPlexMod_ChatEmoteRain.UI.Widgets
             XUIVLayout.Make(
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Name:").OnReady(l_ControlsTextStyle),
-                        XUIText.Make("Speed:").OnReady(l_ControlsTextStyle),
-                        XUIText.Make("Size:").OnReady(l_ControlsTextStyle)
+                        XUIText.Make("Назва:").OnReady(l_ControlsTextStyle),
+                        XUIText.Make("Швидкість:").OnReady(l_ControlsTextStyle),
+                        XUIText.Make("Розмір:").OnReady(l_ControlsTextStyle)
                     )
                     .SetMinWidth(15f).SetWidth(15f)
                     .OnReady(x => x.VLayoutGroup.childAlignment = TextAnchor.MiddleLeft),
@@ -82,7 +82,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI.Widgets
                 .ForEachDirect<XUIVLayout>(x => x.SetSpacing(0)),
 
                 XUIVLayout.Make(
-                    XUIText.Make("Position X Y Z").SetAlign(TextAlignmentOptions.CaplineLeft).OnReady(l_ControlsTextStyle),
+                    XUIText.Make("Позиція X Y Z").SetAlign(TextAlignmentOptions.CaplineLeft).OnReady(l_ControlsTextStyle),
 
                     XUIHLayout.Make(
                         XUISlider.Make().SetMinValue(-20.0f).SetMaxValue(20.0f).SetIncrements(0.01f).Bind(ref m_PosX),
@@ -99,7 +99,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI.Widgets
                 .OnReady(x => x.CSizeFitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.Unconstrained),
 
                 XUIVLayout.Make(
-                    XUIText.Make("Rotation X Y Z").SetAlign(TextAlignmentOptions.CaplineLeft).OnReady(l_ControlsTextStyle),
+                    XUIText.Make("Обертання X Y Z").SetAlign(TextAlignmentOptions.CaplineLeft).OnReady(l_ControlsTextStyle),
 
                     XUIHLayout.Make(
                         XUISlider.Make().SetMinValue(0.0f).SetMaxValue(360.0f).SetIncrements(1.0f).SetInteger(true).Bind(ref m_RotX),
@@ -116,7 +116,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI.Widgets
                 .OnReady(x => x.CSizeFitter.horizontalFit = UnityEngine.UI.ContentSizeFitter.FitMode.Unconstrained),
 
                 XUIVLayout.Make(
-                    XUIText.Make("Scale X Y Z").SetAlign(TextAlignmentOptions.CaplineLeft).OnReady(l_ControlsTextStyle),
+                    XUIText.Make("Масштаб X Y Z").SetAlign(TextAlignmentOptions.CaplineLeft).OnReady(l_ControlsTextStyle),
 
                     XUIHLayout.Make(
                         XUISlider.Make().SetMinValue(0.0f).SetMaxValue(30.0f).SetIncrements(0.01f).Bind(ref m_ScaX),

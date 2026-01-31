@@ -31,7 +31,7 @@ namespace ChatPlexMod_Chat.UI
         protected override void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Channel Active Users (Last 40 ones)"),
+                Templates.TitleBar("Активні користувачі каналу (останні 40)"),
 
                 XUIHLayout.Make(
                     XUIVVList.Make()
@@ -180,7 +180,7 @@ namespace ChatPlexMod_Chat.UI
         {
             if (m_SelectedItem == null)
             {
-                ShowMessageModal("Please select an user first!");
+                ShowMessageModal("Спочатку виберіть користувача!");
                 return false;
             }
 
@@ -194,7 +194,7 @@ namespace ChatPlexMod_Chat.UI
         {
             if (!(m_SelectedItem.Service is CP_SDK.Chat.Services.Twitch.TwitchService))
             {
-                ShowMessageModal("Only twitch is supported at the moment!");
+                ShowMessageModal("Зараз підтримується лише Twitch!");
                 return false;
             }
 

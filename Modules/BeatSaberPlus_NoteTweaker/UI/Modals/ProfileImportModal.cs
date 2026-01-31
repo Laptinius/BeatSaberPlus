@@ -28,15 +28,15 @@ namespace BeatSaberPlus_NoteTweaker.UI.Modals
                 return;
 
             Templates.ModalRectLayout(
-                XUIText.Make("What profile do you want to import?"),
+                XUIText.Make("Який профіль імпортувати?"),
 
                 XUIDropdown.Make()
                     .OnValueChanged((_, p_Selected) => m_Selected = p_Selected)
                     .Bind(ref m_Dropdown),
 
                 XUIHLayout.Make(
-                    XUISecondaryButton.Make("Cancel", OnCancelButton).SetWidth(30f),
-                    XUIPrimaryButton.Make("Import", OnImportButton).SetWidth(30f)
+                    XUISecondaryButton.Make("Скасувати", OnCancelButton).SetWidth(30f),
+                    XUIPrimaryButton.Make("Імпорт", OnImportButton).SetWidth(30f)
                 )
                 .SetPadding(0)
             )
@@ -100,7 +100,7 @@ namespace BeatSaberPlus_NoteTweaker.UI.Modals
                         new CP_SDK.Config.JsonConverters.ColorConverter()
                     });
 
-                    l_NewProfile.Name += " (Imported)";
+                    l_NewProfile.Name += " (Імпортовано)";
 
                     if (l_NewProfile != null)
                     {
@@ -118,19 +118,19 @@ namespace BeatSaberPlus_NoteTweaker.UI.Modals
                     else
                     {
                         VController.CloseModal(this);
-                        VController.ShowMessageModal("Error importing profile!");
+                        VController.ShowMessageModal("Помилка імпорту профілю!");
                     }
                 }
                 catch
                 {
                     VController.CloseModal(this);
-                    VController.ShowMessageModal("Invalid file!");
+                    VController.ShowMessageModal("Некоректний файл!");
                 }
             }
             else
             {
                 VController.CloseModal(this);
-                VController.ShowMessageModal("File not found!");
+                VController.ShowMessageModal("Файл не знайдено!");
             }
         }
     }

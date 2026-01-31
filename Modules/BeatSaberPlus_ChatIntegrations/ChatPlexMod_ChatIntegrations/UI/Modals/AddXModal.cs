@@ -81,8 +81,8 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                     .OnReady(x => x.HOrVLayoutGroup.childForceExpandHeight = true)
                 ),
                 XUIHLayout.Make(
-                    XUISecondaryButton.Make("Cancel", OnCancelButton).SetWidth(30f),
-                    XUIPrimaryButton.Make("Create", OnCreateButton).SetWidth(30f)
+                    XUISecondaryButton.Make("Скасувати", OnCancelButton).SetWidth(30f),
+                    XUIPrimaryButton.Make("Створити", OnCreateButton).SetWidth(30f)
                 )
                 .SetPadding(0)
             )
@@ -112,7 +112,7 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
             for (var l_I = 0; l_I < l_Availables.Count; ++l_I)
             {
                 var l_Type      = l_Availables[l_I];
-                var l_Category  = "Others";
+                var l_Category  = "Інше";
 
                 if (l_Type.Contains("_"))
                     l_Category = l_Type.Substring(0, l_Type.IndexOf("_"));
@@ -179,7 +179,7 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
             var l_SelectedType = m_TypeList.Element.GetSelectedItem() as TypeListItem;
             if (l_SelectedType == null)
             {
-                VController.ShowMessageModal("Please select a type first!");
+                VController.ShowMessageModal("Спочатку виберіть тип!");
                 return;
             }
 

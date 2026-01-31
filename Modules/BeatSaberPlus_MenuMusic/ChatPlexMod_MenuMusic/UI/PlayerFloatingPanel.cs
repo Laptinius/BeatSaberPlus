@@ -81,8 +81,8 @@ namespace ChatPlexMod_MenuMusic.UI
                     .Bind(ref m_MusicCover),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Song name...")    .SetFontSize(3.5f).SetOverflowMode(TMPro.TextOverflowModes.Ellipsis).Bind(ref m_SongTitle),
-                        XUIText.Make("Song artist...")  .SetFontSize(3.0f).SetOverflowMode(TMPro.TextOverflowModes.Ellipsis).SetColor(ColorU.ToUnityColor("#A0A0A0")).Bind(ref m_SongArtist),
+                        XUIText.Make("Назва пісні...")  .SetFontSize(3.5f).SetOverflowMode(TMPro.TextOverflowModes.Ellipsis).Bind(ref m_SongTitle),
+                        XUIText.Make("Виконавець...")   .SetFontSize(3.0f).SetOverflowMode(TMPro.TextOverflowModes.Ellipsis).SetColor(ColorU.ToUnityColor("#A0A0A0")).Bind(ref m_SongArtist),
                         XUIText.Make(" "),
                         XUIHLayout.Make(
                             XUIIconButton.Make(OnPrevPressed)       .SetSprite(l_PrevSprite),

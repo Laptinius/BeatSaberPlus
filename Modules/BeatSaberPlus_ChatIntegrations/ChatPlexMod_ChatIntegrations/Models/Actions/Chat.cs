@@ -9,7 +9,7 @@ namespace ChatPlexMod_ChatIntegrations.Models.Actions
 
         public Chat_SendMessage()
         {
-            BaseValue = "Test content";
+            BaseValue = "Тестове повідомлення";
         }
     }
 

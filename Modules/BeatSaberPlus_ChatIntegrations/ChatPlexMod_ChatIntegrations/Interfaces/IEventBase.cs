@@ -217,9 +217,9 @@ namespace ChatPlexMod_ChatIntegrations.Interfaces
         public virtual void OnImportOrClone(bool p_IsImport, bool p_IsClone)
         {
             if (p_IsImport)
-                GenericModel.Name += " (Import)";
+                GenericModel.Name += " (Імпорт)";
             if (p_IsClone)
-                GenericModel.Name += " (Clone)";
+                GenericModel.Name += " (Клон)";
 
             GenericModel.CreationDate   = CP_SDK.Misc.Time.UnixTimeNow();
             GenericModel.LastUsageDate  = 0;

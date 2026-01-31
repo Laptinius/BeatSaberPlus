@@ -21,7 +21,7 @@ namespace ChatPlexMod_ChatEmoteRain
 
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Chat Emote Rain";
-        public override string                              Description         => "Make chat emotes rain in game!";
+        public override string                              Description         => "Зроби дощ з емотів у грі!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#chat-emote-rain";
         public override bool                                UseChatFeatures     => true;
         public override bool                                IsEnabled           { get => CERConfig.Instance.Enabled; set { CERConfig.Instance.Enabled = value; CERConfig.Instance.Save(); } }

@@ -10,7 +10,7 @@
         /// </summary>
         public ChatFollow()
         {
-            Name = "New chat follow event";
+            Name = "Нова подія фолоу в чаті";
         }
     }
 }

@@ -14,15 +14,15 @@ namespace BeatSaberPlus_SongOverlay.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information"),
+                Templates.TitleBar("Інформація"),
 
                 Templates.ScrollableInfos(55,
-                    XUIText.Make($"This module provide a server for Web based song overlays!")
+                    XUIText.Make($"Цей модуль надає сервер для веб‑оверлеїв пісень!")
                         .SetAlign(TMPro.TextAlignmentOptions.Left)
                 ),
 
                 Templates.ExpandedButtonsLine(
-                    XUIPrimaryButton.Make("Documentation", OnDocumentationButton)
+                    XUIPrimaryButton.Make("Документація", OnDocumentationButton)
                 )
             )
             .SetBackground(true, null, true)
@@ -37,7 +37,7 @@ namespace BeatSaberPlus_SongOverlay.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(SongOverlay.Instance.DocumentationURL);
         }
     }

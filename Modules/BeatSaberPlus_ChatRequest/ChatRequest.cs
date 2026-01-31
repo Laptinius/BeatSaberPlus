@@ -14,7 +14,7 @@ namespace BeatSaberPlus_ChatRequest
     {
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Chat Request";
-        public override string                              Description         => "Take song request from your chat!";
+        public override string                              Description         => "Приймає запити пісень із чату!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#chat-request";
         public override bool                                UseChatFeatures     => true;
         public override bool                                IsEnabled           { get => CRConfig.Instance.Enabled; set { CRConfig.Instance.Enabled = value; CRConfig.Instance.Save(); } }

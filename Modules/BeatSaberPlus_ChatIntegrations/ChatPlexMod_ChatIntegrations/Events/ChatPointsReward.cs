@@ -78,17 +78,17 @@ namespace ChatPlexMod_ChatIntegrations.Events
             {
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Title:").OnReady(l_ControlsTextStyle),
-                        XUIText.Make("Prompt:").OnReady(l_ControlsTextStyle),
-                        XUIText.Make("Cost:").OnReady(l_ControlsTextStyle)
+                        XUIText.Make("Назва:").OnReady(l_ControlsTextStyle),
+                        XUIText.Make("Підказка:").OnReady(l_ControlsTextStyle),
+                        XUIText.Make("Вартість:").OnReady(l_ControlsTextStyle)
                     )
                     .SetMinWidth(20f).SetWidth(20f)
                     .OnReady(x => x.VLayoutGroup.childAlignment = TextAnchor.UpperLeft),
 
                     XUIVLayout.Make(
-                        XUITextInput.Make("Title...").SetValue(Model.Title).Bind(ref m_TitleInput),
-                        XUITextInput.Make("Prompt...").SetValue(Model.Prompt).Bind(ref m_PromptInput),
-                        XUITextInput.Make("Cost...").SetValue(Model.Cost.ToString()).Bind(ref m_CostInput)
+                        XUITextInput.Make("Назва...").SetValue(Model.Title).Bind(ref m_TitleInput),
+                        XUITextInput.Make("Підказка...").SetValue(Model.Prompt).Bind(ref m_PromptInput),
+                        XUITextInput.Make("Вартість...").SetValue(Model.Cost.ToString()).Bind(ref m_CostInput)
                     )
                     .SetMinWidth(110f).SetWidth(110f)
                 )
@@ -99,15 +99,15 @@ namespace ChatPlexMod_ChatIntegrations.Events
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Require input").OnReady(l_ControlsTextStyleC),
+                        XUIText.Make("Потрібне введення").OnReady(l_ControlsTextStyleC),
                         XUIToggle.Make().Bind(ref m_RequireInput)
                     ),
                     XUIVLayout.Make(
-                        XUIText.Make("Redeem Cooldown").OnReady(l_ControlsTextStyleC),
+                        XUIText.Make("Перезарядка викупу").OnReady(l_ControlsTextStyleC),
                         XUISlider.Make().SetInteger(true).SetMinValue(0f).SetMaxValue(1200f).SetIncrements(1.0f).Bind(ref m_Cooldown)
                     ),
                     XUIVLayout.Make(
-                        XUIText.Make("Auto fullfill/refund").OnReady(l_ControlsTextStyleC),
+                        XUIText.Make("Автовиконання/повернення").OnReady(l_ControlsTextStyleC),
                         XUIToggle.Make().Bind(ref m_AutoFullfillRefund)
                     )
                 )
@@ -117,15 +117,15 @@ namespace ChatPlexMod_ChatIntegrations.Events
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Max per stream").OnReady(l_ControlsTextStyleC),
+                        XUIText.Make("Макс. за стрім").OnReady(l_ControlsTextStyleC),
                         XUISlider.Make().SetInteger(true).SetMinValue(0f).SetMaxValue(100f).SetIncrements(1.0f).Bind(ref m_MaxPerStream)
                     ),
                     XUIVLayout.Make(
                         XUIVSpacer.Make(4f),
-                        XUIPrimaryButton.Make("Update reward", CreateOrUpdateReward)
+                        XUIPrimaryButton.Make("Оновити нагороду", CreateOrUpdateReward)
                     ),
                     XUIVLayout.Make(
-                        XUIText.Make("Max per user per stream").OnReady(l_ControlsTextStyleC),
+                        XUIText.Make("Макс. на користувача за стрім").OnReady(l_ControlsTextStyleC),
                         XUISlider.Make().SetInteger(true).SetMinValue(0f).SetMaxValue(100f).SetIncrements(1.0f).Bind(ref m_MaxPerUserPerStream)
                     )
                 )
@@ -134,27 +134,27 @@ namespace ChatPlexMod_ChatIntegrations.Events
                 .ForEachDirect<XUIVLayout>((x) => { x.SetMinWidth(42f).SetWidth(42f).SetSpacing(0f); }),
 
                 XUIVLayout.Make(
-                    XUIText.Make("The mod will automatically create and update the reward on your twitch account\n" +
-                                "The reward get disabled when you quit the game, and re-enabled when you start it")
+                    XUIText.Make("Мод автоматично створює та оновлює нагороду у вашому Twitch‑акаунті\n" +
+                                "Нагорода вимикається при виході з гри й знову вмикається при запуску")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                 ).SetBackground(true),
             };
 
             BuildUIAuto(p_Parent);
 
-            m_MaxPerStream.SetFormatter((x) => ((int)x) == 0 ? "Unlimited" : ((int)x).ToString());
-            m_MaxPerUserPerStream.SetFormatter((x) => ((int)x) == 0 ? "Unlimited" : ((int)x).ToString());
+            m_MaxPerStream.SetFormatter((x) => ((int)x) == 0 ? "Без обмежень" : ((int)x).ToString());
+            m_MaxPerUserPerStream.SetFormatter((x) => ((int)x) == 0 ? "Без обмежень" : ((int)x).ToString());
             m_Cooldown.SetFormatter((x) => {
                 int l_IntValue = (int)x;
-                if (l_IntValue == 0) return "Unlimited";
+                if (l_IntValue == 0) return "Без обмежень";
 
                 int l_Minutes = l_IntValue / 60;
                 int l_Seconds = l_IntValue - (l_Minutes * 60);
 
                 string l_Result = (l_Minutes != 0 ? l_Minutes : l_Seconds).ToString();
 
-                if (l_Minutes != 0) return l_Result + "m " + l_Seconds + "s";
-                return l_Result + "s";
+                if (l_Minutes != 0) return l_Result + "хв " + l_Seconds + "с";
+                return l_Result + "с";
             });
 
             m_RequireInput.         SetValue(Model.RequireInput);
@@ -194,7 +194,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
         {
             base.OnImportOrClone(p_IsImport, p_IsClone);
 
-            if (p_IsImport) Model.Title += " (Import)";
+            if (p_IsImport) Model.Title += " (Імпорт)";
             if (p_IsClone)  Model.Title += " (Clone)";
 
             Model.RewardID = "";
@@ -381,9 +381,9 @@ namespace ChatPlexMod_ChatIntegrations.Events
                             CP_SDK.Unity.MTMainThreadInvoker.Enqueue(() =>
                             {
                                 if (p_SecondReply.BodyString.Contains("CREATE_CUSTOM_REWARD_DUPLICATE_REWARD"))
-                                    UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Twitch error,\nA reward with the same name already exist on your channel\nPlease delete on twitch.tv any conflicting reward");
+                                    UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Помилка Twitch,\nНагорода з такою назвою вже існує на вашому каналі\nВидаліть на twitch.tv конфліктну нагороду");
                                 else
-                                    UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Twitch error,\n" + p_SecondReply.BodyString);
+                                    UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Помилка Twitch,\n" + p_SecondReply.BodyString);
 
                                 UI.SettingsMainView.Instance.CloseLoadingModal();
                             });
@@ -408,7 +408,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
                             {
                                 CP_SDK.Unity.MTMainThreadInvoker.Enqueue(() =>
                                 {
-                                    UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Internal error,\nplease contact BS+ support!");
+                                    UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Внутрішня помилка,\nзверніться до підтримки BS+!");
                                     UI.SettingsMainView.Instance.CloseLoadingModal();
                                 });
                             }
@@ -431,7 +431,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
                     {
                         CP_SDK.Unity.MTMainThreadInvoker.Enqueue(() =>
                         {
-                            UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Internal error,\nplease contact BS+ support!");
+                            UI.SettingsMainView.Instance.ShowMessageModal("<color=red>Внутрішня помилка,\nзверніться до підтримки BS+!");
                             UI.SettingsMainView.Instance.CloseLoadingModal();
                         });
                     }

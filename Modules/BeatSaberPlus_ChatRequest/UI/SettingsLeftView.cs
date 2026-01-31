@@ -9,39 +9,39 @@ namespace BeatSaberPlus_ChatRequest.UI
     internal sealed class SettingsLeftView : CP_SDK.UI.ViewController<SettingsLeftView>
     {
         private static readonly string s_InformationStr =
-                     "<b>Commands</b>"
-            + "\n" + "- <b>!bsr #KEY/#NAME</b>\n<i><color=#CCCCCCFF>Request a song by BSR code or search by name</color></i>"
-            + "\n" + "- <b>!bsrhelp</b>\n<i><color=#CCCCCCFF>Display a guide about how to request a song</color></i>"
-            + "\n" + "- <b>!oops !wrongsong !wrong</b>\n<i><color=#CCCCCCFF>Remove last user requested song</color></i>"
-            + "\n" + "- <b>!queue</b>\n<i><color=#CCCCCCFF>Show songs in queue</color></i>"
-            + "\n" + "- <b>!queuestatus</b>\n<i><color=#CCCCCCFF>Show how many songs are in queue</color></i>"
-            + "\n" + "- <b>!link</b>\n<i><color=#CCCCCCFF>Link current or last played song information in chat</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!allow #KEY</b>\n<i><color=#CCCCCCFF>Allow a map by BSR code to ignore all filters</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!att #KEY/#NAME</b>\n<i><color=#CCCCCCFF>Add any song in queue to the top by BSR code</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!block #KEY</b>\n<i><color=#CCCCCCFF>Block & remove any song in queue by BSR code</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrban #USER</b>\n<i><color=#CCCCCCFF>Prevent an user from doing request</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrbanmapper #USER</b>\n<i><color=#CCCCCCFF>Prevent an mapper maps to get requested</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrunban #USER</b>\n<i><color=#CCCCCCFF>Remove an user from request ban list</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrunbanmapper #USER</b>\n<i><color=#CCCCCCFF>Remove an mapper from the ban list</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!close</b>\n<i><color=#CCCCCCFF>Close the request queue</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!modadd #KEY/#NAME</b>\n<i><color=#CCCCCCFF>Add a song by BSR code ignoring all filters</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!mtt #KEY/#USER</b>\n<i><color=#CCCCCCFF>Move any song in queue to the top by BSR code</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!open</b>\n<i><color=#CCCCCCFF>Open the request queue</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!remap #KEY #KEY</b>\n<i><color=#CCCCCCFF>Replace all left BSR to the right BSR</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!remove #KEY/#USER</b>\n<i><color=#CCCCCCFF>Remove any song in queue by BSR code</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!sabotage on/off</b>\n<i><color=#CCCCCCFF>Enable or disable LIV streamer kit bombs</color></i>"
-            + "\n" + "- <color=yellow>[Moderator]</color><b>!songmsg #KEY #MSG</b>\n<i><color=#CCCCCCFF>Allow to set a message on a request</color></i>"
+                     "<b>Команди</b>"
+            + "\n" + "- <b>!bsr #KEY/#NAME</b>\n<i><color=#CCCCCCFF>Запитати пісню за BSR‑кодом або пошуком за назвою</color></i>"
+            + "\n" + "- <b>!bsrhelp</b>\n<i><color=#CCCCCCFF>Показати інструкцію, як запросити пісню</color></i>"
+            + "\n" + "- <b>!oops !wrongsong !wrong</b>\n<i><color=#CCCCCCFF>Видалити останню пісню, запитану користувачем</color></i>"
+            + "\n" + "- <b>!queue</b>\n<i><color=#CCCCCCFF>Показати пісні в черзі</color></i>"
+            + "\n" + "- <b>!queuestatus</b>\n<i><color=#CCCCCCFF>Показати кількість пісень у черзі</color></i>"
+            + "\n" + "- <b>!link</b>\n<i><color=#CCCCCCFF>Показати в чаті поточну або останню пісню</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!allow #KEY</b>\n<i><color=#CCCCCCFF>Дозволити мапу за BSR‑кодом, ігноруючи всі фільтри</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!att #KEY/#NAME</b>\n<i><color=#CCCCCCFF>Підняти будь‑яку пісню в черзі на початок за BSR‑кодом</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!block #KEY</b>\n<i><color=#CCCCCCFF>Заблокувати та видалити будь‑яку пісню з черги за BSR‑кодом</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrban #USER</b>\n<i><color=#CCCCCCFF>Заборонити користувачу робити запити</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrbanmapper #USER</b>\n<i><color=#CCCCCCFF>Заборонити запити мап цього мапера</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrunban #USER</b>\n<i><color=#CCCCCCFF>Зняти користувача з бан‑листа запитів</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!bsrunbanmapper #USER</b>\n<i><color=#CCCCCCFF>Зняти мапера з бан‑листа</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!close</b>\n<i><color=#CCCCCCFF>Закрити чергу запитів</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!modadd #KEY/#NAME</b>\n<i><color=#CCCCCCFF>Додати пісню за BSR‑кодом, ігноруючи всі фільтри</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!mtt #KEY/#USER</b>\n<i><color=#CCCCCCFF>Перемістити будь‑яку пісню в черзі на початок за BSR‑кодом</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!open</b>\n<i><color=#CCCCCCFF>Відкрити чергу запитів</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!remap #KEY #KEY</b>\n<i><color=#CCCCCCFF>Замінити всі запити з лівого BSR на правий BSR</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!remove #KEY/#USER</b>\n<i><color=#CCCCCCFF>Видалити будь‑яку пісню з черги за BSR‑кодом</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!sabotage on/off</b>\n<i><color=#CCCCCCFF>Увімкнути або вимкнути бомби LIV streamer kit</color></i>"
+            + "\n" + "- <color=yellow>[Moderator]</color><b>!songmsg #KEY #MSG</b>\n<i><color=#CCCCCCFF>Дозволити встановити повідомлення для запиту</color></i>"
             + "\n"
-            + "\n" + "<b>Filters</b>"
-            + "\n" + "- <b>No BeatSage</b>\n<i><color=#CCCCCCFF>Discard all auto mapped maps</color></i>"
-            + "\n" + "- <b>NPS min</b>\n<i><color=#CCCCCCFF>Discard all maps with no difficulty above NotePerSecond min</color></i>"
-            + "\n" + "- <b>NPS max</b>\n<i><color=#CCCCCCFF>Discard all maps with no difficulty below NotePerSecond max</color></i>"
-            + "\n" + "- <b>NJS min</b>\n<i><color=#CCCCCCFF>Discard all maps with no difficulty above NoteJumpSpeed min</color></i>"
-            + "\n" + "- <b>NJS max</b>\n<i><color=#CCCCCCFF>Discard all maps with no difficulty below NoteJumpSpeed max</color></i>"
-            + "\n" + "- <b>Duration max</b>\n<i><color=#CCCCCCFF>Maximum duration of a map in minutes</color></i>"
-            + "\n" + "- <b>Vote min</b>\n<i><color=#CCCCCCFF>Required up-vote ratio percentage</color></i>"
-            + "\n" + "- <b>Upload date min</b>\n<i><color=#CCCCCCFF>Minimum upload date</color></i>"
-            + "\n" + "- <b>Upload date max</b>\n<i><color=#CCCCCCFF>Maximum upload date</color></i>";
+            + "\n" + "<b>Фільтри</b>"
+            + "\n" + "- <b>Без BeatSage</b>\n<i><color=#CCCCCCFF>Відкинути всі авто‑змаплені мапи</color></i>"
+            + "\n" + "- <b>NPS мін</b>\n<i><color=#CCCCCCFF>Відкинути мапи без складності з NPS вище мінімуму</color></i>"
+            + "\n" + "- <b>NPS макс</b>\n<i><color=#CCCCCCFF>Відкинути мапи без складності з NPS нижче максимуму</color></i>"
+            + "\n" + "- <b>NJS мін</b>\n<i><color=#CCCCCCFF>Відкинути мапи без складності з NJS вище мінімуму</color></i>"
+            + "\n" + "- <b>NJS макс</b>\n<i><color=#CCCCCCFF>Відкинути мапи без складності з NJS нижче максимуму</color></i>"
+            + "\n" + "- <b>Тривалість макс</b>\n<i><color=#CCCCCCFF>Максимальна тривалість мапи в хвилинах</color></i>"
+            + "\n" + "- <b>Мін. рейтинг</b>\n<i><color=#CCCCCCFF>Необхідний відсоток позитивних голосів</color></i>"
+            + "\n" + "- <b>Мін. дата завантаження</b>\n<i><color=#CCCCCCFF>Мінімальна дата завантаження</color></i>"
+            + "\n" + "- <b>Макс. дата завантаження</b>\n<i><color=#CCCCCCFF>Максимальна дата завантаження</color></i>";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information"),
+                Templates.TitleBar("Інформація"),
 
                 Templates.ScrollableInfos(50,
                     XUIText.Make(s_InformationStr)
@@ -60,12 +60,12 @@ namespace BeatSaberPlus_ChatRequest.UI
                 ),
 
                 Templates.ExpandedButtonsLine(
-                    XUIPrimaryButton.Make("OBS integration",     OnOBSIntegrationButton),
-                    XUIPrimaryButton.Make("Reset",               OnResetButton),
-                    XUIPrimaryButton.Make("Web Configuration",   OnWebConfigurationButton)
+                    XUIPrimaryButton.Make("OBS інтеграція",      OnOBSIntegrationButton),
+                    XUIPrimaryButton.Make("Скинути",             OnResetButton),
+                    XUIPrimaryButton.Make("Веб‑налаштування",    OnWebConfigurationButton)
                 ),
                 Templates.ExpandedButtonsLine(
-                    XUISecondaryButton.Make("Documentation", OnDocumentationButton)
+                    XUISecondaryButton.Make("Документація", OnDocumentationButton)
                 )
             )
             .SetBackground(true, null, true)
@@ -80,7 +80,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnOBSIntegrationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL("https://github.com/hardcpp/BeatSaberPlus/wiki#chat-request---obs-integration");
         }
         /// <summary>
@@ -88,7 +88,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnResetButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset\nchat request configuration and filters?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути\nналаштування запитів і фільтри?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -108,7 +108,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnWebConfigurationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             CP_SDK.Chat.Service.OpenWebConfiguration();
         }
 
@@ -120,7 +120,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(ChatRequest.Instance.DocumentationURL);
         }
     }

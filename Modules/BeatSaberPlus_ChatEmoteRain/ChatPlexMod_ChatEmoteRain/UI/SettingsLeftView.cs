@@ -24,7 +24,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information / Credits"),
+                Templates.TitleBar("Інформація / Подяки"),
 
                 Templates.ScrollableInfos(50,
                     XUIText.Make(s_InformationStr)
@@ -51,7 +51,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
         /// </summary>
         private void OnResetButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset\nall chat emote rain settings?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути\nусі налаштування Chat Emote Rain?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -71,7 +71,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
         /// </summary>
         private void OnWebConfigurationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             CP_SDK.Chat.Service.OpenWebConfiguration();
         }
 
@@ -83,7 +83,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(ChatEmoteRain.Instance.DocumentationURL);
         }
     }

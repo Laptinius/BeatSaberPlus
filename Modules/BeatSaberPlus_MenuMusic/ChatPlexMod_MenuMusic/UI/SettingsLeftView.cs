@@ -9,8 +9,8 @@ namespace ChatPlexMod_MenuMusic.UI
     internal sealed class SettingsLeftView : CP_SDK.UI.ViewController<SettingsLeftView>
     {
         private static readonly string s_InformationStr =
-                      "<b>Thanks to <b>Lunikc</b> for original idea</b>" + "\n" +
-                     $"Custom music folder is: UserData/{CP_SDK.ChatPlexSDK.ProductName}Plus/MenuMusic/CustomMusic";
+                      "<b>Дякуємо <b>Lunikc</b> за оригінальну ідею</b>" + "\n" +
+                     $"Папка з власною музикою: UserData/{CP_SDK.ChatPlexSDK.ProductName}Plus/MenuMusic/CustomMusic";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ namespace ChatPlexMod_MenuMusic.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information / Credits"),
+                Templates.TitleBar("Інформація / Подяки"),
 
                 Templates.ScrollableInfos(50,
                     XUIText.Make(s_InformationStr)
@@ -29,11 +29,11 @@ namespace ChatPlexMod_MenuMusic.UI
                 ),
 
                 Templates.ExpandedButtonsLine(
-                    XUIPrimaryButton.Make("Reset", OnResetButton),
-                    XUIPrimaryButton.Make("Reload", OnReloadButton)
+                    XUIPrimaryButton.Make("Скинути", OnResetButton),
+                    XUIPrimaryButton.Make("Перезавантажити", OnReloadButton)
                 ),
                 Templates.ExpandedButtonsLine(
-                    XUISecondaryButton.Make("Documentation", OnDocumentationButton)
+                    XUISecondaryButton.Make("Документація", OnDocumentationButton)
                 )
             )
             .SetBackground(true, null, true)
@@ -48,7 +48,7 @@ namespace ChatPlexMod_MenuMusic.UI
         /// </summary>
         private void OnResetButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset\nall Menu Music settings?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути\nусі налаштування Menu Music?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -69,7 +69,7 @@ namespace ChatPlexMod_MenuMusic.UI
         {
             MenuMusic.Instance.UpdateMusicProvider();
 
-            ShowMessageModal("Musics were reload!");
+            ShowMessageModal("Музику перезавантажено!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -80,7 +80,7 @@ namespace ChatPlexMod_MenuMusic.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(MenuMusic.Instance.DocumentationURL);
         }
     }

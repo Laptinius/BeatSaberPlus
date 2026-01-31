@@ -23,14 +23,14 @@ namespace ChatPlexMod_ChatEmoteRain.UI
                 Templates.TitleBar("Subrain"),
 
                 XUIVLayout.Make(
-                    XUIText.Make("Enabled")
+                    XUIText.Make("Увімкнено")
                         .SetColor(Color.yellow)
                         .SetAlign(TMPro.TextAlignmentOptions.Midline),
                     XUIToggle.Make()
                         .SetValue(CERConfig.Instance.SubRain)
                         .OnValueChanged((x) => CERConfig.Instance.SubRain = x)
                         .Bind(ref m_Enabled),
-                    XUIText.Make("Emote count")
+                    XUIText.Make("Кількість емотів")
                         .SetColor(Color.yellow)
                         .SetAlign(TMPro.TextAlignmentOptions.Midline),
                     XUISlider.Make()
@@ -89,7 +89,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
             ChatEmoteRain.Instance.LoadSubRainFiles();
 
             /// Show message
-            ShowMessageModal("SubRain textures were reloaded!");
+            ShowMessageModal("Текстури SubRain перезавантажено!");
         }
         /// <summary>
         /// On test button pressed

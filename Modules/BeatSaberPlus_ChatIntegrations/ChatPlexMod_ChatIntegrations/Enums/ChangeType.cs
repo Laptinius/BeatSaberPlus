@@ -14,9 +14,9 @@ namespace ChatPlexMod_ChatIntegrations.Enums
 
         public static List<string> S = new List<string>()
         {
-            "Random",
-            "Input",
-            "EventInput"
+            "Випадково",
+            "Ввід",
+            "Ввід події"
         };
 
         public static int ValueCount => S.Count;

@@ -51,10 +51,10 @@ namespace ChatPlexMod_Chat.UI
             var l_WhiteSprite = CP_SDK.Unity.SpriteU.CreateFromTexture(Texture2D.whiteTexture);
 
             Templates.FullRectLayout(
-                Templates.TitleBar("Poll"),
+                Templates.TitleBar("Опитування"),
 
                 XUIHLayout.Make(
-                    XUIText.Make("Subject")
+                    XUIText.Make("Тема")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                         .SetColor(Color.yellow)
                         .SetFontSize(4.5f)
@@ -137,7 +137,7 @@ namespace ChatPlexMod_Chat.UI
         {
             return XUIHLayout.Make(
                 XUIHLayout.Make(
-                    XUIText.Make("Option " + (p_Index + 1))
+                    XUIText.Make("Варіант " + (p_Index + 1))
                         .SetAlign(TMPro.TextAlignmentOptions.MidlineLeft)
                         .SetFontSize(4.0f)
                         .Bind(ref m_ProgressBarsLabels[p_Index])

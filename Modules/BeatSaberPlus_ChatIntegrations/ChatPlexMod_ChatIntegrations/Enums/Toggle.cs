@@ -14,9 +14,9 @@ namespace ChatPlexMod_ChatIntegrations.Enums
 
         public static List<string> S = new List<string>()
         {
-            "Toggle",
-            "Enable",
-            "Disable"
+            "Перемкнути",
+            "Увімкнути",
+            "Вимкнути"
         };
 
         public static int ValueCount => S.Count;

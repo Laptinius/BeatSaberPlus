@@ -9,7 +9,7 @@ namespace ChatPlexMod_SongChartVisualizer.UI
     internal sealed class SettingsLeftView : CP_SDK.UI.ViewController<SettingsLeftView>
     {
         private static readonly string s_InformationStr =
-                     "<b>Thanks to <b>Shoko84 & Opzon</b> for the original idea</b>";
+                     "<b>Дякуємо <b>Shoko84 & Opzon</b> за оригінальну ідею</b>";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -20,18 +20,18 @@ namespace ChatPlexMod_SongChartVisualizer.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information / Credits"),
+                Templates.TitleBar("Інформація / Подяки"),
 
                 Templates.ScrollableInfos(50,
                     XUIText.Make(s_InformationStr).SetAlign(TMPro.TextAlignmentOptions.Left)
                 ),
 
                 Templates.ExpandedButtonsLine(
-                    XUIPrimaryButton.Make("Reset",           OnResetButton),
-                    XUIPrimaryButton.Make("Reset Position",  OnResetPositionButton)
+                    XUIPrimaryButton.Make("Скинути",             OnResetButton),
+                    XUIPrimaryButton.Make("Скинути позицію",     OnResetPositionButton)
                 ),
                 Templates.ExpandedButtonsLine(
-                    XUISecondaryButton.Make("Documentation", OnDocumentationButton)
+                    XUISecondaryButton.Make("Документація", OnDocumentationButton)
                 )
             )
             .SetBackground(true, null, true)
@@ -46,7 +46,7 @@ namespace ChatPlexMod_SongChartVisualizer.UI
         /// </summary>
         private void OnResetButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset\nall SongChartVisualizer settings?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути\nусі налаштування SongChartVisualizer?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -65,7 +65,7 @@ namespace ChatPlexMod_SongChartVisualizer.UI
         /// </summary>
         private void OnResetPositionButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset\nSongChartVisualizer position?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути\nпозицію SongChartVisualizer?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -87,7 +87,7 @@ namespace ChatPlexMod_SongChartVisualizer.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(SongChartVisualizer.Instance.DocumentationURL);
         }
     }

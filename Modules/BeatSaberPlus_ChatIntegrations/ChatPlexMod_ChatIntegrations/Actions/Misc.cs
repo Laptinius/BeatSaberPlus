@@ -34,7 +34,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Delay next actions";
+        public override string Description => "Затримати наступні дії";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsVGroup("Delay",
+                Templates.SettingsVGroup("Затримка",
                     XUISlider.Make()
                         .SetMinValue(0.0f).SetMaxValue(1200.0f).SetIncrements(1.0f).SetFormatter(CP_SDK.UI.ValueFormatters.TimeShortBaseSeconds)
                         .SetValue(Model.Delay)
@@ -56,7 +56,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                         .Bind(ref m_DelayMs)
                 ),
 
-                Templates.SettingsHGroup("Prevent next actions failure",
+                Templates.SettingsHGroup("Запобігти збою наступних дій",
                     XUIToggle.Make()
                         .SetValue(Model.PreventNextActionFailure)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -64,9 +64,9 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 ),
 
                 XUIVLayout.Make(
-                    XUIText.Make("This actions will delay next actions execution"),
-                    XUIText.Make("If prevent next actions failure is enabled,"),
-                    XUIText.Make("any failed action won't refund the user")
+                    XUIText.Make("Ця дія затримує виконання наступних дій"),
+                    XUIText.Make("Якщо увімкнено запобігання збоям наступних дій,"),
+                    XUIText.Make("будь-яка невдала дія не поверне користувачу винагороду")
                 )
                 .SetBackground(true),
             };
@@ -115,7 +115,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Play a sound clip";
+        public override string Description => "Відтворити звуковий кліп";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -123,8 +123,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         public override void BuildUI(Transform p_Parent)
         {
             var l_Files     = Directory.GetFiles(ChatIntegrations.s_SOUND_CLIPS_ASSETS_PATH, "*.ogg").ToArray();
-            var l_Choices   = new List<string>() { "<i>None</i>" };
-            var l_Selected  = "<i>None</i>";
+            var l_Choices   = new List<string>() { "<i>Немає</i>" };
+            var l_Selected  = "<i>Немає</i>";
 
             foreach (var l_CurrentFile in l_Files)
             {
@@ -137,20 +137,20 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Sound clip",
+                Templates.SettingsHGroup("Звуковий кліп",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Dropdown)
                 ),
 
-                Templates.SettingsHGroup("Volume",
+                Templates.SettingsHGroup("Гучність",
                     XUISlider.Make()
                         .SetMinValue(0.0f).SetMaxValue(1.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.Volume).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref  m_Volume)
                 ),
 
-                Templates.SettingsHGroup("Pitch min/max",
+                Templates.SettingsHGroup("Висота тону мін/макс",
                     XUISlider.Make()
                         .SetMinValue(0.0f).SetMaxValue(2.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.PitchMin).OnValueChanged((_) => OnSettingChanged())
@@ -162,13 +162,13 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                         .Bind(ref m_PitchMax)
                 ),
 
-                Templates.SettingsHGroup("Kill on scene switch?",
+                Templates.SettingsHGroup("Зупиняти при зміні сцени?",
                     XUIToggle.Make()
                         .SetValue(Model.KillOnSceneSwitch).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_KillOnSceneChange)
                 ),
 
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -191,7 +191,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             Model.PitchMax          = m_PitchMax.Element.GetValue();
             Model.KillOnSceneSwitch = m_KillOnSceneChange.Element.GetValue();
 
-            if (Model.BaseValue == "<i>None</i>")
+            if (Model.BaseValue == "<i>None</i>" || Model.BaseValue == "<i>Немає</i>")
                 Model.BaseValue = "";
         }
 
@@ -290,7 +290,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description      => "Wait for menu scene";
+        public override string Description      => "Чекати на сцену меню";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -299,7 +299,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Prevent next actions failure",
+                Templates.SettingsHGroup("Запобігти збою наступних дій",
                     XUIToggle.Make()
                         .SetValue(Model.PreventNextActionFailure)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -307,8 +307,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 ),
 
                 XUIVLayout.Make(
-                    XUIText.Make("This actions will delay next actions execution"),
-                    XUIText.Make("until we reach the menu scene")
+                    XUIText.Make("Ця дія затримує виконання наступних дій"),
+                    XUIText.Make("поки ми не дійдемо до сцени меню")
                 )
                 .SetBackground(true),
             };
@@ -347,8 +347,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description      => "Wait for playing scene";
-        public override string UIPlaceHolder    => "Wait for playing scene";
+        public override string Description      => "Чекати на сцену гри";
+        public override string UIPlaceHolder    => "Чекати на сцену гри";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -357,7 +357,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Prevent next actions failure",
+                Templates.SettingsHGroup("Запобігти збою наступних дій",
                     XUIToggle.Make()
                         .SetValue(Model.PreventNextActionFailure)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -365,8 +365,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 ),
 
                 XUIVLayout.Make(
-                    XUIText.Make("This actions will delay next actions execution"),
-                    XUIText.Make("until we reach the playing scene")
+                    XUIText.Make("Ця дія затримує виконання наступних дій"),
+                    XUIText.Make("поки ми не дійдемо до сцени гри")
                 )
                 .SetBackground(true),
             };

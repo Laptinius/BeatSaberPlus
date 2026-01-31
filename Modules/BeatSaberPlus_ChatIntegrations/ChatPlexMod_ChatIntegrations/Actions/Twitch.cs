@@ -29,7 +29,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Add a marker on the video";
+        public override string Description => "Додати маркер на відео";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Marker name",
+                Templates.SettingsHGroup("Назва маркера",
                     XUIText.Make(Model.BaseValue)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                         .SetWrapping(true)
@@ -46,8 +46,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 ),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Set from game", OnSetFromGameButton),
-                    XUIPrimaryButton.Make("Set from chat", OnSetFromChatButton)
+                    XUIPrimaryButton.Make("Взяти з гри", OnSetFromGameButton),
+                    XUIPrimaryButton.Make("Взяти з чату", OnSetFromChatButton)
                 )
                 .SetPadding(0)
                 .OnReady(x => x.CSizeFitter.enabled = false)
@@ -81,7 +81,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             ChatIntegrations.Instance.OnBroadcasterChatMessage += Instance_OnBroadcasterChatMessage;
 
             var l_Variables = Event.ProvidedValues.Where(x => x.Item1 == Interfaces.EValueType.String || x.Item1 == Interfaces.EValueType.Integer || x.Item1 == Interfaces.EValueType.Floating).ToArray();
-            var l_Message   = "Please input a message in chat with your streaming account.\nProvided values:\n";
+            var l_Message   = "Будь ласка, введіть повідомлення в чаті зі свого стрім-акаунта.\nНадані змінні:\n";
             l_Message      += string.Join(", ", l_Variables.Select(x => "$" + x.Item2).ToArray());
 
             View.ShowLoadingModal(l_Message, true, () =>
@@ -143,8 +143,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
     public class Twitch_CreateClip
         : Interfaces.IAction<Twitch_CreateClip, Models.Action>
     {
-        public override string Description   => $"Create clip, and put the edit URL in {CP_SDK.ChatPlexSDK.ProductName}Plus_TwitchClips.txt";
-        public override string UIPlaceHolder => $"<b><i>Create clip, and put the edit URL in {CP_SDK.ChatPlexSDK.ProductName}Plus_TwitchClips.txt</i></b>";
+        public override string Description   => $"Створити кліп і додати URL редагування в {CP_SDK.ChatPlexSDK.ProductName}Plus_TwitchClips.txt";
+        public override string UIPlaceHolder => $"<b><i>Створити кліп і додати URL редагування в {CP_SDK.ChatPlexSDK.ProductName}Plus_TwitchClips.txt</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////

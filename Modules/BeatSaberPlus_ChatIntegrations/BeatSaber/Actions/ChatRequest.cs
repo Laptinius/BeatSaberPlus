@@ -23,7 +23,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Add a song to Chat Request queue";
+        public override string Description => "Додати пісню до черги Chat Request";
 
 
         ////////////////////////////////////////////////////////////////////////////
@@ -41,21 +41,21 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Value source",
+                Templates.SettingsHGroup("Джерело значення",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(Enums.ValueSource.ToStr(Model.ValueSource)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ValueSource)
                 ),
 
-                Templates.SettingsVGroup("BSR Key",
+                Templates.SettingsVGroup("BSR ключ",
                     XUIText.Make(Model.BaseValue)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                         .SetWrapping(true)
                         .Bind(ref m_BSRKey),
 
                     XUIHLayout.Make(
-                        XUIPrimaryButton.Make("Set from game", OnSetFromGameButton).Bind(ref m_SetFromGameButton),
-                        XUIPrimaryButton.Make("Set from chat", OnSetFromChatButton).Bind(ref m_SetFromChatButton)
+                        XUIPrimaryButton.Make("Взяти з гри", OnSetFromGameButton).Bind(ref m_SetFromGameButton),
+                        XUIPrimaryButton.Make("Взяти з чату", OnSetFromChatButton).Bind(ref m_SetFromChatButton)
                     )
                     .SetPadding(0)
                     .OnReady(x => x.CSizeFitter.enabled = false)
@@ -64,12 +64,12 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     })
                 ),
 
-                Templates.SettingsHGroup("Options",
+                Templates.SettingsHGroup("Опції",
                     XUIVLayout.Make(
-                        XUIText.Make("Title Prefix"),
-                        XUIText.Make("As moderator?"),
-                        XUIText.Make("Add to top?"),
-                        XUIText.Make("Send chat message?")
+                        XUIText.Make("Префікс назви"),
+                        XUIText.Make("Як модератор?"),
+                        XUIText.Make("Додати нагору?"),
+                        XUIText.Make("Надіслати повідомлення в чат?")
                     )
                     .SetSpacing(1)
                     .SetPadding(0)
@@ -104,7 +104,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             OnSettingChanged();
 
             if (!ModulePresence.ChatRequest)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль ChatRequest відсутній або вимкнений!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -141,7 +141,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             ChatIntegrations.Instance.OnBroadcasterChatMessage += Instance_OnBroadcasterChatMessage;
 
-            var l_Message = "Please input a message in chat with your streaming account.";
+            var l_Message = "Будь ласка, введіть повідомлення в чаті зі свого стрім-акаунта.";
             View.ShowLoadingModal(l_Message, true, () =>
             {
                 ChatIntegrations.Instance.OnBroadcasterChatMessage -= Instance_OnBroadcasterChatMessage;
@@ -170,7 +170,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.ChatRequest)
             {
                 context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль ChatRequest відсутній або вимкнений!");
                 yield break;
             }
 
@@ -185,7 +185,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                 {
                     context.HasActionFailed = true;
                     if (Model.SendChatMessage && context.ChatService != null && context.Channel != null && context.User != null)
-                        context.ChatService.SendTextMessage(context.Channel, $"! @{context.User.DisplayName} the syntax is: #BSRKey");
+                        context.ChatService.SendTextMessage(context.Channel, $"! @{context.User.DisplayName} синтаксис: #BSRKey");
 
                     yield break;
                 }
@@ -208,15 +208,15 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (l_Result.Result == BeatSaberPlus_ChatRequest.Models.EAddToQueueResult.OK)
             {
                 if (Model.SendChatMessage && context.ChatService != null && context.Channel != null && context.User != null)
-                    context.ChatService.SendTextMessage(context.Channel, $"! @{context.User.DisplayName} Added to queue!");
+                    context.ChatService.SendTextMessage(context.Channel, $"! @{context.User.DisplayName} Додано до черги!");
             }
             else
             {
                 context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Action ChatRequest.AddToQueue failed: {l_Result.Result}!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: дія ChatRequest.AddToQueue не виконана: {l_Result.Result}!");
 
                 if (Model.SendChatMessage && context.ChatService != null && context.Channel != null && context.User != null)
-                    context.ChatService.SendTextMessage(context.Channel, $"! @{context.User.DisplayName} Error: {l_Result.GetFormattedError()}");
+                    context.ChatService.SendTextMessage(context.Channel, $"! @{context.User.DisplayName} Помилка: {l_Result.GetFormattedError()}");
 
                 yield break;
             }
@@ -236,7 +236,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Open or close ChatRequest queue";
+        public override string Description => "Відкрити або закрити чергу ChatRequest";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -245,7 +245,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Change type",
+                Templates.SettingsHGroup("Тип зміни",
                     XUIDropdown.Make()
                         .SetOptions(Enums.EChatRequestQueueToggle.S)
                         .SetValue(Enums.EChatRequestQueueToggle.ToStr(Model.ChangeType))
@@ -271,7 +271,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.ChatRequest)
             {
                 context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль ChatRequest відсутній або вимкнений!");
                 yield break;
             }
 

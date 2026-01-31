@@ -6,8 +6,8 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class Subscription_IsGift
         : Interfaces.ICondition<Subscription_IsGift, Models.Condition>
     {
-        public override string Description      => "Is a gift subscription event?";
-        public override string UIPlaceHolder    => "<b><i>Ensure that this is a subscription gift</i></b>";
+        public override string Description      => "Це подія подарункової підписки?";
+        public override string UIPlaceHolder    => "<b><i>Переконатися, що це подарункова підписка</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -29,7 +29,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Put condition on the kind of subscription";
+        public override string Description => "Умова за типом підписки";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Dummy event to execute",
+                Templates.SettingsHGroup("План підписки",
                     XUIDropdown.Make()
                         .SetOptions(Enums.TwitchSubscribtionPlanType.S).SetValue(Enums.TwitchSubscribtionPlanType.ToStr(Model.SubscribtionPlanType))
                         .OnValueChanged((_, __) => OnSettingChanged())
@@ -82,7 +82,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Check for purchased month count";
+        public override string Description => "Перевірити кількість оплачених місяців";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -91,14 +91,14 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Comparison",
+                Templates.SettingsHGroup("Порівняння",
                     XUIDropdown.Make()
                         .SetOptions(Enums.Comparison.S).SetValue(Enums.Comparison.ToStr(Model.Comparison))
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Comparison)
                 ),
 
-                Templates.SettingsHGroup("Count",
+                Templates.SettingsHGroup("Кількість",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(100.0f).SetIncrements(1.0f).SetInteger(true)
                         .SetValue(Model.Count).OnValueChanged((_) => OnSettingChanged())

@@ -6,8 +6,8 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
     public class GamePlay_InMenu
         : ChatPlexMod_ChatIntegrations.Interfaces.ICondition<GamePlay_InMenu, ChatPlexMod_ChatIntegrations.Models.Condition>
     {
-        public override string Description      => "Are we currently in the menu?";
-        public override string UIPlaceHolder    => "<b><i>Ensure that you are currently in the menu</i></b>";
+        public override string Description      => "Ми зараз у меню?";
+        public override string UIPlaceHolder    => "<b><i>Переконатися, що зараз у меню</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -32,7 +32,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Kind of level end!";
+        public override string Description => "Тип завершення рівня!";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -41,27 +41,27 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                XUIText.Make("Valid types:"),
+                XUIText.Make("Допустимі типи:"),
 
-                Templates.SettingsHGroup("On quit",
+                Templates.SettingsHGroup("При виході",
                     XUIToggle.Make()
                         .SetValue(Model.Quit).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Quit)
                 ),
 
-                Templates.SettingsHGroup("On restart",
+                Templates.SettingsHGroup("При перезапуску",
                     XUIToggle.Make()
                         .SetValue(Model.Restart).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Restart)
                 ),
 
-                Templates.SettingsHGroup("On pass",
+                Templates.SettingsHGroup("При проходженні",
                     XUIToggle.Make()
                         .SetValue(Model.Pass).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Pass)
                 ),
 
-                Templates.SettingsHGroup("On fail",
+                Templates.SettingsHGroup("При невдачі",
                     XUIToggle.Make()
                         .SetValue(Model.Fail).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Fail)
@@ -112,7 +112,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Are we currently playing a map?";
+        public override string Description => "Ми зараз граємо мапу?";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -121,13 +121,13 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                XUIText.Make("Level type"),
+                XUIText.Make("Тип рівня"),
                 XUIDropdown.Make()
                     .SetOptions(Enums.LevelType.S).SetValue(Enums.LevelType.ToStr(Model.LevelType))
                     .OnValueChanged((_, __) => OnSettingChanged())
                     .Bind(ref m_LevelType),
 
-                XUIText.Make("Beatmap Mod type"),
+                XUIText.Make("Тип модифікатора мапи"),
                 XUIDropdown.Make()
                     .SetOptions(Enums.BeatmapModType.S).SetValue(Enums.BeatmapModType.ToStr(Model.BeatmapModType))
                     .OnValueChanged((_, __) => OnSettingChanged())

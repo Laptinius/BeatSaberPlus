@@ -34,14 +34,14 @@ namespace ChatPlexMod_SongChartVisualizer.UI
             var l_Config = SCVConfig.Instance;
 
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Song Chart Visualizer | Settings"),
+                Templates.TitleBar("Song Chart Visualizer | Налаштування"),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Align with floor on move"),
+                        XUIText.Make("Вирівнювати по підлозі під час переміщення"),
                         XUIToggle.Make().SetValue(l_Config.AlignWithFloor).Bind(ref m_AlignWithFloor),
 
-                        XUIText.Make("Show lock icon for movement"),
+                        XUIText.Make("Показувати іконку блокування переміщення"),
                         XUIToggle.Make().SetValue(l_Config.ShowLockIcon).Bind(ref m_ShowLockIcon)
                     )
                     .SetSpacing(1)
@@ -51,10 +51,10 @@ namespace ChatPlexMod_SongChartVisualizer.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Show NPS legend"),
+                        XUIText.Make("Показувати легенду NPS"),
                         XUIToggle.Make().SetValue(l_Config.ShowNPSLegend).Bind(ref m_ShowNPSLegend),
 
-                        XUIText.Make("Follow environment rotations"),
+                        XUIText.Make("Слідувати обертам оточення"),
                         XUIToggle.Make().SetValue(l_Config.FollowEnvironementRotation).Bind(ref m_FollowEnvironementRotations)
                     )
                     .SetSpacing(1)
@@ -64,27 +64,27 @@ namespace ChatPlexMod_SongChartVisualizer.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Background color"),
+                        XUIText.Make("Колір фону"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.BackgroundColor)
                             .Bind(ref m_BackgroundColor),
 
-                        XUIText.Make("Position indicator color"),
+                        XUIText.Make("Колір індикатора позиції"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.CursorColor)
                             .Bind(ref m_CursorColor),
 
-                        XUIText.Make("Graph line color"),
+                        XUIText.Make("Колір лінії графіка"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.LineColor)
                             .Bind(ref m_LineColor),
 
-                        XUIText.Make("Legend text color"),
+                        XUIText.Make("Колір тексту легенди"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.LegendColor)
                             .Bind(ref m_LegendColor),
 
-                        XUIText.Make("Dash line color"),
+                        XUIText.Make("Колір пунктирної лінії"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.DashLineColor)
                             .Bind(ref m_DashColor)

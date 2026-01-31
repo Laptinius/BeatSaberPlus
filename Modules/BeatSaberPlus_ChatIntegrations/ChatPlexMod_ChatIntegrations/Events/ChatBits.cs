@@ -58,7 +58,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make("This event will be triggered whenever someone spend bits your channel!")
+                    XUIText.Make("Ця подія спрацьовує щоразу, коли хтось витрачає біти на вашому каналі!")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                 ).SetBackground(true)
             };

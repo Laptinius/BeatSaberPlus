@@ -10,7 +10,7 @@
         /// </summary>
         public ChatSubscription()
         {
-            Name = "New chat subscription event";
+            Name = "Нова подія підписки в чаті";
         }
     }
 }

@@ -13,9 +13,9 @@ namespace BeatSaberPlus_SongOverlay.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Song Overlay - Settings"),
+                Templates.TitleBar("Song Overlay - Налаштування"),
 
-                XUIText.Make("No settings available yet...")
+                XUIText.Make("Поки немає доступних налаштувань...")
                     .SetStyle(TMPro.FontStyles.Italic)
                     .SetAlign(TMPro.TextAlignmentOptions.Midline),
 

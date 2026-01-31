@@ -56,7 +56,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Events
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make("This event will be triggered whenever you start a map (Include replays)")
+                    XUIText.Make("Ця подія спрацьовує щоразу, коли ви починаєте мапу (включно з реплеями)")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                 ).SetBackground(true)
             };

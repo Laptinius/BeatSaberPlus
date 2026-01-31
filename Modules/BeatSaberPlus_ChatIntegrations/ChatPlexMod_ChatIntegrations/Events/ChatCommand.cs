@@ -66,17 +66,17 @@ namespace ChatPlexMod_ChatIntegrations.Events
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make(   "This event will be triggered when someone uses the command which you've configured\n" +
-                                    "You can change the command by clicking the rebind button bellow")
+                    XUIText.Make(   "Ця подія спрацює, коли хтось використає налаштовану вами команду\n" +
+                                    "Ви можете змінити команду, натиснувши кнопку перепризначення нижче")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                 )
                 .SetBackground(true),
 
-                XUIText.Make("Current command : ")
+                XUIText.Make("Поточна команда: ")
                     .SetAlign(TMPro.TextAlignmentOptions.Midline)
                     .Bind(ref m_CurrentCommandText),
 
-                XUIPrimaryButton.Make("Rebind", OnRebindButton)
+                XUIPrimaryButton.Make("Перепризначити", OnRebindButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -86,7 +86,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
         /// <summary>
         /// Update UI component values
         /// </summary>
-        private void UpdateUI() => m_CurrentCommandText.Element.SetText("Current command: " + Model.Command);
+        private void UpdateUI() => m_CurrentCommandText.Element.SetText("Поточна команда: " + Model.Command);
         /// <summary>
         /// Rebind button pressed
         /// </summary>

@@ -10,7 +10,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
     {
         private static readonly string s_InformationStr =
                      "<b>Note Tweaker</b>"
-            + "\n" + "<i><color=#CCCCCCFF>This module allows you to customize the default notes</color></i>";
+            + "\n" + "<i><color=#CCCCCCFF>Цей модуль дозволяє налаштовувати стандартні ноти</color></i>";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information"),
+                Templates.TitleBar("Інформація"),
 
                 Templates.ScrollableInfos(55,
                     XUIText.Make(s_InformationStr)
@@ -29,7 +29,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
                 ),
 
                 Templates.ExpandedButtonsLine(
-                    XUISecondaryButton.Make("Documentation", OnDocumentationButton)
+                    XUISecondaryButton.Make("Документація", OnDocumentationButton)
                 )
             )
             .SetBackground(true, null, true)
@@ -44,7 +44,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(NoteTweaker.Instance.DocumentationURL);
         }
     }

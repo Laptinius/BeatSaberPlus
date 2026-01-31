@@ -28,15 +28,15 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                 return;
 
             Templates.ModalRectLayout(
-                XUIText.Make("Which event do you want to import?"),
+                XUIText.Make("Яку подію ви хочете імпортувати?"),
 
                 XUIDropdown.Make()
                     .OnValueChanged((_, p_Selected) => m_Selected = p_Selected)
                     .Bind(ref m_File),
 
                 XUIHLayout.Make(
-                    XUISecondaryButton.Make("Cancel", OnCancelButton).SetWidth(30f),
-                    XUIPrimaryButton.Make("Import", OnImportButton).SetWidth(30f)
+                    XUISecondaryButton.Make("Скасувати", OnCancelButton).SetWidth(30f),
+                    XUIPrimaryButton.Make("Імпортувати", OnImportButton).SetWidth(30f)
                 )
                 .SetPadding(0)
             )
@@ -111,13 +111,13 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                     else
                     {
                         VController.CloseModal(this);
-                        VController.ShowMessageModal("Error importing profile!");
+                        VController.ShowMessageModal("Помилка імпорту профілю!");
                     }
                 }
                 catch (System.Exception l_Exception)
                 {
                     VController.CloseModal(this);
-                    VController.ShowMessageModal("Unknown error!");
+                    VController.ShowMessageModal("Невідома помилка!");
 
                     ChatPlexSDK.Logger.Error($"[ChatPlexMod_ChatIntegrations.UI][EventCreateModal.OnCreateButton] Error:");
                     ChatPlexSDK.Logger.Error(l_Exception);
@@ -126,7 +126,7 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
             else
             {
                 VController.CloseModal(this);
-                VController.ShowMessageModal("File not found!");
+                VController.ShowMessageModal("Файл не знайдено!");
             }
         }
     }

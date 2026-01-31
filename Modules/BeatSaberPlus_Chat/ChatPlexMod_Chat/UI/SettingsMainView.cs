@@ -35,23 +35,23 @@ namespace ChatPlexMod_Chat.UI
             var l_Config = CConfig.Instance;
 
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Chat  | Settings"),
+                Templates.TitleBar("Чат  | Налаштування"),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Width"),
+                        XUIText.Make("Ширина"),
                         XUISlider.Make().SetMinValue(80.0f).SetMaxValue(300.0f).SetIncrements(1.0f).SetInteger(true).SetValue(l_Config.ChatSize.x).Bind(ref m_ChatWidth),
 
-                        XUIText.Make("Height"),
+                        XUIText.Make("Висота"),
                         XUISlider.Make().SetMinValue(80.0f).SetMaxValue(300.0f).SetIncrements(1.0f).SetInteger(true).SetValue(l_Config.ChatSize.y).Bind(ref m_ChatHeight),
 
-                        XUIText.Make("Font size"),
+                        XUIText.Make("Розмір шрифту"),
                         XUISlider.Make().SetMinValue(1.0f).SetMaxValue(10.0f).SetIncrements(0.1f).SetValue(l_Config.FontSize).Bind(ref m_ChatFontSize),
 
-                        XUIText.Make("Reverse chat order"),
+                        XUIText.Make("Зворотний порядок чату"),
                         XUIToggle.Make().SetValue(l_Config.ReverseChatOrder).Bind(ref m_ChatReverse),
 
-                        XUIText.Make("Show platform origin color"),
+                        XUIText.Make("Показувати колір платформи"),
                         XUIToggle.Make().SetValue(l_Config.PlatformOriginColor).Bind(ref m_ChatPlatformOriginColor)
                     )
                     .SetSpacing(1)
@@ -62,22 +62,22 @@ namespace ChatPlexMod_Chat.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Background color"),
+                        XUIText.Make("Колір фону"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.BackgroundColor)
                             .Bind(ref m_ChatBackgroundColor),
 
-                        XUIText.Make("Highlight color"),
+                        XUIText.Make("Колір підсвічування"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.HighlightColor)
                             .Bind(ref m_ChatHighlightColor),
 
-                        XUIText.Make("Text color"),
+                        XUIText.Make("Колір тексту"),
                         XUIColorInput.Make()
                             .SetValue(l_Config.TextColor)
                             .Bind(ref m_ChatTextColor),
 
-                        XUIText.Make("Ping color"),
+                        XUIText.Make("Колір пінгу"),
                         XUIColorInput.Make()
                             .SetAlphaSupport(true).SetValue(l_Config.PingColor)
                             .Bind(ref m_ChatPingColor)

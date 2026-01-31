@@ -20,20 +20,20 @@ namespace BeatSaberPlus_ChatRequest.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Tools"),
+                Templates.TitleBar("Інструменти"),
 
                 XUIVLayout.Make(
-                    XUIPrimaryButton.Make("Select random",      OnRandomButton),
+                    XUIPrimaryButton.Make("Випадкова",          OnRandomButton),
 
                     XUIVSpacer.Make(5f),
 
-                    XUIPrimaryButton.Make("ENABLE SAFE MODE",   OnSafeModeButton).Bind(ref m_SafeModeButton),
-                    XUIPrimaryButton.Make("Clear queue",        OnClearQueueButton),
-                    XUIPrimaryButton.Make("Reset blocklist",    OnResetBlocklistButton),
+                    XUIPrimaryButton.Make("УВІМКНУТИ БЕЗПЕЧНИЙ РЕЖИМ",   OnSafeModeButton).Bind(ref m_SafeModeButton),
+                    XUIPrimaryButton.Make("Очистити чергу",              OnClearQueueButton),
+                    XUIPrimaryButton.Make("Скинути чорний список",        OnResetBlocklistButton),
 
                     XUIVSpacer.Make(5f),
 
-                    XUISecondaryButton.Make("Close queue",      OnQueueButton).Bind(ref m_QueueButton)
+                    XUISecondaryButton.Make("Закрити чергу",    OnQueueButton).Bind(ref m_QueueButton)
                 )
                 .SetWidth(60f)
                 .SetPadding(0)
@@ -69,9 +69,9 @@ namespace BeatSaberPlus_ChatRequest.UI
         internal void UpdateSafeMode()
         {
             if (CRConfig.Instance.SafeMode2)
-                m_SafeModeButton?.SetText("DISABLE SAFE MODE");
+                m_SafeModeButton?.SetText("ВИМКНУТИ БЕЗПЕЧНИЙ РЕЖИМ");
             else
-                m_SafeModeButton?.SetText("ENABLE SAFE MODE");
+                m_SafeModeButton?.SetText("УВІМКНУТИ БЕЗПЕЧНИЙ РЕЖИМ");
         }
         /// <summary>
         /// Update queue status
@@ -79,9 +79,9 @@ namespace BeatSaberPlus_ChatRequest.UI
         internal void UpdateQueueStatus()
         {
             if (ChatRequest.Instance.QueueOpen)
-                m_QueueButton?.SetText("Close queue");
+                m_QueueButton?.SetText("Закрити чергу");
             else
-                m_QueueButton?.SetText("Open queue");
+                m_QueueButton?.SetText("Відкрити чергу");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -103,7 +103,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         {
             if (CRConfig.Instance.SafeMode2)
             {
-                ShowConfirmationModal("<color=yellow><b>Do you really want to disable safe mode?", (p_Confirm) =>
+                ShowConfirmationModal("<color=yellow><b>Справді вимкнути безпечний режим?", (p_Confirm) =>
                 {
                     if (!p_Confirm)
                         return;
@@ -115,7 +115,7 @@ namespace BeatSaberPlus_ChatRequest.UI
             }
             else
             {
-                ShowConfirmationModal("<color=yellow><b>Do you really want to enable safe mode?\nThis will hide all song name & uploader in chat.", (p_Confirm) =>
+                ShowConfirmationModal("<color=yellow><b>Справді увімкнути безпечний режим?\nЦе приховає назви пісень і аплоадера в чаті.", (p_Confirm) =>
                 {
                     if (!p_Confirm)
                         return;
@@ -131,7 +131,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnClearQueueButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to clear your queue?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді очистити чергу?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -144,7 +144,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnResetBlocklistButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset your blocklist?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути чорний список?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;

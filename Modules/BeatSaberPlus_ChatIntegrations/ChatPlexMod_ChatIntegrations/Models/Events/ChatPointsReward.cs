@@ -12,7 +12,7 @@ namespace ChatPlexMod_ChatIntegrations.Models.Events
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         internal string Title = "";
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
-        internal string Prompt = "Description";
+        internal string Prompt = "Опис";
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Include)]
         internal int Cost = 50;
 
@@ -36,8 +36,8 @@ namespace ChatPlexMod_ChatIntegrations.Models.Events
         /// </summary>
         public ChatPointsReward()
         {
-            Name = "New chat points reward event";
-            Title = "New reward " + CP_SDK.Misc.Time.UnixTimeNow();
+            Name = "Нова подія нагороди за бали";
+            Title = "Нова нагорода " + CP_SDK.Misc.Time.UnixTimeNow();
         }
     }
 }

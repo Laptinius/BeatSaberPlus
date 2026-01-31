@@ -60,16 +60,16 @@ namespace ChatPlexMod_ChatIntegrations.Events
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make("This event will get trigerred when you trigger the VoiceAttack command you did configured")
+                    XUIText.Make("Ця подія спрацює, коли ви виконаєте налаштовану команду VoiceAttack")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                 )
                 .SetBackground(true),
 
-                XUIText.Make("Current command : ")
+                XUIText.Make("Поточна команда: ")
                     .SetAlign(TMPro.TextAlignmentOptions.Midline)
                     .Bind(ref m_CurrentCommandText),
 
-                XUIPrimaryButton.Make("Rebind", OnRebindButton)
+                XUIPrimaryButton.Make("Перепризначити", OnRebindButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -79,14 +79,14 @@ namespace ChatPlexMod_ChatIntegrations.Events
         /// <summary>
         /// Update UI component values
         /// </summary>
-        private void UpdateUI() => m_CurrentCommandText.Element.SetText("Current command: " + Model.CommandName);
+        private void UpdateUI() => m_CurrentCommandText.Element.SetText("Поточна команда: " + Model.CommandName);
         /// <summary>
         /// Rebind button pressed
         /// </summary>
         private void OnRebindButton()
         {
             ChatIntegrations.Instance.OnVoiceAttackCommandExecuted += VoiceAttack_OnCommandExecuted;
-            View.ShowLoadingModal("Please trigger any VoiceAttack command", true, () =>
+            View.ShowLoadingModal("Будь ласка, виконайте будь-яку команду VoiceAttack", true, () =>
             {
                 ChatIntegrations.Instance.OnVoiceAttackCommandExecuted -= VoiceAttack_OnCommandExecuted;
             });

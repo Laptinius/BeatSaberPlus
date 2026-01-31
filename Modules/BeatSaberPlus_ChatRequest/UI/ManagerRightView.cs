@@ -30,11 +30,11 @@ namespace BeatSaberPlus_ChatRequest.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information"),
+                Templates.TitleBar("Інформація"),
 
                 XUIHLayout.Make(
                     XUIVScrollView.Make(
-                        XUIText.Make($"<align=\"center\"><alpha=#AA><i>No description...</i></align>")
+                        XUIText.Make($"<align=\"center\"><alpha=#AA><i>Немає опису...</i></align>")
                             .SetAlign(TMPro.TextAlignmentOptions.Left)
                             .Bind(ref m_Description)
                     )
@@ -49,7 +49,7 @@ namespace BeatSaberPlus_ChatRequest.UI
                 .OnReady(x => x.HOrVLayoutGroup.childForceExpandHeight = true),
 
                 XUIVLayout.Make(
-                    XUIText.Make("No map\nSelected")
+                    XUIText.Make("Мапу\nне вибрано")
                         .SetFontSize(3f)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                         .SetStyle(TMPro.FontStyles.Bold)
@@ -59,9 +59,9 @@ namespace BeatSaberPlus_ChatRequest.UI
                 .SetWidth(85f),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Link song to chat",       OnLinkPressed)
+                    XUIPrimaryButton.Make("Надіслати пісню в чат",     OnLinkPressed)
                         .SetHeight(8f).SetWidth(40f),
-                    XUIPrimaryButton.Make("Open in beatsaver.com",   OnBeatsaverPressed)
+                    XUIPrimaryButton.Make("Відкрити на beatsaver.com", OnBeatsaverPressed)
                         .SetHeight(8f).SetWidth(40f)
                 )
                 .SetBackground(true)
@@ -125,7 +125,7 @@ namespace BeatSaberPlus_ChatRequest.UI
 
             string l_Description = System.Net.WebUtility.HtmlDecode(p_Detail.description.Replace("\r\n", "\n").Replace("<", "<\u200B").Replace(">", "\u200B>"));
             if (l_Description.Trim().Length == 0)
-                l_Description = "<align=\"center\"><alpha=#AA><i>No description...</i></align>";
+                l_Description = "<align=\"center\"><alpha=#AA><i>Немає опису...</i></align>";
             else
                 l_Description = "<alpha=#AA>" + l_Description;
 
@@ -135,8 +135,8 @@ namespace BeatSaberPlus_ChatRequest.UI
             var l_Date = p_Detail.GetUploadTime();
 
             float   l_Vote      = (float)Math.Round((double)p_Detail.stats.score * 100f, 0);
-            string  l_SubText   = $"Votes +{p_Detail.stats.upvotes}/-{p_Detail.stats.downvotes} ({l_Vote}%)\n";
-            l_SubText += "Uploaded on " + CP_SDK.Misc.Time.MonthNames[l_Date.Month - 1] + " " + l_Date.Day + " of " + l_Date.Year;
+            string  l_SubText   = $"Голоси +{p_Detail.stats.upvotes}/-{p_Detail.stats.downvotes} ({l_Vote}%)\n";
+            l_SubText += "Завантажено " + CP_SDK.Misc.Time.MonthNames[l_Date.Month - 1] + " " + l_Date.Day + " " + l_Date.Year;
 
             m_Details.SetText(l_SubText);
 
@@ -152,7 +152,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnLinkPressed()
         {
-            ShowMessageModal("Song sent to the chat.");
+            ShowMessageModal("Пісню надіслано в чат.");
 
             var l_Plugin = ChatRequest.Instance;
             l_Plugin.SendChatMessage($"\"{m_LastDetail.name.Replace(".", " . ")}\" by {m_LastDetail.metadata.levelAuthorName.Replace(".", " . ")} => https://beatsaver.com/maps/{m_LastDetail.id}", null, null);
@@ -162,7 +162,7 @@ namespace BeatSaberPlus_ChatRequest.UI
         /// </summary>
         private void OnBeatsaverPressed()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL("https://beatsaver.com/maps/" + m_LastDetail.id);
         }
     }

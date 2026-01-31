@@ -18,7 +18,7 @@ namespace ChatPlexMod_ChatIntegrations.Models.Events
         /// </summary>
         public ChatCommand()
         {
-            Name = "New chat command event";
+            Name = "Нова подія команди чату";
         }
     }
 }

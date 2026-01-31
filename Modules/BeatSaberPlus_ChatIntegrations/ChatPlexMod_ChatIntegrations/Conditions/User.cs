@@ -14,7 +14,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Check user permissions";
+        public override string Description => "Перевірити права користувача";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -23,25 +23,25 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Is a subscriber?",
+                Templates.SettingsHGroup("Підписник?",
                     XUIToggle.Make()
                         .SetValue(Model.Subscriber).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Subscriber)
                 ),
 
-                Templates.SettingsHGroup("Is a VIP?",
+                Templates.SettingsHGroup("VIP?",
                     XUIToggle.Make()
                         .SetValue(Model.VIP).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_VIP)
                 ),
 
-                Templates.SettingsHGroup("Is a moderator?",
+                Templates.SettingsHGroup("Модератор?",
                     XUIToggle.Make()
                         .SetValue(Model.Moderator).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Moderator)
                 ),
 
-                Templates.SettingsHGroup("Notify when no power?",
+                Templates.SettingsHGroup("Повідомляти, якщо немає прав?",
                     XUIToggle.Make()
                         .SetValue(Model.NotifyWhenNoPermission).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Notify)
@@ -84,7 +84,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
                 return true;
 
             if (Model.NotifyWhenNoPermission && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} You can't use this command!");
+                p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} Ви не можете використовувати цю команду!");
 
             return false;
         }

@@ -54,11 +54,11 @@
             l_Text += Event.GenericModel.Name.Length > 40 ? (Event.GenericModel.Name.Substring(0, 37) + "...") : Event.GenericModel.Name;
 
             if (!Event.IsEnabled)
-                l_Text += " (Disabled)";
+                l_Text += " (Вимкнено)";
             else
                 l_Text += "</b>";
 
-            l_Text += "\n<line-height=100%><align=\"right\">" + Event.GenericModel.UsageCount + " use(s)";
+            l_Text += "\n<line-height=100%><align=\"right\">" + Event.GenericModel.UsageCount + " разів";
 
             l_TextListCell.Text.SetText(l_Text);
         }

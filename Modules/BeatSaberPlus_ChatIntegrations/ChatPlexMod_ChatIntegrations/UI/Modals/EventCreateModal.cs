@@ -28,19 +28,19 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                 return;
 
             Templates.ModalRectLayout(
-                XUIText.Make("What kind of event do you want to create?"),
+                XUIText.Make("Який тип події ви хочете створити?"),
 
                 XUIDropdown.Make()
                     .SetOptions(ChatIntegrations.RegisteredEventTypes.ToList())
                     .OnValueChanged((_, p_Selected) => m_Selected = p_Selected)
                     .Bind(ref m_Type),
 
-                XUITextInput.Make("", "Name...")
+                XUITextInput.Make("", "Назва...")
                     .Bind(ref m_Name),
 
                 XUIHLayout.Make(
-                    XUISecondaryButton.Make("Cancel", OnCancelButton).SetWidth(30f),
-                    XUIPrimaryButton.Make("Create", OnCreateButton).SetWidth(30f)
+                    XUISecondaryButton.Make("Скасувати", OnCancelButton).SetWidth(30f),
+                    XUIPrimaryButton.Make("Створити", OnCreateButton).SetWidth(30f)
                 )
                 .SetPadding(0)
             )
@@ -89,7 +89,7 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                 {
                     var l_Name = m_Name.Element.GetValue();
                     if (string.IsNullOrEmpty(l_Name))
-                        l_Name = "New " + m_Selected + " " + CP_SDK.Misc.Time.UnixTimeNow();
+                        l_Name = "Нова подія " + m_Selected + " " + CP_SDK.Misc.Time.UnixTimeNow();
 
                     l_NewEvent.GenericModel.Name = l_Name;
 
@@ -107,13 +107,13 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                 else
                 {
                     VController.CloseModal(this);
-                    VController.ShowMessageModal("No type selected!");
+                    VController.ShowMessageModal("Тип не вибрано!");
                 }
             }
             catch (System.Exception l_Exception)
             {
                 VController.CloseModal(this);
-                VController.ShowMessageModal("Unknown error!");
+                VController.ShowMessageModal("Невідома помилка!");
 
                 ChatPlexSDK.Logger.Error($"[ChatPlexMod_ChatIntegrations.UI][EventCreateModal.OnCreateButton] Error:");
                 ChatPlexSDK.Logger.Error(l_Exception);

@@ -35,7 +35,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Make rain custom emotes";
+        public override string Description => "Запустити дощ кастомних емотів";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -46,8 +46,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 .Union(Directory.GetFiles(ChatIntegrations.s_EMOTE_RAIN_ASSETS_PATH, "*.gif"))
                 .Union(Directory.GetFiles(ChatIntegrations.s_EMOTE_RAIN_ASSETS_PATH, "*.apng")).ToArray();
 
-            var l_Selected = "<i>None</i>";
-            var l_Choices  = new List<string>() { "<i>None</i>" };
+            var l_Selected = "<i>Немає</i>";
+            var l_Choices  = new List<string>() { "<i>Немає</i>" };
             foreach (var l_CurrentFile in l_Files)
             {
                 var l_Filtered = Path.GetFileName(l_CurrentFile);
@@ -59,25 +59,25 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Custom emote",
+                Templates.SettingsHGroup("Користувацький емот",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Dropdown)
                 ),
 
-                Templates.SettingsHGroup("Count per emote",
+                Templates.SettingsHGroup("Кількість на емот",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(100.0f).SetIncrements(1.0f).SetInteger(true).SetValue(Model.Count).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Count)
                 ),
 
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
 
             if (!ModulePresence.ChatEmoteRain)
-                View.ShowMessageModal("ChatEmoteRain module is missing!");
+                View.ShowMessageModal("Модуль ChatEmoteRain відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             Model.BaseValue = m_Dropdown.Element.GetValue();
             Model.Count     = (uint)m_Count.Element.GetValue();
 
-            if (m_Dropdown.Element.GetValue() == "<i>None</i>")
+            if (m_Dropdown.Element.GetValue() == "<i>Немає</i>")
                 Model.BaseValue = "";
         }
 
@@ -99,7 +99,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (ChatPlexMod_ChatEmoteRain.ChatEmoteRain.Instance == null || !ChatPlexMod_ChatEmoteRain.ChatEmoteRain.Instance.IsEnabled)
             {
-                View.ShowMessageModal("ChatEmoteRain is not enabled!");
+                View.ShowMessageModal("ChatEmoteRain вимкнений!");
                 return;
             }
 
@@ -114,7 +114,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (!ModulePresence.ChatEmoteRain)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, ChatEmoteRain module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль ChatEmoteRain відсутній!");
                 yield break;
             }
 
@@ -143,7 +143,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             CP_SDK.Unity.MTThreadInvoker.EnqueueOnThread(() =>
             {
-                if (Model.BaseValue == "None")
+                if (Model.BaseValue == "None" || Model.BaseValue == "<i>None</i>" || Model.BaseValue == "<i>Немає</i>")
                 {
                     p_Callback?.Invoke(false);
                     return;
@@ -184,7 +184,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Trigger a massive emote bomb rain";
+        public override string Description => "Запустити масивний емот‑бомб дощ";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -193,27 +193,27 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Emote kind",
+                Templates.SettingsHGroup("Різновид емотів",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(100.0f).SetIncrements(1.0f).SetInteger(true)
                         .SetValue(Model.EmoteKindCount).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_EmoteKind)
                 ),
 
-                Templates.SettingsHGroup("Count per emote",
+                Templates.SettingsHGroup("Кількість на емот",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(100.0f).SetIncrements(1.0f).SetInteger(true)
                         .SetValue(Model.CountPerEmote).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_CountPerEmote)
                 ),
 
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
 
             if (!ModulePresence.ChatEmoteRain)
-                View.ShowMessageModal("ChatEmoteRain module is missing!");
+                View.ShowMessageModal("Модуль ChatEmoteRain відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -232,7 +232,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (ChatPlexMod_ChatEmoteRain.ChatEmoteRain.Instance == null || !ChatPlexMod_ChatEmoteRain.ChatEmoteRain.Instance.IsEnabled)
             {
-                View.ShowMessageModal("ChatEmoteRain is not enabled!");
+                View.ShowMessageModal("ChatEmoteRain вимкнений!");
                 return;
             }
 
@@ -247,7 +247,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (!ModulePresence.ChatEmoteRain)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, ChatEmoteRain module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль ChatEmoteRain відсутній!");
                 yield break;
             }
 
@@ -274,8 +274,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
     public class EmoteRain_SubRain : Interfaces.IAction<EmoteRain_SubRain, Models.Action>
     {
-        public override string Description   => "Trigger a subscription rain";
-        public override string UIPlaceHolder => "Will trigger a subscription emote rain";
+        public override string Description   => "Запустити дощ підписки";
+        public override string UIPlaceHolder => "Запустить дощ емотів підписки";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -285,7 +285,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (!ModulePresence.ChatEmoteRain)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, ChatEmoteRain module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль ChatEmoteRain відсутній!");
                 yield break;
             }
 

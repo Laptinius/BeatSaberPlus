@@ -47,7 +47,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Rename last record file";
+        public override string Description => "Перейменувати останній запис";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -57,7 +57,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make("Marker name")
+                    XUIText.Make("Назва маркера")
                         .SetColor(Color.yellow),
 
                     XUIText.Make(Model.Format)
@@ -66,8 +66,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 .SetBackground(true),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Set from game", OnSetFromGameButton),
-                    XUIPrimaryButton.Make("Set from chat", OnSetFromChatButton)
+                    XUIPrimaryButton.Make("Взяти з гри", OnSetFromGameButton),
+                    XUIPrimaryButton.Make("Взяти з чату", OnSetFromChatButton)
                 )
                 .SetPadding(0)
                 .OnReady(x => x.CSizeFitter.enabled = false)
@@ -101,7 +101,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             ChatIntegrations.Instance.OnBroadcasterChatMessage += Instance_OnBroadcasterChatMessage;
 
             var l_Variables = Event.ProvidedValues.Where(x => x.Item1 == Interfaces.EValueType.String || x.Item1 == Interfaces.EValueType.Integer || x.Item1 == Interfaces.EValueType.Floating).ToArray();
-            var l_Message = "Please input a message in chat with your streaming account.\nProvided values:\n";
+            var l_Message = "Будь ласка, введіть повідомлення в чаті зі свого стрім-акаунта.\nНадані змінні:\n";
             l_Message += string.Join(", ", l_Variables.Select(x => "$" + x.Item2).ToArray());
 
             View.ShowLoadingModal(l_Message, true, () =>
@@ -131,7 +131,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -198,8 +198,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
     public class OBS_StartRecording
         : Interfaces.IAction<OBS_StartRecording, Models.Action>
     {
-        public override string  Description             => "Start recording";
-        public override string  UIPlaceHolder           => "Start recording";
+        public override string  Description             => "Почати запис";
+        public override string  UIPlaceHolder           => "Почати запис";
         public override bool    UIPlaceHolderTestButton => true;
 
         ////////////////////////////////////////////////////////////////////////////
@@ -209,7 +209,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
@@ -224,7 +224,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -240,8 +240,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
     public class OBS_StartStreaming
         : Interfaces.IAction<OBS_StartStreaming, Models.Action>
     {
-        public override string  Description             => "Start streaming";
-        public override string  UIPlaceHolder           => "Start streaming";
+        public override string  Description             => "Почати стрім";
+        public override string  UIPlaceHolder           => "Почати стрім";
         public override bool    UIPlaceHolderTestButton => true;
 
         ////////////////////////////////////////////////////////////////////////////
@@ -251,7 +251,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
@@ -266,7 +266,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -287,7 +287,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Set record filename format";
+        public override string Description => "Задати формат імені запису";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -297,7 +297,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make("Marker name")
+                    XUIText.Make("Назва маркера")
                         .SetColor(Color.yellow),
 
                     XUIText.Make(Model.Format)
@@ -306,8 +306,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 .SetBackground(true),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Set from game", OnSetFromGameButton),
-                    XUIPrimaryButton.Make("Set from chat", OnSetFromChatButton)
+                    XUIPrimaryButton.Make("Взяти з гри", OnSetFromGameButton),
+                    XUIPrimaryButton.Make("Взяти з чату", OnSetFromChatButton)
                 )
                 .SetPadding(0)
                 .OnReady(x => x.CSizeFitter.enabled = false)
@@ -341,7 +341,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             ChatIntegrations.Instance.OnBroadcasterChatMessage += Instance_OnBroadcasterChatMessage;
 
             var l_Variables = Event.ProvidedValues.Where(x => x.Item1 == Interfaces.EValueType.String || x.Item1 == Interfaces.EValueType.Integer || x.Item1 == Interfaces.EValueType.Floating).ToArray();
-            var l_Message = "Please input a message in chat with your streaming account.\nProvided values:\n";
+            var l_Message = "Будь ласка, введіть повідомлення в чаті зі свого стрім-акаунта.\nНадані змінні:\n";
             l_Message += string.Join(", ", l_Variables.Select(x => "$" + x.Item2).ToArray());
 
             View.ShowLoadingModal(l_Message, true, () =>
@@ -371,7 +371,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -406,8 +406,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
     public class OBS_StopRecording
         : Interfaces.IAction<OBS_StopRecording, Models.Action>
     {
-        public override string  Description             => "Stop recording";
-        public override string  UIPlaceHolder           => "Stop recording";
+        public override string  Description             => "Зупинити запис";
+        public override string  UIPlaceHolder           => "Зупинити запис";
         public override bool    UIPlaceHolderTestButton => true;
 
         ////////////////////////////////////////////////////////////////////////////
@@ -417,7 +417,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
@@ -432,7 +432,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -448,8 +448,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
     public class OBS_StopStreaming
         : Interfaces.IAction<OBS_StopStreaming, Models.Action>
     {
-        public override string  Description             => "Stop streaming";
-        public override string  UIPlaceHolder           => "Stop streaming";
+        public override string  Description             => "Зупинити стрім";
+        public override string  UIPlaceHolder           => "Зупинити стрім";
         public override bool    UIPlaceHolderTestButton => true;
 
         ////////////////////////////////////////////////////////////////////////////
@@ -459,7 +459,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
@@ -474,7 +474,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -495,7 +495,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Change active preview scene in OBS";
+        public override string Description => "Змінити активну сцену превʼю в OBS";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -511,7 +511,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             {
                 XUIElements = new IXUIElement[]
                 {
-                    XUIText.Make("OBS is not connected!")
+                    XUIText.Make("OBS не підключено!")
                         .SetColor(Color.red)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                 };
@@ -535,8 +535,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 XUIDropdown.Make().SetOptions(l_Choices).SetValue(l_Selected)
                     .OnValueChanged((_, __) => OnSettingChanged()).Bind(ref m_Scene),
 
-                XUISecondaryButton.Make("Select active scene", OnSelectActiveSceneButton),
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUISecondaryButton.Make("Взяти активну сцену", OnSelectActiveSceneButton),
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -563,14 +563,14 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
             if (OBSService.TryGetSceneByName(Model.SceneName, out var l_Scene))
                 l_Scene.SetCurrentPreview();
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_SwitchPreviewToScene Scene:{Model.SceneName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_SwitchPreviewToScene Сцена:{Model.SceneName} не знайдено!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -581,7 +581,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -590,7 +590,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             else
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_SwitchPreviewToScene Scene:{Model.SceneName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_SwitchPreviewToScene Сцена:{Model.SceneName} не знайдено!");
             }
 
             yield return null;
@@ -608,7 +608,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Change active scene in OBS";
+        public override string Description => "Змінити активну сцену в OBS";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -624,7 +624,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             {
                 XUIElements = new IXUIElement[]
                 {
-                    XUIText.Make("OBS is not connected!")
+                    XUIText.Make("OBS не підключено!")
                         .SetColor(Color.red)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                 };
@@ -648,8 +648,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 XUIDropdown.Make().SetOptions(l_Choices).SetValue(l_Selected)
                     .OnValueChanged((_, __) => OnSettingChanged()).Bind(ref m_Scene),
 
-                XUISecondaryButton.Make("Select active scene", OnSelectActiveSceneButton),
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUISecondaryButton.Make("Взяти активну сцену", OnSelectActiveSceneButton),
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -676,14 +676,14 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
             if (OBSService.TryGetSceneByName(Model.SceneName, out var l_Scene))
                 l_Scene.SetCurrentProgram();
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_SwitchToScene Scene:{Model.SceneName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_SwitchToScene Сцена:{Model.SceneName} не знайдено!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -694,7 +694,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -703,7 +703,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             else
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_SwitchToScene Scene:{Model.SceneName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_SwitchToScene Сцена:{Model.SceneName} не знайдено!");
             }
 
             yield return null;
@@ -720,7 +720,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Enable or disable studio mode";
+        public override string Description => "Увімкнути або вимкнути студійний режим";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -729,11 +729,11 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                XUIText.Make("Change type"),
+                XUIText.Make("Тип зміни"),
                 XUIDropdown.Make().SetOptions(Enums.Toggle.S).SetValue(Enums.Toggle.ToStr(Model.ChangeType))
                     .OnValueChanged((_, __) => OnSettingChanged()).Bind(ref m_ChangeType),
 
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -752,7 +752,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
@@ -781,7 +781,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -824,7 +824,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Toggle source visibility";
+        public override string Description => "Перемкнути видимість джерела";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -835,7 +835,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             {
                 XUIElements = new IXUIElement[]
                 {
-                    XUIText.Make("OBS is not connected!")
+                    XUIText.Make("OBS не підключено!")
                         .SetColor(Color.red)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                 };
@@ -861,24 +861,24 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             XUIElements = new IXUIElement[]
             {
-                XUIText.Make("Change type").SetColor(Color.yellow),
+                XUIText.Make("Тип зміни").SetColor(Color.yellow),
                 XUIDropdown.Make()
                     .SetOptions(Enums.Toggle.S).SetValue(Enums.Toggle.ToStr(Model.ChangeType)).OnValueChanged((_, __) => OnSettingChanged())
                     .Bind(ref m_ChangeType),
 
-                XUIText.Make("Scene").SetColor(Color.yellow),
+                XUIText.Make("Сцена").SetColor(Color.yellow),
                 XUIDropdown.Make()
                     .SetOptions(l_SceneChoices).SetValue(l_SelectedScene).OnValueChanged((_, __) => OnSettingChanged())
                     .Bind(ref m_Scene),
 
-                XUIText.Make("Source").SetColor(Color.yellow),
+                XUIText.Make("Джерело").SetColor(Color.yellow),
                 XUIDropdown.Make()
                     .OnValueChanged((_, __) => OnSettingChangedSrc())
                     .Bind(ref m_Source),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Select active scene",    OnSelectActiveSceneButton),
-                    XUIPrimaryButton.Make("Test",                   OnTestButton)
+                    XUIPrimaryButton.Make("Взяти активну сцену",    OnSelectActiveSceneButton),
+                    XUIPrimaryButton.Make("Тест",                   OnTestButton)
                 )
             };
 
@@ -926,7 +926,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 if (!OBSService.TryGetSceneByName(Model.SceneName, out var l_Scene))
                 {
                     if (Model.SceneName != "<i>None</i>")
-                        CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Scene:{Model.SceneName} not found!");
+                        CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Сцена:{Model.SceneName} не знайдено!");
 
                     return;
                 }
@@ -949,7 +949,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 }
             }
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
 
             m_SourceChoicesText = l_SourceChoicesText;
             m_SourceChoicesItem = l_SourceChoicesItem;
@@ -1001,14 +1001,14 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
             if (!OBSService.TryGetSceneByName(Model.SceneName, out var l_Scene))
             {
                 if (Model.SceneName != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Scene:{Model.SceneName} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Сцена:{Model.SceneName} не знайдено!");
 
                 return;
             }
@@ -1017,7 +1017,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (l_Source != null)
                 l_Source.SetEnabled(Model.ChangeType == Enums.Toggle.E.Toggle ? !l_Source.sceneItemEnabled : (Model.ChangeType == Enums.Toggle.E.Enable));
             else if (Model.SourceName != "<i>None</i>")
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Source:{Model.SourceName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Джерело:{Model.SourceName} не знайдено!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -1028,7 +1028,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -1037,7 +1037,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 p_Context.HasActionFailed = true;
 
                 if (Model.SceneName != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Scene:{Model.SceneName} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Сцена:{Model.SceneName} не знайдено!");
 
                 yield return null;
             }
@@ -1050,7 +1050,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 p_Context.HasActionFailed = true;
 
                 if (Model.SourceName != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Source:{Model.SceneName} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Джерело:{Model.SceneName} не знайдено!");
             }
 
             yield return null;
@@ -1076,7 +1076,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Toggle source audio";
+        public override string Description => "Перемкнути звук джерела";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1087,7 +1087,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             {
                 XUIElements = new IXUIElement[]
                 {
-                    XUIText.Make("OBS is not connected!")
+                    XUIText.Make("OBS не підключено!")
                         .SetColor(Color.red)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                 };
@@ -1113,24 +1113,24 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             XUIElements = new IXUIElement[]
             {
-                XUIText.Make("Change type").SetColor(Color.yellow),
+                XUIText.Make("Тип зміни").SetColor(Color.yellow),
                 XUIDropdown.Make()
                     .SetOptions(Enums.Toggle.S).SetValue(Enums.Toggle.ToStr(Model.ChangeType)).OnValueChanged((_, __) => OnSettingChanged())
                     .Bind(ref m_ChangeType),
 
-                XUIText.Make("Scene").SetColor(Color.yellow),
+                XUIText.Make("Сцена").SetColor(Color.yellow),
                 XUIDropdown.Make()
                     .SetOptions(l_SceneChoices).SetValue(l_SelectedScene).OnValueChanged((_, __) => OnSettingChanged())
                     .Bind(ref m_Scene),
 
-                XUIText.Make("Source").SetColor(Color.yellow),
+                XUIText.Make("Джерело").SetColor(Color.yellow),
                 XUIDropdown.Make()
                     .OnValueChanged((_, __) => OnSettingChangedSrc())
                     .Bind(ref m_Source),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Select active scene",    OnSelectActiveSceneButton),
-                    XUIPrimaryButton.Make("Test",                   OnTestButton)
+                    XUIPrimaryButton.Make("Взяти активну сцену",    OnSelectActiveSceneButton),
+                    XUIPrimaryButton.Make("Тест",                   OnTestButton)
                 )
             };
 
@@ -1178,7 +1178,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 if (!OBSService.TryGetSceneByName(Model.SceneName, out var l_Scene))
                 {
                     if (Model.SceneName != "<i>None</i>")
-                        CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSourceAudio Scene:{Model.SceneName} not found!");
+                        CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSourceAudio Сцена:{Model.SceneName} не знайдено!");
 
                     return;
                 }
@@ -1201,7 +1201,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 }
             }
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
 
             m_SourceChoicesText = l_SourceChoicesText;
             m_SourceChoicesItem = l_SourceChoicesItem;
@@ -1253,14 +1253,14 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
             if (!OBSService.TryGetSceneByName(Model.SceneName, out var l_Scene))
             {
                 if (Model.SceneName != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSourceAudio Scene:{Model.SceneName} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSourceAudio Сцена:{Model.SceneName} не знайдено!");
 
                 return;
             }
@@ -1274,7 +1274,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                     l_Source.SetMuted(Model.ChangeType != Enums.Toggle.E.Enable);
             }
             else if (Model.SourceName != "<i>None</i>")
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSourceAudio Source:{Model.SourceName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSourceAudio Джерело:{Model.SourceName} не знайдено!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -1285,7 +1285,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -1294,7 +1294,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 p_Context.HasActionFailed = true;
 
                 if (Model.SceneName != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSourceAudio Scene:{Model.SceneName} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSourceAudio Сцена:{Model.SceneName} не знайдено!");
 
                 yield return null;
             }
@@ -1312,7 +1312,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 p_Context.HasActionFailed = true;
 
                 if (Model.SourceName != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSourceAudio Source:{Model.SourceName} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSourceAudio Джерело:{Model.SourceName} не знайдено!");
             }
 
             yield return null;
@@ -1344,7 +1344,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Toggle source filter";
+        public override string Description => "Перемкнути фільтр джерела";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1355,7 +1355,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             {
                 XUIElements = new IXUIElement[]
                 {
-                    XUIText.Make("OBS is not connected!")
+                    XUIText.Make("OBS не підключено!")
                         .SetColor(Color.red)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                 };
@@ -1369,7 +1369,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 XUIVLayout.Make(
                     XUIHLayout.Make(
                         XUIVLayout.Make(
-                            XUIText.Make("Scene").SetColor(Color.yellow),
+                            XUIText.Make("Сцена").SetColor(Color.yellow),
                             XUIDropdown.Make()
                                 .OnValueChanged((_, __) => OnSettingChangedScene())
                                 .Bind(ref m_SceneDropdown)
@@ -1377,7 +1377,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                         .SetPadding(0),
 
                         XUIVLayout.Make(
-                            XUIText.Make("Source").SetColor(Color.yellow),
+                            XUIText.Make("Джерело").SetColor(Color.yellow),
                             XUIDropdown.Make()
                                 .OnValueChanged((_, __) => OnSettingChangedSource())
                                 .Bind(ref m_SourceDropdown)
@@ -1401,7 +1401,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 XUIVLayout.Make(
                     XUIHLayout.Make(
                         XUIVLayout.Make(
-                            XUIText.Make("Filter").SetColor(Color.yellow),
+                            XUIText.Make("Фільтр").SetColor(Color.yellow),
                             XUIDropdown.Make()
                                 .OnValueChanged((_, __) => OnSettingChangedFilter())
                                 .Bind(ref m_FilterDropdown)
@@ -1409,7 +1409,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                         .SetPadding(0),
 
                         XUIVLayout.Make(
-                            XUIText.Make("Change type").SetColor(Color.yellow),
+                            XUIText.Make("Тип зміни").SetColor(Color.yellow),
                                 XUIDropdown.Make()
                                     .SetOptions(Enums.Toggle.S).SetValue(Enums.Toggle.ToStr(Model.ChangeType)).OnValueChanged((_, __) => OnSettingChangedFilter())
                                     .Bind(ref m_ChangeTypeDropdown)
@@ -1430,7 +1430,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 }),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Test", OnTestButton)
+                    XUIPrimaryButton.Make("Тест", OnTestButton)
                 )
             };
 
@@ -1498,7 +1498,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 }
             }
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
 
             m_SceneChoicesText = l_SceneChoicesText;
 
@@ -1572,14 +1572,14 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return null;
             }
 
             if (!OBSService.TryGetSceneByName(Model.SceneName, out var l_Scene))
             {
                 if (Model.SceneName != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Scene:{Model.SceneName} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Сцена:{Model.SceneName} не знайдено!");
 
                 return null;
             }
@@ -1593,14 +1593,14 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             if (l_Source == null)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Source:{Model.SceneName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Джерело:{Model.SceneName} не знайдено!");
                 return null;
             }
 
             var l_Filter = l_Source.Filters?.FirstOrDefault(x => x.filterName == Model.FilterName);
             if (l_Filter == null)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_ToggleSource Filter:{Model.FilterName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_ToggleSource Фільтр:{Model.FilterName} не знайдено!");
                 return null;
             }
 
@@ -1651,7 +1651,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Transition between preview to active";
+        public override string Description => "Перехід з превʼю до активної сцени";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1667,7 +1667,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             {
                 XUIElements = new IXUIElement[]
                 {
-                    XUIText.Make("OBS is not connected!")
+                    XUIText.Make("OBS не підключено!")
                         .SetColor(Color.red)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                 };
@@ -1687,28 +1687,28 @@ namespace ChatPlexMod_ChatIntegrations.Actions
 
             XUIElements = new IXUIElement[]
             {
-                XUIText.Make("Override duration"),
+                XUIText.Make("Перевизначити тривалість"),
                 XUIToggle.Make()
                     .SetValue(Model.OverrideDuration).OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_OverrideDuration),
 
-                XUIText.Make("Duration"),
+                XUIText.Make("Тривалість"),
                 XUISlider.Make()
                     .SetMinValue(0.0f).SetMaxValue(10000.0f).SetIncrements(1.0f).SetInteger(true)
                     .SetValue(Model.Duration).OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_Duration),
 
-                XUIText.Make("Override transition"),
+                XUIText.Make("Перевизначити перехід"),
                 XUIToggle.Make()
                     .SetValue(Model.OverrideTransition).OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_OverrideTransition),
 
-                XUIText.Make("Transition"),
+                XUIText.Make("Перехід"),
                 XUIDropdown.Make()
                     .SetOptions(l_TransitionChoices).SetValue(l_SelectedTransition).OnValueChanged((_, __) => OnSettingChanged())
                     .Bind(ref m_Transition),
 
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -1740,7 +1740,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 return;
             }
 
@@ -1748,7 +1748,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (Model.OverrideTransition && !OBSService.TryGetTransitionByName(Model.Transition, out l_Transition))
             {
                 if (Model.Transition != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_Transition Transition:{Model.Transition} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_Transition Перехід:{Model.Transition} не знайдено!");
 
                 return;
             }
@@ -1771,7 +1771,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, немає з'єднання з OBS!");
                 yield break;
             }
 
@@ -1781,7 +1781,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 p_Context.HasActionFailed = true;
 
                 if (Model.Transition != "<i>None</i>")
-                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:OBS_Transition Transition:{Model.Transition} not found!");
+                    CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:OBS_Transition Перехід:{Model.Transition} не знайдено!");
 
                 yield return null;
             }

@@ -41,12 +41,12 @@ namespace BeatSaberPlus_ChatRequest.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Chat Request - Settings"),
+                Templates.TitleBar("Запити пісень — Налаштування"),
 
                 XUITabControl.Make(
-                    ("General",     BuildGeneralTab()),
-                    ("Commands",    BuildCommandsTab()),
-                    ("Cooldown",    BuildCooldownTab())
+                    ("Загальні",    BuildGeneralTab()),
+                    ("Команди",     BuildCommandsTab()),
+                    ("Перезарядка", BuildCooldownTab())
                 )
             )
             .SetBackground(true, null, true)
@@ -71,25 +71,25 @@ namespace BeatSaberPlus_ChatRequest.UI
         {
             return XUIHLayout.Make(
                 XUIVLayout.Make(
-                    XUIText.Make("User max request"),
+                    XUIText.Make("Макс. запитів користувача"),
                     XUISlider.Make()
                         .SetMinValue(0f).SetMaxValue(20f).SetIncrements(1f).SetInteger(true)
                         .SetValue(CRConfig.Instance.UserMaxRequest)
                         .Bind(ref m_GeneralTab_UserRequest),
 
-                    XUIText.Make("VIP bonus request"),
+                    XUIText.Make("Бонусні запити VIP"),
                     XUISlider.Make()
                         .SetMinValue(0f).SetMaxValue(20f).SetIncrements(1f).SetInteger(true)
                         .SetValue(CRConfig.Instance.VIPBonusRequest)
                         .Bind(ref m_GeneralTab_VIPBonusRequest),
 
-                    XUIText.Make("Subscriber bonus request"),
+                    XUIText.Make("Бонусні запити підписника"),
                     XUISlider.Make()
                         .SetMinValue(0f).SetMaxValue(20f).SetIncrements(1f).SetInteger(true)
                         .SetValue(CRConfig.Instance.SubscriberBonusRequest)
                         .Bind(ref m_GeneralTab_SubscriberBonusRequest),
 
-                    XUIText.Make("History size"),
+                    XUIText.Make("Розмір історії"),
                     XUISlider.Make()
                         .SetMinValue(0f).SetMaxValue(50f).SetIncrements(1f).SetInteger(true)
                         .SetValue(CRConfig.Instance.HistorySize)
@@ -102,17 +102,17 @@ namespace BeatSaberPlus_ChatRequest.UI
                 .ForEachDirect<XUISlider>(x => x.OnValueChanged(_ => OnValueChanged())),
 
                 XUIVLayout.Make(
-                    XUIText.Make("Play preview music if downloaded"),
+                    XUIText.Make("Відтворювати превʼю, якщо завантажено"),
                     XUIToggle.Make()
                         .SetValue(CRConfig.Instance.PlayPreviewMusic)
                         .Bind(ref m_GeneralTab_PlayPreviewMusic),
 
-                    XUIText.Make("Show cover art in big"),
+                    XUIText.Make("Показувати обкладинку великою"),
                     XUIToggle.Make()
                         .SetValue(CRConfig.Instance.BigCoverArt)
                         .Bind(ref m_GeneralTab_BigCoverArt),
 
-                    XUIText.Make("Queue command show count"),
+                    XUIText.Make("Кількість у !queue"),
                     XUISlider.Make()
                         .SetMinValue(1f).SetMaxValue(10f).SetIncrements(1f).SetInteger(true)
                         .SetValue(CRConfig.Instance.Commands.QueueCommandShowSize)
@@ -184,12 +184,12 @@ namespace BeatSaberPlus_ChatRequest.UI
         {
             return XUIHLayout.Make(
                 XUIVLayout.Make(
-                    XUIText.Make("BSR command cooldown per user"),
+                    XUIText.Make("Перезарядка !bsr на користувача"),
                     XUIToggle.Make()
                         .SetValue(CRConfig.Instance.Commands.BSRCommandCooldownPerUser)
                         .Bind(ref m_CooldownTab_BSRCooldownPerUser),
 
-                    XUIText.Make("BSR command cooldown in seconds"),
+                    XUIText.Make("Перезарядка !bsr (сек.)"),
                     XUISlider.Make()
                         .SetMinValue(0f).SetMaxValue(60f).SetIncrements(1f).SetInteger(true)
                         .SetValue(CRConfig.Instance.Commands.BSRCommandCooldown)
@@ -202,12 +202,12 @@ namespace BeatSaberPlus_ChatRequest.UI
                 .ForEachDirect<XUISlider>(x => x.OnValueChanged(_ => OnValueChanged())),
 
                 XUIVLayout.Make(
-                    XUIText.Make("Queue command cooldown per user"),
+                    XUIText.Make("Перезарядка !queue на користувача"),
                     XUIToggle.Make()
                         .SetValue(CRConfig.Instance.Commands.QueueCommandCooldownPerUser)
                         .Bind(ref m_CooldownTab_QueueCooldownPerUser),
 
-                    XUIText.Make("Queue command cooldown in seconds"),
+                    XUIText.Make("Перезарядка !queue (сек.)"),
                     XUISlider.Make()
                         .SetMinValue(0f).SetMaxValue(60f).SetIncrements(1f).SetInteger(true)
                         .SetValue(CRConfig.Instance.Commands.QueueCommandCooldown)

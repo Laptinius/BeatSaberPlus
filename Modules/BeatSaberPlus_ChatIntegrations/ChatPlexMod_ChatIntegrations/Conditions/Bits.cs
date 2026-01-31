@@ -12,7 +12,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Add conditions on chat request queue size!";
+        public override string Description => "Додати умови за розміром черги Chat Request!";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -21,14 +21,14 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Comparison",
+                Templates.SettingsHGroup("Порівняння",
                     XUIDropdown.Make()
                         .SetOptions(Enums.Comparison.S).SetValue(Enums.Comparison.ToStr(Model.Comparison))
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Comparison)
                 ),
 
-                Templates.SettingsHGroup("Count",
+                Templates.SettingsHGroup("Кількість",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(10000.0f).SetIncrements(1.0f).SetInteger(true)
                         .SetValue(Model.Count).OnValueChanged((_) => OnSettingChanged())

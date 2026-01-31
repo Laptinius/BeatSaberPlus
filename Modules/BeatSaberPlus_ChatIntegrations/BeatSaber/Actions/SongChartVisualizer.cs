@@ -12,7 +12,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Show or hide the SongChartVisualizer ingame";
+        public override string Description => "Показати або сховати SongChartVisualizer у грі";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -21,7 +21,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Change type",
+                Templates.SettingsHGroup("Тип зміни",
                     XUIDropdown.Make()
                         .SetOptions(ChatPlexMod_ChatIntegrations.Enums.Toggle.S).SetValue(ChatPlexMod_ChatIntegrations.Enums.Toggle.ToStr(Model.ChangeType))
                         .OnValueChanged((_, __) => OnSettingChanged())
@@ -46,7 +46,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.SongChartVisualizer)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("SongChartVisualizer: Action failed, SongChartVisualizer module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("SongChartVisualizer: дію не виконано, модуль SongChartVisualizer відсутній!");
                 yield break;
             }
 

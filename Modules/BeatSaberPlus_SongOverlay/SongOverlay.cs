@@ -11,7 +11,7 @@ namespace BeatSaberPlus_SongOverlay
     {
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Song Overlay";
-        public override string                              Description         => "Song overlay server for your stream!";
+        public override string                              Description         => "Сервер оверлею пісні для стріму!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#song-overlay";
         public override bool                                UseChatFeatures     => false;
         public override bool                                IsEnabled           { get => SOConfig.Instance.Enabled; set { SOConfig.Instance.Enabled = value; SOConfig.Instance.Save(); } }

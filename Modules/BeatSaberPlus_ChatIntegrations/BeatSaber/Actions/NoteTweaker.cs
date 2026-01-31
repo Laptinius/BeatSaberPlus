@@ -14,23 +14,23 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Change active NoteTweaker profile";
+        public override string Description => "Змінити активний профіль NoteTweaker";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
         public override sealed void BuildUI(Transform p_Parent)
         {
-            var l_Choices           = new List<string>() { "<i>None</i>" };
-            var l_SelectedChoice    = "<i>None</i>";
+            var l_Choices           = new List<string>() { "<i>Немає</i>" };
+            var l_SelectedChoice    = "<i>Немає</i>";
             if (ModulePresence.NoteTweaker)
             {
                 l_Choices = BeatSaberPlus_NoteTweaker.NoteTweaker.Instance.GetAvailableProfiles();
                 if (l_Choices.Count == 0)
-                    l_Choices.Add("<i>None</i>");
+                    l_Choices.Add("<i>Немає</i>");
             }
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль NoteTweaker відсутній!");
 
             for (int l_I = 0; l_I < l_Choices.Count; ++l_I)
             {
@@ -43,14 +43,14 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Profile",
+                Templates.SettingsHGroup("Профіль",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_SelectedChoice)
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Profile)
                 ),
 
-                Templates.SettingsHGroup("Temporary",
+                Templates.SettingsHGroup("Тимчасово",
                     XUIToggle.Make()
                         .SetValue(Model.Temporary)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -78,7 +78,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.NoteTweaker)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль NoteTweaker відсутній!");
                 yield break;
             }
 
@@ -89,7 +89,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             else
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:NoteTweaker_SwitchProfile Profile:{Model.Profile} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:NoteTweaker_SwitchProfile Профіль:{Model.Profile} не знайдено!");
             }
 
             yield return null;

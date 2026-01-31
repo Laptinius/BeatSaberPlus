@@ -47,22 +47,22 @@ namespace BeatSaberPlus_ChatRequest.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Filters"),
+                Templates.TitleBar("Фільтри"),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("No BeatSage"),
-                        XUIText.Make("No Ranked"),
-                        XUIText.Make("NPS min"),
-                        XUIText.Make("NPS max"),
-                        XUIText.Make("NJS min"),
-                        XUIText.Make("NJS max"),
-                        XUIText.Make("Duration min"),
-                        XUIText.Make("Duration max"),
-                        XUIText.Make("Vote min"),
-                        XUIText.Make("Ignore min vote below"),
-                        XUIText.Make("Upload date min"),
-                        XUIText.Make("Upload date max")
+                        XUIText.Make("Без BeatSage"),
+                        XUIText.Make("Без Ranked"),
+                        XUIText.Make("NPS мін"),
+                        XUIText.Make("NPS макс"),
+                        XUIText.Make("NJS мін"),
+                        XUIText.Make("NJS макс"),
+                        XUIText.Make("Тривалість мін"),
+                        XUIText.Make("Тривалість макс"),
+                        XUIText.Make("Мін. рейтинг"),
+                        XUIText.Make("Ігнорувати мін. рейтинг нижче"),
+                        XUIText.Make("Мін. дата завантаження"),
+                        XUIText.Make("Макс. дата завантаження")
                     )
                     .SetSpacing(1)
                     .SetPadding(0)
@@ -90,8 +90,8 @@ namespace BeatSaberPlus_ChatRequest.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged(_ => OnValueChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Discard all BeatSage maps"),
-                        XUIText.Make("Discard all ranked maps"),
+                        XUIText.Make("Відкинути всі мапи BeatSage"),
+                        XUIText.Make("Відкинути всі рейтингові мапи"),
                         XUISlider.Make()
                             .SetMinValue(0f).SetMaxValue(100f).SetIncrements(   1f).SetInteger(true)
                             .SetValue(CRConfig.Instance.Filters.NPSMinV)

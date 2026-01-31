@@ -373,7 +373,7 @@ namespace BeatSaberPlus_ChatRequest
                     var l_Minutes = QueueDuration / 60;
                     var l_Seconds = (QueueDuration - (l_Minutes * 60));
 
-                    l_Reply = $"Song queue ({SongQueue.Count} songs {l_Minutes}m{l_Seconds}s), next : ";
+                    l_Reply = $"Черга пісень ({SongQueue.Count} пісень {l_Minutes}хв{l_Seconds}с), наступна: ";
 
                     int l_I = 0;
                     for (; l_I < SongQueue.Count && l_I < CRConfig.Instance.Commands.QueueCommandShowSize; ++l_I)
@@ -408,10 +408,10 @@ namespace BeatSaberPlus_ChatRequest
                 {
                     var l_Minutes = QueueDuration / 60;
                     var l_Seconds = (QueueDuration - (l_Minutes * 60));
-                    l_Reply = $"@$UserName Song queue is " + (QueueOpen ? "open" : "closed") + $" ({SongQueue.Count} songs {l_Minutes}m{l_Seconds}s)";
+                    l_Reply = $"@$UserName Черга пісень " + (QueueOpen ? "відкрита" : "закрита") + $" ({SongQueue.Count} пісень {l_Minutes}хв{l_Seconds}с)";
                 }
                 else
-                    l_Reply = $"@$UserName Song queue is " + (QueueOpen ? "open" : "closed") + ", no song queued!";
+                    l_Reply = $"@$UserName Черга пісень " + (QueueOpen ? "відкрита" : "закрита") + ", пісень у черзі немає!";
             }
 
             SendChatMessage(l_Reply, p_Service, p_Message);
@@ -523,7 +523,7 @@ namespace BeatSaberPlus_ChatRequest
                 try
                 {
                     System.Diagnostics.Process.Start($"liv-streamerkit://gamechanger/beat-saber-sabotage/" + (l_Parameter == "on" ? "enable" : "disable"));
-                    SendChatMessage("The !bomb command is now " + (l_Parameter == "on" ? "enabled!" : "disabled!"), p_Service, p_Message);
+                    SendChatMessage("Команду !bomb тепер " + (l_Parameter == "on" ? "увімкнено!" : "вимкнено!"), p_Service, p_Message);
                 }
                 catch
                 {

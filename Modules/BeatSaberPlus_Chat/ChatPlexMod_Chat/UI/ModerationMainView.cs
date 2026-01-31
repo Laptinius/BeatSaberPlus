@@ -16,7 +16,7 @@ namespace ChatPlexMod_Chat.UI
         protected override void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Send message")
+                Templates.TitleBar("Надіслати повідомлення")
             )
             .SetBackground(true, null, true)
             .BuildUI(transform);
@@ -41,7 +41,7 @@ namespace ChatPlexMod_Chat.UI
             {
                 (" USERNAME ", () => {
                     if (ModerationRightView.Instance?.SelectedItem == null)
-                        ShowMessageModal("Please select an user on the right panel!");
+                        ShowMessageModal("Будь ласка, виберіть користувача у правій панелі!");
                     else
                         InsertTextWithSpace(ModerationRightView.Instance.SelectedItem.User.DisplayName);
                 }, "#7eaffc")

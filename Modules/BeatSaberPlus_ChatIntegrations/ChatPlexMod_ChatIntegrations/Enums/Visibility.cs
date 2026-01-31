@@ -13,8 +13,8 @@ namespace ChatPlexMod_ChatIntegrations.Enums
 
         public static List<string> S = new List<string>()
         {
-            "Visible",
-            "Hidden"
+            "Видимий",
+            "Прихований"
         };
 
         public static int ValueCount => S.Count;

@@ -21,24 +21,24 @@ namespace ChatPlexMod_Chat.UI
         protected override void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Channel Actions"),
+                Templates.TitleBar("Дії каналу"),
 
                 XUIVLayout.Make(
                     XUIVSpacer.Make(5f),
 
-                    XUIText.Make("RoomState: Normal")
+                    XUIText.Make("Стан чату: Звичайний")
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                         .Bind(ref m_RoomStateText),
 
                     XUIVSpacer.Make(5f),
 
-                    XUIPrimaryButton.Make("Toggle emote only mode",  OnToggleEmoteOnlyModeButton),
-                    XUIPrimaryButton.Make("Toggle follower mode",    OnToggleFollowerModeButton),
-                    XUIPrimaryButton.Make("Toggle slow mode",        OnToggleSlowModeButton),
+                    XUIPrimaryButton.Make("Перемкнути режим лише емоти",   OnToggleEmoteOnlyModeButton),
+                    XUIPrimaryButton.Make("Перемкнути режим для фоловерів", OnToggleFollowerModeButton),
+                    XUIPrimaryButton.Make("Перемкнути повільний режим",     OnToggleSlowModeButton),
 
                     XUIVSpacer.Make(5f),
 
-                    XUISecondaryButton.Make("Manage shortcuts",      OnManageShortcutButton),
+                    XUISecondaryButton.Make("Керувати швидкими діями",      OnManageShortcutButton),
 
                     XUIVSpacer.Make(5f)
                 )
@@ -84,16 +84,16 @@ namespace ChatPlexMod_Chat.UI
                 {
                     var l_TwitchChannel = l_Channel.Item2 as CP_SDK.Chat.Models.Twitch.TwitchChannel;
 
-                    if (l_TwitchChannel.Roomstate.EmoteOnly)                l_States.Add("Emotes only");
-                    if (l_TwitchChannel.Roomstate.FollowersOnly)            l_States.Add("Followers only");
-                    if (l_TwitchChannel.Roomstate.SlowModeInterval != 0)    l_States.Add("Slow mode (" + l_TwitchChannel.Roomstate.SlowModeInterval + "s)");
+                    if (l_TwitchChannel.Roomstate.EmoteOnly)                l_States.Add("Лише емоти");
+                    if (l_TwitchChannel.Roomstate.FollowersOnly)            l_States.Add("Лише фоловери");
+                    if (l_TwitchChannel.Roomstate.SlowModeInterval != 0)    l_States.Add("Повільний режим (" + l_TwitchChannel.Roomstate.SlowModeInterval + "с)");
                 }
             }
 
             if (l_States.Count == 0)
-                l_States.Add("Normal");
+                l_States.Add("Звичайний");
 
-            m_RoomStateText.SetText("Room State: " + string.Join(", ", l_States.ToArray()));
+            m_RoomStateText.SetText("Стан чату: " + string.Join(", ", l_States.ToArray()));
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -107,7 +107,7 @@ namespace ChatPlexMod_Chat.UI
         {
             if (CP_SDK.Chat.Service.Multiplexer.Channels.Count == 0)
             {
-                ShowMessageModal("You are not connected to a chat channel!");
+                ShowMessageModal("Ви не під'єднані до каналу чату!");
                 return false;
             }
 
@@ -133,9 +133,9 @@ namespace ChatPlexMod_Chat.UI
                 var l_TwitchChannel = l_Channel.Item2 as CP_SDK.Chat.Models.Twitch.TwitchChannel;
 
                 if (l_TwitchChannel.Roomstate.EmoteOnly)
-                    ShowConfirmationModal("Do you really want to <b>disable</b> emote only mode?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/emoteonlyoff"); });
+                    ShowConfirmationModal("Справді <b>вимкнути</b> режим лише емоти?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/emoteonlyoff"); });
                 else
-                    ShowConfirmationModal("Do you really want to <b>enable</b> emote only mode?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/emoteonly"); });
+                    ShowConfirmationModal("Справді <b>увімкнути</b> режим лише емоти?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/emoteonly"); });
             }
         }
         /// <summary>
@@ -152,9 +152,9 @@ namespace ChatPlexMod_Chat.UI
                 var l_TwitchChannel = l_Channel.Item2 as CP_SDK.Chat.Models.Twitch.TwitchChannel;
 
                 if (l_TwitchChannel.Roomstate.FollowersOnly)
-                    ShowConfirmationModal("Do you really want to <b>disable</b> follower only mode?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/followersoff"); });
+                    ShowConfirmationModal("Справді <b>вимкнути</b> режим лише для фоловерів?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/followersoff"); });
                 else
-                    ShowConfirmationModal("Do you really want to <b>enable</b> follower only mode?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/followers"); });
+                    ShowConfirmationModal("Справді <b>увімкнути</b> режим лише для фоловерів?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/followers"); });
             }
         }
         /// <summary>
@@ -171,9 +171,9 @@ namespace ChatPlexMod_Chat.UI
                 var l_TwitchChannel = l_Channel.Item2 as CP_SDK.Chat.Models.Twitch.TwitchChannel;
 
                 if (l_TwitchChannel.Roomstate.SlowModeInterval != 0)
-                    ShowConfirmationModal("Do you really want to <b>disable</b> slow mode?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/slowoff"); });
+                    ShowConfirmationModal("Справді <b>вимкнути</b> повільний режим?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/slowoff"); });
                 else
-                    ShowConfirmationModal("Do you really want to <b>enable</b> slow mode?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/slow"); });
+                    ShowConfirmationModal("Справді <b>увімкнути</b> повільний режим?", (x) => { if (x) l_Channel.Item1.SendTextMessage(l_Channel.Item2, "/slow"); });
             }
         }
         /// <summary>

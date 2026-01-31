@@ -43,7 +43,7 @@ namespace ChatPlexMod_Chat.UI
 
             XUIHLayout.Make(
                 XUIHLayout.Make(
-                    XUIText.Make("<line-height=1%><align=\"left\"><b>LVL 1</b> - Hype Train!\n<line-height=100%><align=\"right\">33% 1:33")
+                    XUIText.Make("<line-height=1%><align=\"left\"><b>РІВ. 1</b> - Хайп‑трейн!\n<line-height=100%><align=\"right\">33% 1:33")
                         .SetFontSize(5f)
                         .SetAlign(TMPro.TextAlignmentOptions.MidlineLeft)
                         .Bind(ref m_Label)

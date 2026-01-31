@@ -13,7 +13,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Add conditions on chat request queue duration!";
+        public override string Description => "Додати умови за тривалістю черги Chat Request!";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -22,21 +22,21 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Comparison",
+                Templates.SettingsHGroup("Порівняння",
                     XUIDropdown.Make()
                         .SetOptions(ChatPlexMod_ChatIntegrations.Enums.Comparison.S).SetValue(ChatPlexMod_ChatIntegrations.Enums.Comparison.ToStr(Model.Comparison))
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Comparison)
                 ),
 
-                Templates.SettingsHGroup("Duration",
+                Templates.SettingsHGroup("Тривалість",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(10800.0f).SetIncrements(1.0f).SetInteger(true).SetFormatter(CP_SDK.UI.ValueFormatters.TimeShortBaseSeconds)
                         .SetValue(Model.Duration).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Duration)
                 ),
 
-                Templates.SettingsHGroup("Send chat message on fail",
+                Templates.SettingsHGroup("Надсилати повідомлення в чат при помилці",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessageOnFail)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -47,7 +47,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             BuildUIAuto(p_Parent);
 
             if (!ModulePresence.ChatRequest)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, модуль ChatRequest відсутній або вимкнений!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -67,7 +67,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             if (!ModulePresence.ChatRequest)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, модуль ChatRequest відсутній або вимкнений!");
                 return false;
             }
 
@@ -75,7 +75,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             if (l_ChatRequest == null || !l_ChatRequest.IsEnabled)
             {
                 if (Model.SendChatMessageOnFail && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} chat request is not enabled");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} ChatRequest вимкнений");
 
                 return false;
             }
@@ -86,9 +86,9 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             if (Model.SendChatMessageOnFail && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
             {
                 if (Model.Comparison <= ChatPlexMod_ChatIntegrations.Enums.Comparison.E.Equal)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} queue is too short");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} черга надто коротка");
                 else
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} queue is too long");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} черга надто довга");
             }
 
             return false;
@@ -108,7 +108,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Add conditions on chat request queue size!";
+        public override string Description => "Додати умови за розміром черги Chat Request!";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -117,21 +117,21 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Comparison",
+                Templates.SettingsHGroup("Порівняння",
                     XUIDropdown.Make()
                         .SetOptions(ChatPlexMod_ChatIntegrations.Enums.Comparison.S).SetValue(ChatPlexMod_ChatIntegrations.Enums.Comparison.ToStr(Model.Comparison))
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Comparison)
                 ),
 
-                Templates.SettingsHGroup("Count",
+                Templates.SettingsHGroup("Кількість",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(200.0f).SetIncrements(1.0f).SetInteger(true).SetFormatter(CP_SDK.UI.ValueFormatters.TimeShortBaseSeconds)
                         .SetValue(Model.Count).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Count)
                 ),
 
-                Templates.SettingsHGroup("Send chat message on fail",
+                Templates.SettingsHGroup("Надсилати повідомлення в чат при помилці",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessageOnFail)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -142,7 +142,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             BuildUIAuto(p_Parent);
 
             if (!ModulePresence.ChatRequest)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: ChatRequest module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: модуль ChatRequest відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -161,7 +161,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             if (!ModulePresence.ChatRequest)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, модуль ChatRequest відсутній або вимкнений!");
                 return false;
             }
 
@@ -169,7 +169,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             if (l_ChatRequest == null || !l_ChatRequest.IsEnabled)
             {
                 if (Model.SendChatMessageOnFail && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} chat request is not enabled");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} ChatRequest вимкнений");
 
                 return false;
             }
@@ -180,9 +180,9 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             if (Model.SendChatMessageOnFail && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
             {
                 if (Model.Comparison <= ChatPlexMod_ChatIntegrations.Enums.Comparison.E.Equal)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} queue is too small");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} черга надто мала");
                 else
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} queue is too big");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} черга надто велика");
             }
 
             return false;
@@ -201,7 +201,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Add conditions on chat request queue!";
+        public override string Description => "Додати умови для черги Chat Request!";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -210,14 +210,14 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Status",
+                Templates.SettingsHGroup("Статус",
                     XUIDropdown.Make()
                         .SetOptions(Enums.QueueStatus.S).SetValue(Enums.QueueStatus.ToStr(Model.Status))
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Status)
                 ),
 
-                Templates.SettingsHGroup("Send chat message on fail",
+                Templates.SettingsHGroup("Надсилати повідомлення в чат при помилці",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessageOnFail)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -228,7 +228,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             BuildUIAuto(p_Parent);
 
             if (!ModulePresence.ChatRequest)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, модуль ChatRequest відсутній або вимкнений!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -247,7 +247,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
         {
             if (!ModulePresence.ChatRequest)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, ChatRequest module is missing or disabled!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, модуль ChatRequest відсутній або вимкнений!");
                 return false;
             }
 
@@ -255,7 +255,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             if (l_ChatRequest == null || !l_ChatRequest.IsEnabled)
             {
                 if (Model.SendChatMessageOnFail && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} chat request is not enabled");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} ChatRequest вимкнений");
 
                 return false;
             }
@@ -263,14 +263,14 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Conditions
             if (Model.Status == Enums.QueueStatus.E.Open && !l_ChatRequest.QueueOpen)
             {
                 if (Model.SendChatMessageOnFail && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} queue is closed");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} черга закрита");
 
                 return false;
             }
             else if (Model.Status == Enums.QueueStatus.E.Closed && l_ChatRequest.QueueOpen)
             {
                 if (Model.SendChatMessageOnFail && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} queue is open");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} черга відкрита");
 
                 return false;
             }

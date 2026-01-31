@@ -54,7 +54,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
             XUIElements = new IXUIElement[]
             {
                 XUIVLayout.Make(
-                    XUIText.Make("Dummy event that can get triggered by other events!")
+                    XUIText.Make("Фіктивна подія, яку можуть запускати інші події!")
                         .SetAlign(TMPro.TextAlignmentOptions.Midline)
                 ).SetBackground(true),
 
@@ -69,7 +69,7 @@ namespace ChatPlexMod_ChatIntegrations.Events
         private void OnExecutePressed()
         {
             ChatIntegrations.Instance.ExecuteEvent(this, new Models.EventContext() { Type = ETriggerType.Dummy });
-            UI.SettingsMainView.Instance.ShowMessageModal("Ok!");
+            UI.SettingsMainView.Instance.ShowMessageModal("Гаразд!");
         }
 
         ////////////////////////////////////////////////////////////////////////////

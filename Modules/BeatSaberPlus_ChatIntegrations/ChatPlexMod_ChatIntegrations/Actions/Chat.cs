@@ -31,7 +31,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Send a message in the chat";
+        public override string Description => "Надіслати повідомлення в чат";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -40,22 +40,22 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Message",
+                Templates.SettingsHGroup("Повідомлення",
                     XUIText.Make(Model.BaseValue)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                         .SetWrapping(true)
                         .Bind(ref m_Message)
                 ),
 
-                Templates.SettingsHGroup("Add TTS prefix",
+                Templates.SettingsHGroup("Додати префікс TTS",
                     XUIToggle.Make()
                         .SetValue(Model.AddTTSPefix).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_AddTTSPrefix)
                 ),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Set from game", OnSetFromGameButton),
-                    XUIPrimaryButton.Make("Set from chat", OnSetFromChatButton)
+                    XUIPrimaryButton.Make("Взяти з гри", OnSetFromGameButton),
+                    XUIPrimaryButton.Make("Взяти з чату", OnSetFromChatButton)
                 )
                 .SetPadding(0)
                 .OnReady(x => x.CSizeFitter.enabled = false)
@@ -95,7 +95,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             ChatIntegrations.Instance.OnBroadcasterChatMessage += Instance_OnBroadcasterChatMessage;
 
             var l_Variables = Event.ProvidedValues.Where(x => x.Item1 == Interfaces.EValueType.String || x.Item1 == Interfaces.EValueType.Integer || x.Item1 == Interfaces.EValueType.Floating).ToArray();
-            var l_Message = "Please input a message in chat with your streaming account.\nProvided values:\n";
+            var l_Message = "Будь ласка, введіть повідомлення в чаті зі свого стрім-акаунта.\nНадані змінні:\n";
             l_Message += string.Join(", ", l_Variables.Select(x => "$" + x.Item2).ToArray());
 
             View.ShowLoadingModal(l_Message, true, () =>
@@ -161,7 +161,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Display a internal message in the chat";
+        public override string Description => "Показати внутрішнє повідомлення в чаті";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -170,7 +170,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Message",
+                Templates.SettingsHGroup("Повідомлення",
                     XUIText.Make(Model.BaseValue)
                         .SetAlign(TMPro.TextAlignmentOptions.Center)
                         .SetWrapping(true)
@@ -178,8 +178,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
                 ),
 
                 XUIHLayout.Make(
-                    XUIPrimaryButton.Make("Set from game", OnSetFromGameButton),
-                    XUIPrimaryButton.Make("Set from chat", OnSetFromChatButton)
+                    XUIPrimaryButton.Make("Взяти з гри", OnSetFromGameButton),
+                    XUIPrimaryButton.Make("Взяти з чату", OnSetFromChatButton)
                 )
                 .SetPadding(0)
                 .OnReady(x => x.CSizeFitter.enabled = false)
@@ -213,7 +213,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             ChatIntegrations.Instance.OnBroadcasterChatMessage += Instance_OnBroadcasterChatMessage;
 
             var l_Variables = Event.ProvidedValues.Where(x => x.Item1 == Interfaces.EValueType.String || x.Item1 == Interfaces.EValueType.Integer || x.Item1 == Interfaces.EValueType.Floating).ToArray();
-            var l_Message = "Please input a message in chat with your streaming account.\nProvided values:\n";
+            var l_Message = "Будь ласка, введіть повідомлення в чаті зі свого стрім-акаунта.\nНадані змінні:\n";
             l_Message += string.Join(", ", l_Variables.Select(x => "$" + x.Item2).ToArray());
 
             View.ShowLoadingModal(l_Message, true, () =>
@@ -270,8 +270,8 @@ namespace ChatPlexMod_ChatIntegrations.Actions
     public class Chat_ToggleEmoteOnly
         : Interfaces.IAction<Chat_ToggleEmoteOnly, Models.Action>
     {
-        public override string Description      => "Enable or disable emote only in the chat";
-        public override string UIPlaceHolder    => "Enable or disable emote only in the chat";
+        public override string Description      => "Увімкнути або вимкнути режим лише емоти в чаті";
+        public override string UIPlaceHolder    => "Увімкнути або вимкнути режим лише емоти в чаті";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -304,7 +304,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Show or hide the chat ingame";
+        public override string Description => "Показати або сховати чат у грі";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -313,7 +313,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Change type",
+                Templates.SettingsHGroup("Тип перемикання",
                     XUIDropdown.Make()
                         .SetOptions(Enums.Toggle.S).SetValue(Enums.Toggle.ToStr(Model.ToggleType)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ChangeType)
@@ -337,7 +337,7 @@ namespace ChatPlexMod_ChatIntegrations.Actions
             if (!ModulePresence.Chat)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("Chat: Action failed, Chat module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("Chat: дію не виконано, модуль Chat відсутній!");
                 yield break;
             }
 

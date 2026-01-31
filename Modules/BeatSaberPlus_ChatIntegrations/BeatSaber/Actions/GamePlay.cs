@@ -20,7 +20,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Change bomb color";
+        public override string Description => "Змінити колір бомб";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -34,19 +34,19 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Value source",
+                Templates.SettingsHGroup("Джерело значення",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(Enums.ValueSource.ToStr(Model.ValueSource)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ValueSource)
                 ),
 
-                Templates.SettingsHGroup("User color",
+                Templates.SettingsHGroup("Колір користувача",
                     XUIColorInput.Make()
                         .SetValue(ColorU.ToUnityColor(Model.Color)).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Color)
                 ),
 
-                Templates.SettingsHGroup("Send chat message?",
+                Templates.SettingsHGroup("Надіслати повідомлення в чат?",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessage).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_SendMessage)
@@ -58,7 +58,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             OnSettingChanged();
 
             if (!ModulePresence.NoteTweaker)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: модуль NoteTweaker відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -83,7 +83,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.NoteTweaker)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль NoteTweaker відсутній!");
                 yield break;
             }
 
@@ -96,7 +96,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     BeatSaberPlus_NoteTweaker.Patches.PBombNoteController.SetBombColorOverride(false, Color.black);
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} bomb color is back to default!");
+                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} колір бомб повернуто до стандартного!");
 
                     l_Failed = false;
                 }
@@ -122,7 +122,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         }
                         else if (p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
                         {
-                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} the syntax is: #HEXCOLOR");
+                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} синтаксис: #HEXCOLOR");
                         }
                     }
                     else if (Model.ValueSource == Enums.ValueSource.E.User)
@@ -136,7 +136,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         BeatSaberPlus_NoteTweaker.Patches.PBombNoteController.SetBombColorOverride(true, m_ColorCache.Value);
 
                         if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} bomb color is changed to {l_Hex}");
+                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} колір бомб змінено на {l_Hex}");
                     }
                 }
             }
@@ -174,7 +174,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Choose a random bomb scale";
+        public override string Description => "Вибрати випадковий масштаб бомб";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -183,20 +183,20 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Value source",
+                Templates.SettingsHGroup("Джерело значення",
                     XUIDropdown.Make()
                         .SetOptions(Enums.ValueSource.S).SetValue(Enums.ValueSource.ToStr(Model.ValueSource)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ValueSource)
                 ),
 
-                Templates.SettingsHGroup("User value",
+                Templates.SettingsHGroup("Значення користувача",
                     XUISlider.Make()
                         .SetMinValue(0.4f).SetMaxValue(1.5f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.UserValue).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_UserValue)
                 ),
 
-                Templates.SettingsHGroup("Random/Event value min/max",
+                Templates.SettingsHGroup("Мін/макс випадкового/подійного значення",
                     XUISlider.Make()
                         .SetMinValue(0.4f).SetMaxValue(1.5f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.Min).OnValueChanged((_) => OnSettingChanged())
@@ -208,7 +208,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         .Bind(ref m_Max)
                 ),
 
-                Templates.SettingsHGroup("Send chat message?",
+                Templates.SettingsHGroup("Надіслати повідомлення в чат?",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessage).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_SendMessage)
@@ -220,7 +220,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             OnSettingChanged();
 
             if (!ModulePresence.GameTweaker)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: GameTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: модуль GameTweaker відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -247,7 +247,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.NoteTweaker)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль NoteTweaker відсутній!");
                 yield break;
             }
 
@@ -260,7 +260,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     BeatSaberPlus_NoteTweaker.Patches.PBombNoteController.SetTemp(false, 0f);
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} note scale was set to default");
+                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} масштаб нот повернуто до стандартного");
                 }
                 else
                 {
@@ -291,7 +291,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     BeatSaberPlus_NoteTweaker.Patches.PBombNoteController.SetTemp(true, l_NewValue);
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} bomb scale was set to {Mathf.RoundToInt(l_NewValue * 100f)}%");
+                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} масштаб бомб встановлено на {Mathf.RoundToInt(l_NewValue * 100f)}%");
                 }
 
                 l_Failed = false;
@@ -300,7 +300,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (l_Failed)
             {
                 if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} no map is currently played!");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} зараз не відтворюється жодна карта!");
 
                 p_Context.HasActionFailed = true;
             }
@@ -320,7 +320,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Turn on or off debris";
+        public override string Description => "Увімкнути або вимкнути уламки";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -329,7 +329,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Enable debris",
+                Templates.SettingsHGroup("Увімкнути уламки",
                     XUIToggle.Make()
                         .SetValue(Model.Debris).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Debris)
@@ -339,7 +339,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             BuildUIAuto(p_Parent);
 
             if (!ModulePresence.GameTweaker)
-                View.ShowMessageModal("GameTweaker module is missing!");
+                View.ShowMessageModal("Модуль GameTweaker відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -356,7 +356,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.GameTweaker)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, GameTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль GameTweaker відсутній!");
                 yield break;
             }
 
@@ -384,7 +384,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Choose a random light intensity";
+        public override string Description => "Вибрати випадкову інтенсивність світла";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -393,20 +393,20 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Value source",
+                Templates.SettingsHGroup("Джерело значення",
                     XUIDropdown.Make()
                         .SetOptions(Enums.ValueSource.S).SetValue(Enums.ValueSource.ToStr(Model.ValueSource)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ValueSource)
                 ),
 
-                Templates.SettingsHGroup("User value",
+                Templates.SettingsHGroup("Значення користувача",
                     XUISlider.Make()
                         .SetMinValue(0.0f).SetMaxValue(20.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.UserValue).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_UserValue)
                 ),
 
-                Templates.SettingsHGroup("Random/Event value min/max",
+                Templates.SettingsHGroup("Мін/макс випадкового/подійного значення",
                     XUISlider.Make()
                         .SetMinValue(0.0f).SetMaxValue(20.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.Min).OnValueChanged((_) => OnSettingChanged())
@@ -418,7 +418,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         .Bind(ref m_Max)
                 ),
 
-                Templates.SettingsHGroup("Send chat message?",
+                Templates.SettingsHGroup("Надіслати повідомлення в чат?",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessage).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_SendMessage)
@@ -430,7 +430,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             OnSettingChanged();
 
             if (!ModulePresence.GameTweaker)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: GameTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: модуль GameTweaker відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -457,7 +457,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.GameTweaker)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, GameTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль GameTweaker відсутній!");
                 yield break;
             }
 
@@ -476,7 +476,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         BeatSaberPlus_GameTweaker.Patches.Lights.PLightsPatches.SetFromConfig();
 
                         if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} lights was set to default");
+                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} освітлення повернуто до стандартного");
                     }
                     else
                     {
@@ -507,7 +507,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         BeatSaberPlus_GameTweaker.Patches.Lights.PLightsPatches.SetTempLightIntensity(l_NewValue);
 
                         if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} lights was set to {Mathf.RoundToInt(l_NewValue * 100f)}%");
+                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} освітлення встановлено на {Mathf.RoundToInt(l_NewValue * 100f)}%");
                     }
 
                     l_Failed = false;
@@ -517,7 +517,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (l_Failed)
             {
                 if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} no map is currently played!");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} зараз не відтворюється жодна карта!");
 
                 p_Context.HasActionFailed = true;
             }
@@ -541,7 +541,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Choose a random volume music";
+        public override string Description => "Вибрати випадкову гучність музики";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -550,20 +550,20 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Value source",
+                Templates.SettingsHGroup("Джерело значення",
                     XUIDropdown.Make()
                         .SetOptions(Enums.ValueSource.S).SetValue(Enums.ValueSource.ToStr(Model.ValueSource)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ValueSource)
                 ),
 
-                Templates.SettingsHGroup("User value",
+                Templates.SettingsHGroup("Значення користувача",
                     XUISlider.Make()
                         .SetMinValue(0.0f).SetMaxValue(1.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.UserValue).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_UserValue)
                 ),
 
-                Templates.SettingsHGroup("Random/Event value min/max",
+                Templates.SettingsHGroup("Мін/макс випадкового/подійного значення",
                     XUISlider.Make()
                         .SetMinValue(0.0f).SetMaxValue(1.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.Min).OnValueChanged((_) => OnSettingChanged())
@@ -575,7 +575,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         .Bind(ref m_Max)
                 ),
 
-                Templates.SettingsHGroup("Send chat message?",
+                Templates.SettingsHGroup("Надіслати повідомлення в чат?",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessage).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_SendMessage)
@@ -640,7 +640,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     l_AudioTimeSyncController._audioSource.volume = l_NewValue;
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} music volume was set to {Mathf.RoundToInt(l_NewValue * 100f)}]%");
+                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} гучність музики встановлено на {Mathf.RoundToInt(l_NewValue * 100f)}%");
                 }
             }
             else
@@ -667,7 +667,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Change notes colors";
+        public override string Description => "Змінити кольори нот";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -681,13 +681,13 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Value source",
+                Templates.SettingsHGroup("Джерело значення",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(Enums.ValueSource.ToStr(Model.ValueSource)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ValueSource)
                 ),
 
-                Templates.SettingsHGroup("Left/Right user color",
+                Templates.SettingsHGroup("Колір лівого/правого користувача",
                     XUIColorInput.Make()
                         .SetValue(ColorU.ToUnityColor(Model.Left)).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_LeftColor),
@@ -697,7 +697,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         .Bind(ref m_RightColor)
                 ),
 
-                Templates.SettingsHGroup("Send chat message?",
+                Templates.SettingsHGroup("Надіслати повідомлення в чат?",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessage).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_SendMessage)
@@ -709,7 +709,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             OnSettingChanged();
 
             if (!ModulePresence.NoteTweaker)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: модуль NoteTweaker відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -737,7 +737,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.NoteTweaker)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль NoteTweaker відсутній!");
                 yield break;
             }
 
@@ -751,7 +751,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     PatchSabers(true);
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} colors are back to default!");
+                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} кольори повернуто до стандартних!");
 
                     l_Failed = false;
                 }
@@ -784,7 +784,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         }
                         else if (p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
                         {
-                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} the syntax is: #LEFTHEX #RIGHTHEX");
+                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} синтаксис: #LEFTHEX #RIGHTHEX");
                         }
                     }
                     else if (Model.ValueSource == Enums.ValueSource.E.User)
@@ -799,7 +799,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         PatchSabers(false);
 
                         if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} colors are changed to {l_LeftHex} {l_RightHex}");
+                            p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} кольори змінено на {l_LeftHex} {l_RightHex}");
                     }
                 }
             }
@@ -905,7 +905,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Choose a random note scale";
+        public override string Description => "Вибрати випадковий масштаб нот";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -914,20 +914,20 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Value source",
+                Templates.SettingsHGroup("Джерело значення",
                     XUIDropdown.Make()
                         .SetOptions(Enums.ValueSource.S).SetValue(Enums.ValueSource.ToStr(Model.ValueSource)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ValueSource)
                 ),
 
-                Templates.SettingsHGroup("User value",
+                Templates.SettingsHGroup("Значення користувача",
                     XUISlider.Make()
                         .SetMinValue(0.4f).SetMaxValue(1.5f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.UserValue).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_UserValue)
                 ),
 
-                Templates.SettingsHGroup("Random/Event value min/max",
+                Templates.SettingsHGroup("Мін/макс випадкового/подійного значення",
                     XUISlider.Make()
                         .SetMinValue(0.4f).SetMaxValue(1.5f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .SetValue(Model.Min).OnValueChanged((_) => OnSettingChanged())
@@ -939,7 +939,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         .Bind(ref m_Max)
                 ),
 
-                Templates.SettingsHGroup("Send chat message?",
+                Templates.SettingsHGroup("Надіслати повідомлення в чат?",
                     XUIToggle.Make()
                         .SetValue(Model.SendChatMessage).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_SendMessage)
@@ -951,7 +951,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             OnSettingChanged();
 
             if (!ModulePresence.GameTweaker)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: GameTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: модуль GameTweaker відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -978,7 +978,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModulePresence.NoteTweaker)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, NoteTweaker module is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль NoteTweaker відсутній!");
                 yield break;
             }
 
@@ -992,7 +992,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     BeatSaberPlus_NoteTweaker.Patches.PBurstSliderGameNoteController.SetTemp(false, 0f);
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} note scale was set to default");
+                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} масштаб нот повернуто до стандартного");
                 }
                 else
                 {
@@ -1024,7 +1024,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     BeatSaberPlus_NoteTweaker.Patches.PBurstSliderGameNoteController.SetTemp(true, l_NewValue);
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} note scale was set to {Mathf.RoundToInt(l_NewValue * 100f)}%");
+                        p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} масштаб нот встановлено на {Mathf.RoundToInt(l_NewValue * 100f)}%");
                 }
 
                 l_Failed = false;
@@ -1033,7 +1033,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (l_Failed)
             {
                 if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
-                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} no map is currently played!");
+                    p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} зараз не відтворюється жодна карта!");
 
                 p_Context.HasActionFailed = true;
             }
@@ -1053,7 +1053,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Trigger a pause during a song";
+        public override string Description => "Поставити паузу під час пісні";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1062,7 +1062,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Hide UI",
+                Templates.SettingsHGroup("Сховати UI",
                     XUIToggle.Make()
                         .SetValue(Model.HideUI).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_HideUI)
@@ -1072,7 +1072,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             BuildUIAuto(p_Parent);
 
             if (!ModulePresence.GameTweaker)
-                View.ShowMessageModal("GameTweaker module is missing!");
+                View.ShowMessageModal("Модуль GameTweaker відсутній!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -1133,8 +1133,8 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
     public class GamePlay_Quit
         : ChatPlexMod_ChatIntegrations.Interfaces.IAction<GamePlay_Quit, ChatPlexMod_ChatIntegrations.Models.Action>
     {
-        public override string Description => "Exit current song";
-        public override string UIPlaceHolder => "Will exit the current map";
+        public override string Description => "Вийти з поточної пісні";
+        public override string UIPlaceHolder => "Вийти з поточної карти";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1166,8 +1166,8 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
     public class GamePlay_Restart
         : ChatPlexMod_ChatIntegrations.Interfaces.IAction<GamePlay_Restart, ChatPlexMod_ChatIntegrations.Models.Action>
     {
-        public override string Description => "Restart current song";
-        public override string UIPlaceHolder => "Will restart the map";
+        public override string Description => "Перезапустити поточну пісню";
+        public override string UIPlaceHolder => "Перезапустити карту";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1199,8 +1199,8 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
     public class GamePlay_Resume
         : ChatPlexMod_ChatIntegrations.Interfaces.IAction<GamePlay_Resume, ChatPlexMod_ChatIntegrations.Models.Action>
     {
-        public override string Description   => "Resume current song";
-        public override string UIPlaceHolder => "Will resume the map";
+        public override string Description   => "Продовжити поточну пісню";
+        public override string UIPlaceHolder => "Продовжити карту";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1254,7 +1254,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Spawn bomb patterns in a map";
+        public override string Description => "Створити візерунки з бомб на мапі";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1263,33 +1263,33 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Interval between bombs in seconds",
+                Templates.SettingsHGroup("Інтервал між бомбами в секундах",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(20.0f).SetIncrements(1.0f).SetInteger(true).SetFormatter(CP_SDK.UI.ValueFormatters.TimeShortBaseSeconds)
                         .SetValue(Model.Interval).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Interval)
                 ),
 
-                Templates.SettingsHGroup("Number of bombs pattern",
+                Templates.SettingsHGroup("Кількість бомб у візерунку",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(20.0f).SetIncrements(1.0f).SetInteger(true)
                         .SetValue(Model.Count).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Count)
                 ),
 
-                Templates.SettingsHGroup("Top",
+                Templates.SettingsHGroup("Верх",
                     XUIToggle.Make().SetValue((Model.L0 & (1 << 2)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L0R2),
                     XUIToggle.Make().SetValue((Model.L1 & (1 << 2)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L1R2),
                     XUIToggle.Make().SetValue((Model.L2 & (1 << 2)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L2R2),
                     XUIToggle.Make().SetValue((Model.L3 & (1 << 2)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L3R2)
                 ),
-                Templates.SettingsHGroup("Middle",
+                Templates.SettingsHGroup("Середина",
                     XUIToggle.Make().SetValue((Model.L0 & (1 << 1)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L0R1),
                     XUIToggle.Make().SetValue((Model.L1 & (1 << 1)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L1R1),
                     XUIToggle.Make().SetValue((Model.L2 & (1 << 1)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L2R1),
                     XUIToggle.Make().SetValue((Model.L3 & (1 << 1)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L3R1)
                 ),
-                Templates.SettingsHGroup("Bottom",
+                Templates.SettingsHGroup("Низ",
                     XUIToggle.Make().SetValue((Model.L0 & (1 << 0)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L0R0),
                     XUIToggle.Make().SetValue((Model.L1 & (1 << 0)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L1R0),
                     XUIToggle.Make().SetValue((Model.L2 & (1 << 0)) != 0).OnValueChanged((_) => OnSettingChanged()).Bind(ref m_L2R0),
@@ -1385,7 +1385,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Spawn fake squat walls in a map";
+        public override string Description => "Створити фейкові стіни для присідання на мапі";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1394,14 +1394,14 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Interval between squat walls in seconds",
+                Templates.SettingsHGroup("Інтервал між присідними стінами в секундах",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(20.0f).SetIncrements(1.0f).SetInteger(true).SetFormatter(CP_SDK.UI.ValueFormatters.TimeShortBaseSeconds)
                         .SetValue(Model.Interval).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Interval)
                 ),
 
-                Templates.SettingsHGroup("Number of squat wall",
+                Templates.SettingsHGroup("Кількість присідних стін",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(20.0f).SetIncrements(1.0f).SetInteger(true)
                         .SetValue(Model.Count).OnValueChanged((_) => OnSettingChanged())
@@ -1467,7 +1467,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Toggle HUD visibility";
+        public override string Description => "Перемкнути видимість HUD";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -1476,7 +1476,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Change type",
+                Templates.SettingsHGroup("Тип перемикання",
                     XUIDropdown.Make()
                         .SetOptions(ChatPlexMod_ChatIntegrations.Enums.Toggle.S).SetValue(ChatPlexMod_ChatIntegrations.Enums.Toggle.ToStr(Model.ChangeType)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ChangeType)

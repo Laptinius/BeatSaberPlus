@@ -28,7 +28,7 @@ namespace ChatPlexMod_Chat.UI
         protected override void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Shortcuts"),
+                Templates.TitleBar("Швидкі дії"),
 
                 XUIHLayout.Make(
                     XUIVVList.Make()
@@ -143,7 +143,7 @@ namespace ChatPlexMod_Chat.UI
         {
             if (m_SelectedItem == null)
             {
-                ShowMessageModal("Please select a shortcut first!");
+                ShowMessageModal("Спочатку виберіть швидку дію!");
                 return false;
             }
 

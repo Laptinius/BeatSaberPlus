@@ -30,7 +30,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsConnected
         : Interfaces.ICondition<OBS_IsConnected, Models.Condition>
     {
-        public override string Description      => "Is OBS connected?";
+        public override string Description      => "OBS підключено?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is connected</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -46,7 +46,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsNotConnected
         : Interfaces.ICondition<OBS_IsNotConnected, Models.Condition>
     {
-        public override string Description      => "Is OBS not connected?";
+        public override string Description      => "OBS не підключено?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is not connected</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -62,7 +62,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsStreaming
         : Interfaces.ICondition<OBS_IsStreaming, Models.Condition>
     {
-        public override string Description      => "Is OBS streaming?";
+        public override string Description      => "OBS стрімить?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is streaming</i></b>";
 
 
@@ -79,7 +79,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsNotStreaming
         : Interfaces.ICondition<OBS_IsNotStreaming, Models.Condition>
     {
-        public override string Description      => "Is OBS not streaming?";
+        public override string Description      => "OBS не стрімить?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is not streaming</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsRecording
         : Interfaces.ICondition<OBS_IsRecording, Models.Condition>
     {
-        public override string Description      => "Is OBS recording?";
+        public override string Description      => "OBS записує?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is recording</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -111,7 +111,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsNotRecording
         : Interfaces.ICondition<OBS_IsNotRecording, Models.Condition>
     {
-        public override string Description      => "Is OBS not recording?";
+        public override string Description      => "OBS не записує?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is not recording</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -127,7 +127,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsInStudioMode
         : Interfaces.ICondition<OBS_IsInStudioMode, Models.Condition>
     {
-        public override string Description      => "Is OBS in studio mode?";
+        public override string Description      => "OBS у студійному режимі?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is in studio mode</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -143,7 +143,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
     public class OBS_IsNotInStudioMode
         : Interfaces.ICondition<OBS_IsNotInStudioMode, Models.Condition>
     {
-        public override string Description      => "Is OBS not in studio mode?";
+        public override string Description      => "OBS не у студійному режимі?";
         public override string UIPlaceHolder    => "<b><i>Ensure that OBS is not in studio mode</i></b>";
 
         ////////////////////////////////////////////////////////////////////////////
@@ -164,20 +164,20 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Is OBS in scene";
+        public override string Description => "OBS на сцені";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
         public override sealed void BuildUI(Transform p_Parent)
         {
-            var l_Choices   = new List<string>() { "<i>None</i>" };
-            var l_Selected  = "<i>None</i>";
+            var l_Choices   = new List<string>() { "<i>Немає</i>" };
+            var l_Selected  = "<i>Немає</i>";
 
             if (OBSService.Status == OBSService.EStatus.Connected)
                 l_Choices.AddRange(OBSService.Scenes.Values.Select(x => x.sceneName));
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, немає з'єднання з OBS!");
 
             for (int l_I = 0; l_I < l_Choices.Count; ++l_I)
             {
@@ -190,13 +190,13 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Scene",
+                Templates.SettingsHGroup("Сцена",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Dropdown)
                 ),
 
-                XUIPrimaryButton.Make("Select active scene", OnSelectActiveSceneButton)
+                XUIPrimaryButton.Make("Взяти активну сцену", OnSelectActiveSceneButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -229,7 +229,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, немає з'єднання з OBS!");
                 return false;
             }
 
@@ -248,20 +248,20 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Is OBS not in scene";
+        public override string Description => "OBS не на сцені";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
         public override sealed void BuildUI(Transform p_Parent)
         {
-            var l_Choices   = new List<string>() { "<i>None</i>" };
-            var l_Selected  = "<i>None</i>";
+            var l_Choices   = new List<string>() { "<i>Немає</i>" };
+            var l_Selected  = "<i>Немає</i>";
 
             if (OBSService.Status == OBSService.EStatus.Connected)
                 l_Choices.AddRange(OBSService.Scenes.Values.Select(x => x.sceneName));
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, немає з'єднання з OBS!");
 
             for (int l_I = 0; l_I < l_Choices.Count; ++l_I)
             {
@@ -274,13 +274,13 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Scene",
+                Templates.SettingsHGroup("Сцена",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_Selected).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Dropdown)
                 ),
 
-                XUIPrimaryButton.Make("Select active scene", OnSelectActiveSceneButton)
+                XUIPrimaryButton.Make("Взяти активну сцену", OnSelectActiveSceneButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -313,7 +313,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         {
             if (OBSService.Status != OBSService.EStatus.Connected)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Condition failed, not connected to OBS!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: умову не виконано, немає з'єднання з OBS!");
                 return false;
             }
 

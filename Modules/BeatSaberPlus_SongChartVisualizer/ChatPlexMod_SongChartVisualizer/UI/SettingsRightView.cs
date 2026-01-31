@@ -13,7 +13,7 @@ namespace ChatPlexMod_SongChartVisualizer.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Preview"),
+                Templates.TitleBar("Попередній перегляд"),
 
                 XUIVSpacer.Make(65f)
             )

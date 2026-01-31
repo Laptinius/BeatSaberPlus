@@ -58,10 +58,10 @@ namespace BeatSaberPlus_ChatRequest.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Title")
+                Templates.TitleBar("Заголовок")
                     .ForEachDirect<XUIText>(x => x.Bind(ref m_Title)),
 
-                XUITextSegmentedControl.Make(new string[] { "Queue", "History", "Allowlist", "Blocklist" })
+                XUITextSegmentedControl.Make(new string[] { "Черга", "Історія", "Білий список", "Чорний список" })
                     .OnActiveChanged(OnQueueTypeChanged)
                     .Bind(ref m_TypeSegmentControl),
 
@@ -106,7 +106,7 @@ namespace BeatSaberPlus_ChatRequest.UI
                     .Bind(ref m_SongInfoPanelOwner),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Please select a song in the list!")
+                        XUIText.Make("Будь ласка, виберіть пісню зі списку!")
                             .SetStyle(FontStyles.Bold)
                             .SetAlign(TextAlignmentOptions.MidlineGeoAligned)
                     )
@@ -149,14 +149,14 @@ namespace BeatSaberPlus_ChatRequest.UI
                 CP_SDK.Unity.SpriteU.CreateFromRaw(CP_SDK.Misc.Resources.FromPath(Assembly.GetExecutingAssembly(), "BeatSaberPlus_ChatRequest.Resources.Blacklist.png")),
                 CP_SDK.Unity.SpriteU.CreateFromRaw(CP_SDK.Misc.Resources.FromPath(Assembly.GetExecutingAssembly(), "BeatSaberPlus_ChatRequest.Resources.Unblacklist.png"))
             );
-            m_SongInfo_Detail.SetFavoriteToggleHoverHint("Add/Remove to blacklist");
+            m_SongInfo_Detail.SetFavoriteToggleHoverHint("Додати/прибрати з чорного списку");
             m_SongInfo_Detail.SetFavoriteToggleCallback(OnAllowlistBlocklistButtonPressed);
 
             m_SongInfo_Detail.SetSecondaryButtonEnabled(true);
-            m_SongInfo_Detail.SetSecondaryButtonText("Skip");
+            m_SongInfo_Detail.SetSecondaryButtonText("Пропустити");
             m_SongInfo_Detail.OnSecondaryButton = SkipOrAddToQueueSong;
 
-            m_SongInfo_Detail.SetPrimaryButtonText("Play");
+            m_SongInfo_Detail.SetPrimaryButtonText("Грати");
             m_SongInfo_Detail.SetPrimaryButtonEnabled(true);
             m_SongInfo_Detail.OnPrimaryButton = PlaySong;
 
@@ -210,7 +210,7 @@ namespace BeatSaberPlus_ChatRequest.UI
             if (p_Index == 3) m_SongList.Element.ScrollTo(m_Tab3Scroll, false);
             m_LastTab = p_Index;
 
-            m_SongInfo_Detail.SetSecondaryButtonText(p_Index == 0 ? "Skip" : "Add to queue");
+            m_SongInfo_Detail.SetSecondaryButtonText(p_Index == 0 ? "Пропустити" : "Додати до черги");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -249,16 +249,16 @@ namespace BeatSaberPlus_ChatRequest.UI
             if (ChatRequest.Instance.QueueOpen)
             {
                 if (l_Minutes != 0 || l_Seconds != 0)
-                    m_Title.SetText($"Queue is <color=green>open</color> | Duration {l_Minutes}m{l_Seconds}s");
+                    m_Title.SetText($"Черга <color=green>відкрита</color> | Тривалість {l_Minutes}хв{l_Seconds}с");
                 else
-                    m_Title.SetText($"Queue is <color=green>open</color>");
+                    m_Title.SetText($"Черга <color=green>відкрита</color>");
             }
             else
             {
                 if (l_Minutes != 0 || l_Seconds != 0)
-                    m_Title.SetText($"Queue is <color=red>closed</color> | Duration {l_Minutes}m{l_Seconds}s");
+                    m_Title.SetText($"Черга <color=red>закрита</color> | Тривалість {l_Minutes}хв{l_Seconds}с");
                 else
-                    m_Title.SetText($"Queue is <color=red>closed</color>");
+                    m_Title.SetText($"Черга <color=red>закрита</color>");
             }
         }
 
@@ -324,9 +324,9 @@ namespace BeatSaberPlus_ChatRequest.UI
             m_SelectedSong = l_SongEntry;
 
             if (CP_SDK_BS.Game.Levels.TryGetBeatmapLevelForHash(m_SelectedSong.GetLevelHash(), out _))
-                m_SongInfo_Detail.SetPrimaryButtonText("Play");
+                m_SongInfo_Detail.SetPrimaryButtonText("Грати");
             else
-                m_SongInfo_Detail.SetPrimaryButtonText("Download");
+                m_SongInfo_Detail.SetPrimaryButtonText("Завантажити");
 
             m_Cover.SetActive(CRConfig.Instance.BigCoverArt);
             m_Cover.SetSprite(l_SongEntry.Cover);
@@ -419,7 +419,7 @@ namespace BeatSaberPlus_ChatRequest.UI
                 else
                 {
                     /// Show download modal
-                    ShowLoadingModal("Downloading", true);
+                    ShowLoadingModal("Завантаження", true);
 
                     /// Start downloading
                     CP_SDK_BS.Game.BeatMapsClient.DownloadSong(
@@ -436,7 +436,7 @@ namespace BeatSaberPlus_ChatRequest.UI
                                 /// Show error message
                                 CP_SDK.Unity.MTMainThreadInvoker.Enqueue(() => {
                                     CloseLoadingModal();
-                                    ShowMessageModal("Download failed!");
+                                    ShowMessageModal("Не вдалося завантажити!");
                                 });
                             }
                         },
@@ -467,7 +467,7 @@ namespace BeatSaberPlus_ChatRequest.UI
             /// Show modal
             else
             {
-                ShowConfirmationModal("<color=yellow><b>Do you really want to blocklist this song?", (p_Confirm) => {
+                ShowConfirmationModal("<color=yellow><b>Справді додати цю пісню до чорного списку?", (p_Confirm) => {
                     if (!p_Confirm)
                         return;
 
@@ -497,7 +497,7 @@ namespace BeatSaberPlus_ChatRequest.UI
             if (!CP_SDK_BS.Game.Levels.TryGetBeatmapLevelForHash(m_SelectedSong.GetLevelHash(), out var l_LocalSong))
             {
                 CloseLoadingModal();
-                ShowMessageModal("An error occurred while downloading this map.\nDownloaded song doesn't match.");
+                ShowMessageModal("Під час завантаження мапи сталася помилка.\nЗавантажена пісня не збігається.");
                 return;
             }
 

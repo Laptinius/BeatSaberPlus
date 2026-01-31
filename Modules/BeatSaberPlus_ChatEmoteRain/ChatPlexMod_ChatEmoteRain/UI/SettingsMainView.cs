@@ -70,7 +70,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
         protected override void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Chat Emote Rain | Settings"),
+                Templates.TitleBar("Chat Emote Rain | Налаштування"),
 
                 XUITabControl.Make(
                     ("General",          BuildGeneralTab()),
@@ -119,18 +119,18 @@ namespace ChatPlexMod_ChatEmoteRain.UI
         {
             return XUIHLayout.Make(
                 XUIVLayout.Make(
-                    XUIText.Make("Rain in menu"),
+                    XUIText.Make("Дощ у меню"),
                     XUIToggle.Make()
                         .OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_GeneralTab_MenuRain),
 
-                    XUIText.Make("Emote size in menu"),
+                    XUIText.Make("Розмір емотів у меню"),
                     XUISlider.Make()
                         .SetMinValue(0.1f).SetMaxValue(5.0f).SetIncrements(0.1f)
                         .OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_GeneralTab_MenuRainSize),
 
-                    XUIText.Make("Emote fall speed in menu"),
+                    XUIText.Make("Швидкість падіння емотів у меню"),
                     XUISlider.Make()
                         .SetMinValue(1.1f).SetMaxValue(10.0f).SetIncrements(0.1f)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -139,18 +139,18 @@ namespace ChatPlexMod_ChatEmoteRain.UI
                 .SetWidth(40.0f),
 
                 XUIVLayout.Make(
-                    XUIText.Make("Rain while playing"),
+                    XUIText.Make("Дощ під час гри"),
                     XUIToggle.Make()
                         .OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_GeneralTab_PlayingRain),
 
-                    XUIText.Make("Emote size while playing"),
+                    XUIText.Make("Розмір емотів під час гри"),
                     XUISlider.Make()
                         .SetMinValue(0.1f).SetMaxValue(5.0f).SetIncrements(0.1f)
                         .OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_GeneralTab_PlayingRainSize),
 
-                    XUIText.Make("Emote fall speed while playing"),
+                    XUIText.Make("Швидкість падіння емотів під час гри"),
                     XUISlider.Make()
                         .SetMinValue(1.1f).SetMaxValue(10.0f).SetIncrements(0.1f)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -252,22 +252,22 @@ namespace ChatPlexMod_ChatEmoteRain.UI
         private IXUIElement BuildChatCommandsTab()
         {
             return XUIVLayout.Make(
-                XUIText.Make("Give moderators power"),
+                XUIText.Make("Дати модераторам права"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_CommandsTab_ModeratorPowerToggle),
 
-                XUIText.Make("Give VIP power"),
+                XUIText.Make("Дати VIP права"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_CommandsTab_VIPPowerToggle),
 
-                XUIText.Make("Give subscriber power"),
+                XUIText.Make("Дати підписникам права"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_CommandsTab_SubscriberPowerToggle),
 
-                XUIText.Make("Give user power"),
+                XUIText.Make("Дати користувачам права"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_CommandsTab_UserPowerToggle)
@@ -426,7 +426,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
 
             if (l_Selected == null)
             {
-                ShowMessageModal("Please select an emitter first!");
+                ShowMessageModal("Спочатку виберіть емітер!");
                 return;
             }
 
@@ -486,7 +486,7 @@ namespace ChatPlexMod_ChatEmoteRain.UI
 
             if (l_Selected == null)
             {
-                ShowMessageModal("Please select an emitter first!");
+                ShowMessageModal("Спочатку виберіть емітер!");
                 return;
             }
 

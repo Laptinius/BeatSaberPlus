@@ -22,7 +22,7 @@ namespace ChatPlexMod_Chat
     {
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Chat";
-        public override string                              Description         => "Allow people to distract you while playing!";
+        public override string                              Description         => "Дозволь людям відволікати тебе під час гри!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#chat";
         public override bool                                UseChatFeatures     => true;
         public override bool                                IsEnabled           { get => CConfig.Instance.Enabled; set { CConfig.Instance.Enabled = value; CConfig.Instance.Save(); } }

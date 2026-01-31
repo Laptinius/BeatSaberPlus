@@ -28,7 +28,7 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Add a cooldown on your event";
+        public override string Description => "Додати перезарядку для події";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -37,20 +37,20 @@ namespace ChatPlexMod_ChatIntegrations.Conditions
         {
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Cooldown",
+                Templates.SettingsHGroup("Перезарядка",
                     XUISlider.Make()
                         .SetMinValue(1.0f).SetMaxValue(1200.0f).SetIncrements(1.0f).SetInteger(true)
                         .SetValue(Model.CooldownTime).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_Cooldown)
                 ),
 
-                Templates.SettingsHGroup("Use a per user cooldown instead of global",
+                Templates.SettingsHGroup("Перезарядка для кожного користувача замість глобальної",
                     XUIToggle.Make()
                         .SetValue(Model.PerUser).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_PerUser)
                 ),
 
-                Templates.SettingsHGroup("Notify user on cooldown",
+                Templates.SettingsHGroup("Повідомляти користувача про перезарядку",
                     XUIToggle.Make()
                         .SetValue(Model.NotifyUser).OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_NotifyUser)

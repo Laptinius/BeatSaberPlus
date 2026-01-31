@@ -9,7 +9,7 @@ namespace BeatSaberPlus_GameTweaker.UI
     internal sealed class SettingsLeftView : CP_SDK.UI.ViewController<SettingsLeftView>
     {
         private static readonly string s_InformationStr = "<line-height=125%><b>Game Tweaker</b>"
-            + "\n" + "<i><color=#CCCCCCFF>This module allow you to customize your game experience, remove some boring base game features, and add new cool features/tweaks</color></i>";
+            + "\n" + "<i><color=#CCCCCCFF>Цей модуль дозволяє налаштовувати ігровий досвід, прибирати нудні базові фічі та додавати нові корисні твіки</color></i>";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ namespace BeatSaberPlus_GameTweaker.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Information"),
+                Templates.TitleBar("Інформація"),
 
                 Templates.ScrollableInfos(50,
                     XUIText.Make(s_InformationStr)
@@ -28,10 +28,10 @@ namespace BeatSaberPlus_GameTweaker.UI
                 ),
 
                 Templates.ExpandedButtonsLine(
-                    XUIPrimaryButton.Make("Reset", OnResetButton)
+                    XUIPrimaryButton.Make("Скинути", OnResetButton)
                 ),
                 Templates.ExpandedButtonsLine(
-                    XUISecondaryButton.Make("Documentation", OnDocumentationButton)
+                    XUISecondaryButton.Make("Документація", OnDocumentationButton)
                 )
             )
             .SetBackground(true, null, true)
@@ -46,7 +46,7 @@ namespace BeatSaberPlus_GameTweaker.UI
         /// </summary>
         private void OnResetButton()
         {
-            ShowConfirmationModal("<color=yellow><b>Do you really want to reset\ngame tweaker configuration?", (p_Confirm) =>
+            ShowConfirmationModal("<color=yellow><b>Справді скинути\nналаштування Game Tweaker?", (p_Confirm) =>
             {
                 if (!p_Confirm)
                     return;
@@ -69,7 +69,7 @@ namespace BeatSaberPlus_GameTweaker.UI
         /// </summary>
         private void OnDocumentationButton()
         {
-            ShowMessageModal("URL opened in your web browser.");
+            ShowMessageModal("URL відкрито у вашому браузері.");
             Application.OpenURL(GameTweaker.Instance.DocumentationURL);
         }
     }

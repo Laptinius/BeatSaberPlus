@@ -13,7 +13,7 @@ namespace ChatPlexMod_MenuMusic
     {
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Menu Music";
-        public override string                              Description         => "Replace boring ambient noise by music!";
+        public override string                              Description         => "Замінює нудні фонові звуки на музику!";
         public override string                              DocumentationURL    => "https://github.com/hardcpp/BeatSaberPlus/wiki#menu-music";
         public override bool                                UseChatFeatures     => false;
         public override bool                                IsEnabled           { get => MMConfig.Instance.Enabled; set { MMConfig.Instance.Enabled = value; MMConfig.Instance.Save(); } }

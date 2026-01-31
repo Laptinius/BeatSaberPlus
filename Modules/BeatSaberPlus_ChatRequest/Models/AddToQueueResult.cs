@@ -77,26 +77,26 @@
                 case EAddToQueueResult.OK:
                     return string.Empty;
                 case EAddToQueueResult.QueueClosed:
-                    return "Queue is closed";
+                    return "Черга закрита";
                 case EAddToQueueResult.MapBanned:
-                    return "Map is banned";
+                    return "Мапа заборонена";
                 case EAddToQueueResult.RequesterBanned:
-                    return "You are not allowed to request maps!";
+                    return "Тобі заборонено запитувати мапи!";
                 case EAddToQueueResult.MapperBanned:
-                    return "Mapper is banned";
+                    return "Мапер заборонений";
                 case EAddToQueueResult.AlreadyRequestedThisSession:
-                    return "Already request this session";
+                    return "Вже запитано в цій сесії";
                 case EAddToQueueResult.AlreadyInQueue:
-                    return "Already in the request queue";
+                    return "Вже в черзі запитів";
                 case EAddToQueueResult.RequestLimit:
-                    return "You have reached your request limit!";
+                    return "Ліміт запитів вичерпано!";
                 case EAddToQueueResult.NotFound:
-                    return "Map not found!";
+                    return "Мапу не знайдено!";
                 case EAddToQueueResult.FilterError:
                     return FilterError;
             }
 
-            return "<unk>";
+            return "<невідомо>";
         }
     }
 }

@@ -33,20 +33,20 @@ namespace ChatPlexMod_MenuMusic.UI
             var l_Config = MMConfig.Instance;
 
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Menu Music | Settings"),
+                Templates.TitleBar("Menu Music | Налаштування"),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Music provider"),
+                        XUIText.Make("Джерело музики"),
                         XUIDropdown.Make()
                             .SetOptions(Data.MusicProviderType.S).SetValue(Data.MusicProviderType.ToStr(l_Config.MusicProvider))
                             .OnValueChanged((_, __) => OnSettingChanged())
                             .Bind(ref m_MusicProvider),
 
-                        XUIText.Make("Show player interface"),
+                        XUIText.Make("Показувати інтерфейс плеєра"),
                         XUIToggle.Make().SetValue(l_Config.ShowPlayer).Bind(ref m_ShowPlayerInterface),
 
-                        XUIText.Make("Playback volume").Bind(ref m_PlaybackVolumeLabel),
+                        XUIText.Make("Гучність відтворення").Bind(ref m_PlaybackVolumeLabel),
                         XUISlider.Make()
                             .SetMinValue(0.0f).SetMaxValue(1.0f).SetIncrements(0.01f)
                             .SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
@@ -60,13 +60,13 @@ namespace ChatPlexMod_MenuMusic.UI
                     .ForEachDirect<XUISlider>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Play songs from beginning"),
+                        XUIText.Make("Грати пісні з початку"),
                         XUIToggle.Make().SetValue(l_Config.StartSongFromBeginning).Bind(ref m_PlaySongsFromBeginning),
 
-                        XUIText.Make("Start a new song on scene change"),
+                        XUIText.Make("Запускати нову пісню при зміні сцени"),
                         XUIToggle.Make().SetValue(l_Config.StartANewMusicOnSceneChange).Bind(ref m_StartANewMusicOnSceneChange),
 
-                        XUIText.Make("Loop current song"),
+                        XUIText.Make("Зациклити поточну пісню"),
                         XUIToggle.Make().SetValue(l_Config.LoopCurrentMusic).Bind(ref m_LoopCurrentMusic)
                     )
                     .SetSpacing(1)

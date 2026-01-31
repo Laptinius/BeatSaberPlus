@@ -9,8 +9,8 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
     public class Camera2_SwitchToDefaultScene
         : ChatPlexMod_ChatIntegrations.Interfaces.IAction<Camera2_SwitchToDefaultScene, ChatPlexMod_ChatIntegrations.Models.Action>
     {
-        public override string  Description             => "Switch to default camera2 scene";
-        public override string  UIPlaceHolder           => "Switch to default camera2 scene";
+        public override string  Description             => "Перемкнутися на сцену Camera2 за замовчуванням";
+        public override string  UIPlaceHolder           => "Перемкнутися на сцену Camera2 за замовчуванням";
         public override bool    UIPlaceHolderTestButton => true;
 
         ////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             if (!ModPresence.Camera2)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
                 return;
             }
 
@@ -35,7 +35,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModPresence.Camera2)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
                 yield break;
             }
 
@@ -56,25 +56,25 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Change active Camera2 scene";
+        public override string Description => "Змінити активну сцену Camera2";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
         public override sealed void BuildUI(Transform p_Parent)
         {
-            var l_Choices           = new List<string>() { "<i>None</i>" };
-            var l_SelectedChoice    = "<i>None</i>";
+            var l_Choices           = new List<string>() { "<i>Немає</i>" };
+            var l_SelectedChoice    = "<i>Немає</i>";
 
             if (ModPresence.Camera2)
             {
                 l_Choices = Camera2.SDK.Scenes.customScenes.Select(x => x.Key).ToList<string>();
 
                 if (l_Choices.Count == 0)
-                    l_Choices.Add("<i>None</i>");
+                    l_Choices.Add("<i>Немає</i>");
             }
             else if (!ModPresence.Camera2)
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
 
             for (int l_I = 0; l_I < l_Choices.Count; ++l_I)
             {
@@ -87,14 +87,14 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Scene",
+                Templates.SettingsHGroup("Сцена",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_SelectedChoice)
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Scene)
                 ),
 
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -115,14 +115,14 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             if (!ModPresence.Camera2)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
                 return;
             }
 
             if (Camera2.SDK.Scenes.customScenes.ContainsKey(Model.SceneName))
                 Camera2.SDK.Scenes.SwitchToCustomScene(Model.SceneName);
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:Camera2_SwitchToScene Scene:{Model.SceneName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:Camera2_SwitchToScene Сцена:{Model.SceneName} не знайдено!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModPresence.Camera2)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
                 yield break;
             }
 
@@ -142,7 +142,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             else
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:Camera2_SwitchToScene Scene:{Model.SceneName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:Camera2_SwitchToScene Сцена:{Model.SceneName} не знайдено!");
             }
 
             yield return null;
@@ -161,19 +161,19 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
-        public override string Description => "Toggle Camera2 camera visibility";
+        public override string Description => "Перемкнути видимість камери Camera2";
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
 
         public override sealed void BuildUI(Transform p_Parent)
         {
-            var l_Choices           = new List<string>() { "<i>None</i>" };
-            var l_SelectedChoice    = "<i>None</i>";
+            var l_Choices           = new List<string>() { "<i>Немає</i>" };
+            var l_SelectedChoice    = "<i>Немає</i>";
             if (ModPresence.Camera2)
                 l_Choices = Camera2.SDK.Cameras.available.ToList<string>();
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
 
             for (int l_I = 0; l_I < l_Choices.Count; ++l_I)
             {
@@ -186,20 +186,20 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
 
             XUIElements = new IXUIElement[]
             {
-                Templates.SettingsHGroup("Camera",
+                Templates.SettingsHGroup("Камера",
                     XUIDropdown.Make()
                         .SetOptions(l_Choices).SetValue(l_SelectedChoice)
                         .OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_Camera)
                 ),
 
-                Templates.SettingsHGroup("Change type",
+                Templates.SettingsHGroup("Тип перемикання",
                     XUIDropdown.Make()
                         .SetOptions(ChatPlexMod_ChatIntegrations.Enums.Toggle.S).SetValue(ChatPlexMod_ChatIntegrations.Enums.Toggle.ToStr(Model.ChangeType)).OnValueChanged((_, __) => OnSettingChanged())
                         .Bind(ref m_ChangeType)
                 ),
 
-                XUIPrimaryButton.Make("Test", OnTestButton)
+                XUIPrimaryButton.Make("Тест", OnTestButton)
             };
 
             BuildUIAuto(p_Parent);
@@ -221,7 +221,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
         {
             if (!ModPresence.Camera2)
             {
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
                 return;
             }
 
@@ -241,7 +241,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                 }
             }
             else
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:Camera2_ToggleCamera Camera:{Model.CameraName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:Camera2_ToggleCamera Камера:{Model.CameraName} не знайдено!");
         }
 
         ////////////////////////////////////////////////////////////////////////////
@@ -252,7 +252,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             if (!ModPresence.Camera2)
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: Action failed, Camera2 mod is missing!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage("ChatIntegrations: дію не виконано, модуль Camera2 відсутній!");
                 yield break;
             }
 
@@ -274,7 +274,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
             else
             {
                 p_Context.HasActionFailed = true;
-                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Event:{Event.GenericModel.Name} Action:Camera2_ToggleCamera Camera:{Model.CameraName} not found!");
+                CP_SDK.Chat.Service.Multiplexer?.InternalBroadcastSystemMessage($"ChatIntegrations: Подія:{Event.GenericModel.Name} Дія:Camera2_ToggleCamera Камера:{Model.CameraName} не знайдено!");
             }
 
             yield return null;

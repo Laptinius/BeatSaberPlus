@@ -27,7 +27,7 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                 return;
 
             Templates.ModalRectLayout(
-                XUIText.Make("Which template do you want to use?"),
+                XUIText.Make("Який шаблон ви хочете використати?"),
 
                 XUIDropdown.Make()
                     .SetOptions(ChatIntegrations.RegisteredTemplates.Keys.ToList())
@@ -35,8 +35,8 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                     .Bind(ref m_Template),
 
                 XUIHLayout.Make(
-                    XUISecondaryButton.Make("Cancel", OnCancelButton).SetWidth(30f),
-                    XUIPrimaryButton.Make("Create", OnCreateButton).SetWidth(30f)
+                    XUISecondaryButton.Make("Скасувати", OnCancelButton).SetWidth(30f),
+                    XUIPrimaryButton.Make("Створити", OnCreateButton).SetWidth(30f)
                 )
                 .SetPadding(0)
             )
@@ -80,7 +80,7 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
         {
             if (!ChatIntegrations.RegisteredTemplates.TryGetValue(m_Selected, out var l_CreateFunc))
             {
-                VController.ShowMessageModal("Template not found!");
+                VController.ShowMessageModal("Шаблон не знайдено!");
                 return;
             }
 
@@ -103,13 +103,13 @@ namespace ChatPlexMod_ChatIntegrations.UI.Modals
                 else
                 {
                     VController.CloseModal(this);
-                    VController.ShowMessageModal("No template selected!");
+                    VController.ShowMessageModal("Шаблон не вибрано!");
                 }
             }
             catch (System.Exception l_Exception)
             {
                 VController.CloseModal(this);
-                VController.ShowMessageModal("Unknown error!");
+                VController.ShowMessageModal("Невідома помилка!");
 
                 ChatPlexSDK.Logger.Error($"[ChatPlexMod_ChatIntegrations.UI][EventCreateModal.OnCreateButton] Error:");
                 ChatPlexSDK.Logger.Error(l_Exception);

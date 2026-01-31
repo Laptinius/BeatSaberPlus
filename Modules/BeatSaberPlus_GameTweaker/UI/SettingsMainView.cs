@@ -58,15 +58,15 @@ namespace BeatSaberPlus_GameTweaker.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Game Tweaker | Settings"),
+                Templates.TitleBar("Game Tweaker | Налаштування"),
 
                 XUITabControl.Make(
-                    ("Particles",       BuildParticlesTab()),
-                    ("Environment",     BuildEnvironmentTab()),
-                    ("LevelSelection",  BuildLevelSelectionTab()),
-                    ("PlayerOptions",   BuildPlayerOptionsTab()),
-                    ("MainMenu",        BuildMainMenuTab()),
-                    ("Tools",           BuildToolsTab())
+                    ("Частинки",        BuildParticlesTab()),
+                    ("Оточення",        BuildEnvironmentTab()),
+                    ("Вибір рівня",     BuildLevelSelectionTab()),
+                    ("Параметри гравця",BuildPlayerOptionsTab()),
+                    ("Головне меню",    BuildMainMenuTab()),
+                    ("Інструменти",     BuildToolsTab())
                 )
                 .Bind(ref m_TabControl)
             )
@@ -96,14 +96,14 @@ namespace BeatSaberPlus_GameTweaker.UI
         {
             var l_Config = GTConfig.Instance;
             return XUIVLayout.Make(
-                XUIText.Make("Remove all debris spawn"),
+                XUIText.Make("Прибрати всі уламки"),
                 XUIToggle.Make().SetValue(l_Config.RemoveDebris).Bind(ref m_ParticlesTab_RemoveDebris).OnValueChanged((_) => OnSettingChanged()),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Remove world particles"),
+                        XUIText.Make("Прибрати частинки світу"),
                         XUIToggle.Make().SetValue(l_Config.RemoveWorldParticles).Bind(ref m_ParticlesTab_RemoveWorldParticles),
-                        XUIText.Make("Remove floor burn particles"),
+                        XUIText.Make("Прибрати частинки опіків на підлозі"),
                         XUIToggle.Make().SetValue(l_Config.RemoveSaberBurnMarkSparkles).Bind(ref m_ParticlesTab_RemoveFloorBurnMarkParticles)
                     )
                     .SetPadding(0)
@@ -111,9 +111,9 @@ namespace BeatSaberPlus_GameTweaker.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Remove cut particles"),
+                        XUIText.Make("Прибрати частинки від розрізів"),
                         XUIToggle.Make().SetValue(l_Config.RemoveAllCutParticles).Bind(ref m_ParticlesTab_RemoveCutParticles),
-                        XUIText.Make("Remove floor burn marks"),
+                        XUIText.Make("Прибрати сліди опіків на підлозі"),
                         XUIToggle.Make().SetValue(l_Config.RemoveSaberBurnMarks).Bind(ref m_ParticlesTab_RemoveFloorBurnMarkEffects)
                     )
                     .SetPadding(0)
@@ -121,9 +121,9 @@ namespace BeatSaberPlus_GameTweaker.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Remove obstacle particles"),
+                        XUIText.Make("Прибрати частинки перешкод"),
                         XUIToggle.Make().SetValue(l_Config.RemoveObstacleParticles).Bind(ref m_ParticlesTab_RemoveObstacleParticles),
-                        XUIText.Make("Remove saber clash effect"),
+                        XUIText.Make("Прибрати ефект зіткнення шабель"),
                         XUIToggle.Make().SetValue(l_Config.RemoveSaberClashEffects).Bind(ref m_ParticlesTab_RemoveSaberClashEffects)
                     )
                     .SetPadding(0)
@@ -141,13 +141,13 @@ namespace BeatSaberPlus_GameTweaker.UI
         {
             var l_Config = GTConfig.Instance.Environment;
             return XUIVLayout.Make(
-                XUIText.Make("Remove music group logos (BTS, LinkinPark...) in environments"),
+                XUIText.Make("Прибрати логотипи гуртів (BTS, Linkin Park...) в оточеннях"),
                 XUIToggle.Make().SetValue(l_Config.RemoveMusicBandLogo).Bind(ref m_EnvironmentTab_RemoveMusicBandLogo),
 
-                XUIText.Make("Remove full combo loss animation"),
+                XUIText.Make("Прибрати анімацію втрати full combo"),
                 XUIToggle.Make().SetValue(l_Config.RemoveFullComboLossAnimation).Bind(ref m_EnvironmentTab_RemoveFullComboLossAnimation),
 
-                XUIText.Make("No fake 360 maps"),
+                XUIText.Make("Без фейкових 360‑мап"),
                 XUIToggle.Make().SetValue(l_Config.NoFake360HUD).Bind(ref m_EnvironmentTab_NoFake360Maps)
             )
             .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged()));
@@ -162,7 +162,7 @@ namespace BeatSaberPlus_GameTweaker.UI
             return XUIVLayout.Make(
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Played color"),
+                        XUIText.Make("Колір зіграних"),
                         XUIColorInput.Make().SetValue(l_Config.HighlightPlayed).Bind(ref m_LevelSelectionTab_HighlightPlayedSongColor)
                     )
                     .SetPadding(0)
@@ -170,7 +170,7 @@ namespace BeatSaberPlus_GameTweaker.UI
                     .ForEachDirect<XUIColorInput>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Highlight played song"),
+                        XUIText.Make("Підсвічувати зіграні пісні"),
                         XUIToggle.Make().SetValue(l_Config.HighlightEnabled).Bind(ref m_LevelSelectionTab_HighlightPlayedSong)
                     )
                     .SetPadding(0)
@@ -178,7 +178,7 @@ namespace BeatSaberPlus_GameTweaker.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("All played color"),
+                        XUIText.Make("Колір усіх зіграних"),
                         XUIColorInput.Make().SetValue(l_Config.HighlightAllPlayed).Bind(ref m_LevelSelectionTab_HighlightPlayedSongAllColor)
                     )
                     .SetPadding(0)
@@ -187,13 +187,13 @@ namespace BeatSaberPlus_GameTweaker.UI
                 )
                 .SetPadding(0),
 
-                XUIText.Make("Remove base game filter"),
+                XUIText.Make("Прибрати фільтр базової гри"),
                 XUIToggle.Make().SetValue(l_Config.RemoveBaseGameFilterButton).Bind(ref m_LevelSelectionTab_RemoveBaseGameFilterButton),
 
-                XUIText.Make("Song delete button"),
+                XUIText.Make("Кнопка видалення пісні"),
                 XUIToggle.Make().SetValue(l_Config.DeleteSongButton).Bind(ref m_LevelSelectionTab_DeleteSongButton),
 
-                XUIText.Make("Remove SongBrowser trashcan"),
+                XUIText.Make("Прибрати кошик SongBrowser"),
                 XUIToggle.Make().SetValue(l_Config.DeleteSongButton).Bind(ref m_LevelSelectionTab_RemoveSongBrowserTrashcan)
             )
             .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged()))
@@ -207,13 +207,13 @@ namespace BeatSaberPlus_GameTweaker.UI
         {
             var l_Config = GTConfig.Instance.PlayerOptions;
             return XUIVLayout.Make(
-                XUIText.Make("Better player options menu"),
+                XUIText.Make("Покращене меню параметрів гравця"),
                 XUIToggle.Make().SetValue(l_Config.ReorderPlayerSettings).Bind(ref m_PlayerOptionsTab_ReorderPlayerSettings),
 
-                XUIText.Make("Add override lights intensity option"),
+                XUIText.Make("Додати опцію перевизначення інтенсивності світла"),
                 XUIToggle.Make().SetValue(l_Config.OverrideLightIntensityOption).Bind(ref m_PlayerOptionsTab_AddOverrideLightIntensityOption),
 
-                XUIText.Make("Merge light effect filter options"),
+                XUIText.Make("Об'єднати параметри фільтра світлових ефектів"),
                 XUIToggle.Make().SetValue(l_Config.MergeLightPressetOptions).Bind(ref m_PlayerOptionsTab_MergeLightEffectFilterOptions)
             )
             .ForEachDirect<XUIToggle>(x => x.OnValueChanged((_) => OnSettingChanged()));
@@ -226,15 +226,15 @@ namespace BeatSaberPlus_GameTweaker.UI
         {
             var l_Config = GTConfig.Instance.MainMenu;
             return XUIVLayout.Make(
-                XUIText.Make("Override menu environment colors"),
+                XUIText.Make("Перевизначити кольори оточення меню"),
                 XUIToggle.Make().SetValue(l_Config.OverrideMenuEnvColors).Bind(ref m_MainMenuTab_OverrideMenuEnvColors).OnValueChanged((_) => OnSettingChangedOverrideMenuColor()),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Base color"),
+                        XUIText.Make("Базовий колір"),
                         XUIColorInput.Make().SetValue(l_Config.BaseColor).Bind(ref m_MainMenuTab_BaseColor),
 
-                        XUIText.Make("Disable Editor button"),
+                        XUIText.Make("Вимкнути кнопку Editor"),
                         XUIToggle.Make().SetValue(l_Config.DisableEditorButtonOnMainMenu).Bind(ref m_MainMenuTab_DisableEditorButton).OnValueChanged((_) => OnSettingChanged())
                     )
                     .SetPadding(0)
@@ -242,10 +242,10 @@ namespace BeatSaberPlus_GameTweaker.UI
                     .ForEachDirect<XUIColorInput>(x => x.OnValueChanged((_) => OnSettingChangedOverrideMenuColor())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Level cleared color"),
+                        XUIText.Make("Колір пройденого рівня"),
                         XUIColorInput.Make().SetValue(l_Config.LevelClearedColor).Bind(ref m_MainMenuTab_LevelClearedColor),
 
-                        XUIText.Make("Remove new content promotional"),
+                        XUIText.Make("Прибрати промо нового контенту"),
                         XUIToggle.Make().SetValue(l_Config.RemoveNewContentPromotional).Bind(ref m_MainMenuTab_RemoveNewContentPromotional).OnValueChanged((_) => OnSettingChanged())
                     )
                     .SetPadding(0)
@@ -253,10 +253,10 @@ namespace BeatSaberPlus_GameTweaker.UI
                     .ForEachDirect<XUIColorInput>(x => x.OnValueChanged((_) => OnSettingChangedLevelClearedColor())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Level failed color"),
+                        XUIText.Make("Колір проваленого рівня"),
                         XUIColorInput.Make().SetValue(l_Config.LevelFailedColor).Bind(ref m_MainMenuTab_LevelFailedColor),
 
-                        XUIText.Make("Disable fireworks"),
+                        XUIText.Make("Вимкнути феєрверки"),
                         XUIToggle.Make().SetValue(l_Config.DisableFireworks).Bind(ref m_MainMenuTab_DisableFireworks).OnValueChanged((_) => OnSettingChanged())
                     )
                     .SetPadding(0)
@@ -274,10 +274,10 @@ namespace BeatSaberPlus_GameTweaker.UI
         {
             var l_Config = GTConfig.Instance.Tools;
             return XUIVLayout.Make(
-                XUIText.Make("Remove old logs"),
+                XUIText.Make("Видаляти старі логи"),
                 XUIToggle.Make().SetValue(l_Config.RemoveOldLogs).Bind(ref m_ToolsTab_RemoveOldLogs),
 
-                XUIText.Make("Amount of logs to keep"),
+                XUIText.Make("Кількість логів для збереження"),
                 XUISlider.Make().SetMinValue(4.0f).SetMaxValue(20.0f).SetIncrements(1.0f).SetInteger(true).SetValue(l_Config.LogEntriesToKeep).Bind(ref m_ToolsTab_LogEntriesToKeep),
 
                 XUIText.Make("FPFC Escape"),

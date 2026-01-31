@@ -60,16 +60,16 @@ namespace BeatSaberPlus_NoteTweaker.UI
         protected override sealed void OnViewCreation()
         {
             Templates.FullRectLayoutMainView(
-                Templates.TitleBar("Note Tweaker | Settings"),
+                Templates.TitleBar("Note Tweaker | Налаштування"),
 
                 XUITabControl.Make(
-                    ("<b><color=yellow>Profiles</color></b>",   BuildProfilesTab()),
-                    ("Notes",                                   BuildNotesTab()),
-                    ("Arrows",                                  BuildArrowsTab()),
-                    ("Dots",                                    BuildDotsTab()),
-                    ("Bombs",                                   BuildBombsTab()),
-                    ("Arcs",                                    BuildArcsTab()),
-                    ("BurstNotes",                              BuildBurstNotesTab())
+                    ("<b><color=yellow>Профілі</color></b>",    BuildProfilesTab()),
+                    ("Ноти",                                    BuildNotesTab()),
+                    ("Стрілки",                                 BuildArrowsTab()),
+                    ("Точки",                                   BuildDotsTab()),
+                    ("Бомби",                                   BuildBombsTab()),
+                    ("Дуги",                                    BuildArcsTab()),
+                    ("Burst‑ноти",                              BuildBurstNotesTab())
                 )
                 .OnActiveChanged(OnTabSelected)
                 .Bind(ref m_TabControl)
@@ -115,11 +115,11 @@ namespace BeatSaberPlus_NoteTweaker.UI
                 .OnReady(x => x.HOrVLayoutGroup.childForceExpandHeight = true),
 
                 Templates.ExpandedButtonsLine(
-                    XUIPrimaryButton.Make("New").OnClick(ProfilesTab_OnNewButton),
-                    XUIPrimaryButton.Make("Rename").OnClick(ProfilesTab_OnRenameButton),
-                    XUIPrimaryButton.Make("Delete").OnClick(ProfilesTab_OnDeleteButton),
-                    XUISecondaryButton.Make("Export").OnClick(ProfilesTab_OnExportButton),
-                    XUISecondaryButton.Make("Import").OnClick(ProfilesTab_OnImportButton)
+                    XUIPrimaryButton.Make("Новий").OnClick(ProfilesTab_OnNewButton),
+                    XUIPrimaryButton.Make("Перейменувати").OnClick(ProfilesTab_OnRenameButton),
+                    XUIPrimaryButton.Make("Видалити").OnClick(ProfilesTab_OnDeleteButton),
+                    XUISecondaryButton.Make("Експорт").OnClick(ProfilesTab_OnExportButton),
+                    XUISecondaryButton.Make("Імпорт").OnClick(ProfilesTab_OnImportButton)
                 )
             ).OnReady(x => x.CSizeFitter.enabled = false);
         }
@@ -131,18 +131,18 @@ namespace BeatSaberPlus_NoteTweaker.UI
         {
             return XUIVLayout.Make(
                 XUIVLayout.Make(
-                    XUIText.Make("Note scale"),
+                    XUIText.Make("Масштаб ноти"),
                     XUISlider.Make()
                         .SetMinValue(0.4f).SetMaxValue(1.2f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_NotesTab_Scale),
 
-                    XUIText.Make("Show dot on directional notes"),
+                    XUIText.Make("Показувати точку на направлених нотах"),
                     XUIToggle.Make()
                         .OnValueChanged((_) => OnSettingChanged())
                         .Bind(ref m_NotesTab_ShowPrecisonDots),
 
-                    XUIText.Make("Precision dot scale"),
+                    XUIText.Make("Масштаб точок точності"),
                     XUISlider.Make()
                         .SetMinValue(0.2f).SetMaxValue(1.5f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                         .OnValueChanged((_) => OnSettingChanged())
@@ -152,8 +152,8 @@ namespace BeatSaberPlus_NoteTweaker.UI
                 .SetPadding(0),
 
                 XUIVLayout.Make(
-                    XUIText.Make("This module change only the visual appearance of the notes, the hitbox will stay the same as default"),
-                    XUIText.Make("The scale settings can conflict with CustomNotes if not 100%")
+                    XUIText.Make("Цей модуль змінює лише вигляд нот, хітбокс лишається стандартним"),
+                    XUIText.Make("Налаштування масштабу можуть конфліктувати з CustomNotes, якщо не 100%")
                 )
                 .SetBackground(true)
             );
@@ -165,32 +165,32 @@ namespace BeatSaberPlus_NoteTweaker.UI
         private IXUIElement BuildArrowsTab()
         {
             return XUIVLayout.Make(
-                XUIText.Make("Arrow scale"),
+                XUIText.Make("Масштаб стрілок"),
                 XUISlider.Make()
                     .SetMinValue(0.2f).SetMaxValue(1.4f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_ArrowsTab_Scale),
 
-                XUIText.Make("Arrow glow intensity"),
+                XUIText.Make("Інтенсивність сяйва стрілок"),
                 XUISlider.Make()
                     .SetMinValue(0.0f).SetMaxValue(1.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_ArrowsTab_Intensity),
 
-                XUIText.Make("Override arrow colors"),
+                XUIText.Make("Перевизначити кольори стрілок"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_ArrowsTab_OverrideColors),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Arrow left color"),
+                        XUIText.Make("Колір лівої стрілки"),
                         XUIColorInput.Make()
                             .OnValueChanged((_) => OnSettingChanged())
                             .Bind(ref m_ArrowsTab_LColor)
                     ),
                     XUIVLayout.Make(
-                        XUIText.Make("Arrow right color"),
+                        XUIText.Make("Колір правої стрілки"),
                         XUIColorInput.Make()
                             .OnValueChanged((_) => OnSettingChanged())
                             .Bind(ref m_ArrowsTab_RColor)
@@ -207,32 +207,32 @@ namespace BeatSaberPlus_NoteTweaker.UI
         private IXUIElement BuildDotsTab()
         {
             return XUIVLayout.Make(
-                XUIText.Make("Dot scale"),
+                XUIText.Make("Масштаб точок"),
                 XUISlider.Make()
                     .SetMinValue(0.2f).SetMaxValue(1.5f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_DotsTab_Scale),
 
-                XUIText.Make("Dot glow intensity"),
+                XUIText.Make("Інтенсивність сяйва точок"),
                 XUISlider.Make()
                     .SetMinValue(0.0f).SetMaxValue(1.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_DotsTab_Intensity),
 
-                XUIText.Make("Override dot colors"),
+                XUIText.Make("Перевизначити кольори точок"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_DotsTab_OverrideColors),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Dot left color"),
+                        XUIText.Make("Колір лівої точки"),
                         XUIColorInput.Make()
                             .OnValueChanged((_) => OnSettingChanged())
                             .Bind(ref m_DotsTab_LColor)
                     ),
                     XUIVLayout.Make(
-                        XUIText.Make("Dot right color"),
+                        XUIText.Make("Колір правої точки"),
                         XUIColorInput.Make()
                             .OnValueChanged((_) => OnSettingChanged())
                             .Bind(ref m_DotsTab_RColor)
@@ -249,18 +249,18 @@ namespace BeatSaberPlus_NoteTweaker.UI
         private IXUIElement BuildBombsTab()
         {
             return XUIVLayout.Make(
-                XUIText.Make("Bomb scale"),
+                XUIText.Make("Масштаб бомб"),
                 XUISlider.Make()
                     .SetMinValue(0.4f).SetMaxValue(1.2f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_BombsTab_Scale),
 
-                XUIText.Make("Override bomb color"),
+                XUIText.Make("Перевизначити колір бомб"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_BombsTab_OverrideColor),
 
-                XUIText.Make("Bomb color"),
+                XUIText.Make("Колір бомби"),
                 XUIColorInput.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_BombsTab_Color)
@@ -274,13 +274,13 @@ namespace BeatSaberPlus_NoteTweaker.UI
         private IXUIElement BuildArcsTab()
         {
             return XUIVLayout.Make(
-                XUIText.Make("Arcs intensity"),
+                XUIText.Make("Інтенсивність дуг"),
                 XUISlider.Make()
                     .SetMinValue(0.0f).SetMaxValue(1.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_ArcsTab_Intensity),
 
-                XUIText.Make("Arcs haptics"),
+                XUIText.Make("Вібровідгук дуг"),
                 XUIToggle.Make()
                     .OnValueChanged((_) => OnSettingChanged())
                     .Bind(ref m_ArcsTab_Haptics)
@@ -294,7 +294,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
         private IXUIElement BuildBurstNotesTab()
         {
             return XUIVLayout.Make(
-                XUIText.Make("Dot size"),
+                XUIText.Make("Розмір точки"),
                 XUISlider.Make()
                     .SetMinValue(0.0f).SetMaxValue(3.0f).SetIncrements(0.01f).SetFormatter(CP_SDK.UI.ValueFormatters.Percentage)
                     .OnValueChanged((_) => OnSettingChanged())
@@ -314,7 +314,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
         {
             if (NTConfig.Instance.GetActiveProfile().IsDefault() && p_TabIndex > 0)
             {
-                ShowMessageModal("<color=yellow>No changes allowed on default config!</color>");
+                ShowMessageModal("<color=yellow>У стандартному профілі зміни заборонені!</color>");
                 m_TabControl.SetActiveTab(0);
             }
         }
@@ -471,7 +471,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
         {
             ShowKeyboardModal("", (p_Name) =>
             {
-                var l_ProfileName = string.IsNullOrEmpty(p_Name) ? "No name..." : p_Name;
+                var l_ProfileName = string.IsNullOrEmpty(p_Name) ? "Без назви..." : p_Name;
                 var l_NewProfile  = new NTConfig._Profile() { Name = l_ProfileName };
 
                 NTConfig.Instance.Profiles.Add(l_NewProfile);
@@ -488,13 +488,13 @@ namespace BeatSaberPlus_NoteTweaker.UI
         {
             if (NTConfig.Instance.GetActiveProfile().IsDefault())
             {
-                ShowMessageModal("<color=yellow>No changes allowed on default config!</color>");
+                ShowMessageModal("<color=yellow>У стандартному профілі зміни заборонені!</color>");
                 return;
             }
 
             ShowKeyboardModal(NTConfig.Instance.GetActiveProfile().Name, (p_NewName) =>
             {
-                NTConfig.Instance.GetActiveProfile().Name = string.IsNullOrEmpty(p_NewName) ? "No name..." : p_NewName;
+                NTConfig.Instance.GetActiveProfile().Name = string.IsNullOrEmpty(p_NewName) ? "Без назви..." : p_NewName;
                 ProfilesTab_Refresh();
                 RefreshSettings();
             });
@@ -506,7 +506,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
         {
             if (NTConfig.Instance.GetActiveProfile().IsDefault())
             {
-                ShowMessageModal("<color=yellow>No changes allowed on default config!</color>");
+                ShowMessageModal("<color=yellow>У стандартному профілі зміни заборонені!</color>");
                 return;
             }
 
@@ -529,7 +529,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
             var l_Profile = NTConfig.Instance.GetActiveProfile();
             if (l_Profile.IsDefault())
             {
-                ShowMessageModal("<color=yellow>Cannot export default config!</color>");
+                ShowMessageModal("<color=yellow>Не можна експортувати стандартний профіль!</color>");
                 return;
             }
 
@@ -543,7 +543,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
 
             System.IO.File.WriteAllText(NoteTweaker.EXPORT_FOLDER + l_FileName, l_Serialized, System.Text.Encoding.Unicode);
 
-            ShowMessageModal("Profile exported in\n" + NoteTweaker.EXPORT_FOLDER);
+            ShowMessageModal("Профіль експортовано в\n" + NoteTweaker.EXPORT_FOLDER);
         }
         /// <summary>
         /// Import an profile

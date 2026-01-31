@@ -35,19 +35,19 @@ namespace ChatPlexMod_Chat.UI
             var l_Config = CConfig.Instance;
 
             Templates.FullRectLayout(
-                Templates.TitleBar("Filters"),
+                Templates.TitleBar("Фільтри"),
 
                 XUIHLayout.Make(
                     XUIVLayout.Make(
-                        XUIText.Make("Align with floor on move"),
+                        XUIText.Make("Вирівнювати по підлозі під час переміщення"),
                         XUIToggle.Make().SetValue(l_Config.AlignWithFloor).Bind(ref m_AlignWithFloor),
-                        XUIText.Make("Show lock icon for movement"),
+                        XUIText.Make("Показувати іконку блокування переміщення"),
                         XUIToggle.Make().SetValue(l_Config.ShowLockIcon).Bind(ref m_ShowLockIcon),
-                        XUIText.Make("Follow environment rotations"),
+                        XUIText.Make("Слідувати обертам оточення"),
                         XUIToggle.Make().SetValue(l_Config.FollowEnvironementRotation).Bind(ref m_FollowEnvironementRotations),
-                        XUIText.Make("Show viewer count"),
+                        XUIText.Make("Показувати кількість глядачів"),
                         XUIToggle.Make().SetValue(l_Config.ShowViewerCount).Bind(ref m_ChatViewerCount),
-                        XUIText.Make("Filter viewers commands"),
+                        XUIText.Make("Фільтрувати команди глядачів"),
                         XUIToggle.Make().SetValue(l_Config.FilterViewersCommands).Bind(ref m_ChatFitlerViewers)
                     )
                     .SetSpacing(1)
@@ -57,15 +57,15 @@ namespace ChatPlexMod_Chat.UI
                     .ForEachDirect<XUIToggle>(x => x.OnValueChanged(_ => OnValueChanged())),
 
                     XUIVLayout.Make(
-                        XUIText.Make("Show follow events"),
+                        XUIText.Make("Показувати події фолову"),
                         XUIToggle.Make().SetValue(l_Config.ShowFollowEvents).Bind(ref m_FollowEvents),
-                        XUIText.Make("Show subscription events"),
+                        XUIText.Make("Показувати події підписки"),
                         XUIToggle.Make().SetValue(l_Config.ShowSubscriptionEvents).Bind(ref m_SubscriptionEvents),
-                        XUIText.Make("Show bits cheering events"),
+                        XUIText.Make("Показувати події бітів"),
                         XUIToggle.Make().SetValue(l_Config.ShowBitsCheeringEvents).Bind(ref m_BitsCheering),
-                        XUIText.Make("Show channel points event"),
+                        XUIText.Make("Показувати події Channel Points"),
                         XUIToggle.Make().SetValue(l_Config.ShowChannelPointsEvent).Bind(ref m_ChannelPoints),
-                        XUIText.Make("Filter broadcaster commands"),
+                        XUIText.Make("Фільтрувати команди стрімера"),
                         XUIToggle.Make().SetValue(l_Config.FilterBroadcasterCommands).Bind(ref m_ChatFilterBroadcaster)
                     )
                     .SetSpacing(1)

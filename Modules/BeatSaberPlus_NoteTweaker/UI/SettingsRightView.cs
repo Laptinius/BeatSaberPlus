@@ -39,7 +39,7 @@ namespace BeatSaberPlus_NoteTweaker.UI
         protected override void OnViewCreation()
         {
             Templates.FullRectLayout(
-                Templates.TitleBar("Custom / Default"),
+                Templates.TitleBar("Користувацький / Стандартний"),
 
                 XUIVSpacer.Make(65f)
             )

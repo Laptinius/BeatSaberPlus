@@ -77,7 +77,7 @@ namespace ChatPlexMod_MenuMusic.Data
                 CP_SDK.Unity.MTMainThreadInvoker.Enqueue(() =>
                 {
                     if (viewController)
-                        viewController.ShowMessageModal("Song not found!");
+                        viewController.ShowMessageModal("Пісню не знайдено!");
                 });
 
                 return;
@@ -103,7 +103,7 @@ namespace ChatPlexMod_MenuMusic.Data
                 CP_SDK.Unity.MTMainThreadInvoker.Enqueue(() =>
                 {
                     if (viewController)
-                        viewController.ShowMessageModal("Chat request is not installed or enabled!");
+                        viewController.ShowMessageModal("Модуль Chat Request не встановлено або вимкнено!");
                 });
                 return;
             }
@@ -134,7 +134,7 @@ namespace ChatPlexMod_MenuMusic.Data
                 CP_SDK.Unity.MTMainThreadInvoker.Enqueue(() =>
                 {
                     if (viewController)
-                        viewController.ShowMessageModal("Song not found!");
+                        viewController.ShowMessageModal("Пісню не знайдено!");
                 });
 
                 return;
@@ -173,15 +173,15 @@ namespace ChatPlexMod_MenuMusic.Data
                         switch (p_Result.Result)
                         {
                             case BeatSaberPlus_ChatRequest.Models.EAddToQueueResult.OK:
-                                viewController.ShowMessageModal("Song added to the queue!");
+                                viewController.ShowMessageModal("Пісню додано до черги!");
                                 break;
 
                             case BeatSaberPlus_ChatRequest.Models.EAddToQueueResult.NotFound:
-                                viewController.ShowMessageModal("Song not found on BeatSaver!");
+                                viewController.ShowMessageModal("Пісню не знайдено на BeatSaver!");
                                 break;
 
                             case BeatSaberPlus_ChatRequest.Models.EAddToQueueResult.AlreadyInQueue:
-                                viewController.ShowMessageModal("Song is already in queue!");
+                                viewController.ShowMessageModal("Пісня вже в черзі!");
                                 break;
 
                             default:
