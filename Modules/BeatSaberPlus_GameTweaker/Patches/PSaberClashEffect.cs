@@ -1,15 +1,21 @@
 ﻿using HarmonyLib;
 using UnityEngine;
 
+using System.Reflection;
+
 namespace BeatSaberPlus_GameTweaker.Patches
 {
     /// <summary>
     /// SaberClashEffect remover
     /// </summary>
-    [HarmonyPatch(typeof(SaberClashEffect))]
-    [HarmonyPatch(nameof(SaberClashEffect.Start))]
-    public class PSaberClashEffect : SaberClashEffect
+[HarmonyPatch(typeof(SaberClashEffect))]
+public class PSaberClashEffect
+{
+    private static MethodBase TargetMethod()
     {
+        return AccessTools.Method(typeof(SaberClashEffect), "Start");
+    }
+
         /// <summary>
         /// SparkleParticleSystem instance
         /// </summary>

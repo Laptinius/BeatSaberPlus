@@ -2,6 +2,7 @@
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using System.Reflection;
 
 namespace BeatSaberPlus_GameTweaker.Components
 {
@@ -66,13 +67,27 @@ namespace BeatSaberPlus_GameTweaker.Components
 
             try
             {
+                var l_BackButtonTransform      = GetPauseMenuButtonTransform(m_PauseMenuManager, "_backButton", "backButton");
+                var l_RestartButtonTransform   = GetPauseMenuButtonTransform(m_PauseMenuManager, "_restartButton", "restartButton");
+                var l_ContinueButtonTransform  = GetPauseMenuButtonTransform(m_PauseMenuManager, "_continueButton", "continueButton");
+
+                if (l_BackButtonTransform == null || l_RestartButtonTransform == null || l_ContinueButtonTransform == null)
+                    return;
+
+                var l_BackLocalized     = GetLocalizedLabel(l_BackButtonTransform);
+                var l_RestartLocalized  = GetLocalizedLabel(l_RestartButtonTransform);
+                var l_ContinueLocalized = GetLocalizedLabel(l_ContinueButtonTransform);
+
+                var l_BackText     = GetTextLabel(l_BackButtonTransform);
+                var l_RestartText  = GetTextLabel(l_RestartButtonTransform);
+                var l_ContinueText = GetTextLabel(l_ContinueButtonTransform);
+
                 /// Restore in case of not FPFC pause
                 if (m_FPFCPause && !m_PauseMenuManager.enabled)
                 {
-                    /// Enable localized
-                    m_PauseMenuManager._backButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = true;
-                    m_PauseMenuManager._restartButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = true;
-                    m_PauseMenuManager._continueButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = true;
+                    if (l_BackLocalized != null)     l_BackLocalized.enabled = true;
+                    if (l_RestartLocalized != null)  l_RestartLocalized.enabled = true;
+                    if (l_ContinueLocalized != null) l_ContinueLocalized.enabled = true;
 
                     m_FPFCPause = false;
                 }
@@ -85,39 +100,38 @@ namespace BeatSaberPlus_GameTweaker.Components
                     /// Should resume
                     if (Input.GetKeyDown(KeyCode.Escape))
                     {
-                        m_PauseMenuManager.ContinueButtonPressed();
+                        TryCallPauseMenu(m_PauseMenuManager, "ContinueButtonPressed", "ContinueButtonWasPressed", "HandleContinueButtonPressed");
                         l_ShouldRestore = true;
                     }
                     /// Menu button
                     else if (Input.GetKeyDown(KeyCode.M))
                     {
-                        m_PauseMenuManager.MenuButtonPressed();
+                        TryCallPauseMenu(m_PauseMenuManager, "MenuButtonPressed", "MenuButtonWasPressed", "HandleMenuButtonPressed");
                         l_ShouldRestore = true;
                     }
                     /// Restart button
                     else if (Input.GetKeyDown(KeyCode.R))
                     {
-                        m_PauseMenuManager.RestartButtonPressed();
+                        TryCallPauseMenu(m_PauseMenuManager, "RestartButtonPressed", "RestartButtonWasPressed", "HandleRestartButtonPressed");
                         l_ShouldRestore = true;
                     }
                     /// Continue button
                     else if (Input.GetKeyDown(KeyCode.C))
                     {
-                        m_PauseMenuManager.ContinueButtonPressed();
+                        TryCallPauseMenu(m_PauseMenuManager, "ContinueButtonPressed", "ContinueButtonWasPressed", "HandleContinueButtonPressed");
                         l_ShouldRestore = true;
                     }
 
                     if (l_ShouldRestore)
                     {
-                        /// Enable localized
-                        m_PauseMenuManager._backButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = true;
-                        m_PauseMenuManager._restartButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = true;
-                        m_PauseMenuManager._continueButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = true;
+                        if (l_BackLocalized != null)     l_BackLocalized.enabled = true;
+                        if (l_RestartLocalized != null)  l_RestartLocalized.enabled = true;
+                        if (l_ContinueLocalized != null) l_ContinueLocalized.enabled = true;
 
                         m_FPFCPause = false;
                     }
-                    else
-                        m_PauseMenuManager._backButton.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = m_BackButtonText;
+                    else if (l_BackText != null)
+                        l_BackText.text = m_BackButtonText;
                 }
                 /// Should pause
                 else if (!m_PauseMenuManager.enabled && Input.GetKeyDown(KeyCode.Escape))
@@ -126,27 +140,24 @@ namespace BeatSaberPlus_GameTweaker.Components
                     m_PauseController.Pause();
                     m_PauseMenuManager.ShowMenu();
 
-                    /// Disable localized
-                    m_PauseMenuManager._backButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = false;
-                    m_PauseMenuManager._restartButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = false;
-                    m_PauseMenuManager._continueButton.transform.GetChild(2).GetComponentInChildren<LocalizedTextMeshProUGUI>().enabled = false;
+                    if (l_BackLocalized != null)     l_BackLocalized.enabled = false;
+                    if (l_RestartLocalized != null)  l_RestartLocalized.enabled = false;
+                    if (l_ContinueLocalized != null) l_ContinueLocalized.enabled = false;
 
-                    /// Get buttons
-                    var l_BackButton     = m_PauseMenuManager._backButton.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
-                    var l_RestartButton  = m_PauseMenuManager._restartButton.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
-                    var l_ContinueButton = m_PauseMenuManager._continueButton.transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>();
+                    if (l_BackText == null || l_RestartText == null || l_ContinueText == null)
+                        return;
 
                     /// Enable rich text
-                    l_BackButton.richText       = true;
-                    l_RestartButton.richText    = true;
-                    l_ContinueButton.richText   = true;
+                    l_BackText.richText       = true;
+                    l_RestartText.richText    = true;
+                    l_ContinueText.richText   = true;
 
                     /// Update buttons
-                    l_BackButton.text       = "<color=\"red\"><b>[Key M]</b> <color=#FFFFFFBF>" + l_BackButton.text;
-                    l_RestartButton.text    = "<color=\"red\"><b>[Key R]</b> <color=#FFFFFFBF>" + l_RestartButton.text;
-                    l_ContinueButton.text   = "<color=\"red\"><b>[Key C]</b> <color=#FFFFFFBF>" + l_ContinueButton.text;
+                    l_BackText.text       = "<color=\"red\"><b>[Key M]</b> <color=#FFFFFFBF>" + l_BackText.text;
+                    l_RestartText.text    = "<color=\"red\"><b>[Key R]</b> <color=#FFFFFFBF>" + l_RestartText.text;
+                    l_ContinueText.text   = "<color=\"red\"><b>[Key C]</b> <color=#FFFFFFBF>" + l_ContinueText.text;
 
-                    m_BackButtonText = l_BackButton.text;
+                    m_BackButtonText = l_BackText.text;
                     m_FPFCPause      = true;
                 }
             }
@@ -154,6 +165,74 @@ namespace BeatSaberPlus_GameTweaker.Components
             {
 
             }
+        }
+
+        private static Transform GetPauseMenuButtonTransform(PauseMenuManager manager, params string[] names)
+        {
+            if (!TryGetMember(manager, out Object l_ButtonObj, names))
+                return null;
+
+            if (l_ButtonObj is GameObject l_GameObject)
+                return l_GameObject.transform;
+            if (l_ButtonObj is Component l_Component)
+                return l_Component.transform;
+
+            return null;
+        }
+
+        private static LocalizedTextMeshProUGUI GetLocalizedLabel(Transform buttonTransform)
+        {
+            return buttonTransform != null ? buttonTransform.GetComponentInChildren<LocalizedTextMeshProUGUI>(true) : null;
+        }
+
+        private static TextMeshProUGUI GetTextLabel(Transform buttonTransform)
+        {
+            return buttonTransform != null ? buttonTransform.GetComponentInChildren<TextMeshProUGUI>(true) : null;
+        }
+
+        private static void TryCallPauseMenu(PauseMenuManager manager, params string[] names)
+        {
+            if (manager == null)
+                return;
+
+            var l_Type = manager.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Method = l_Type.GetMethod(names[l_I], BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Method != null)
+                {
+                    l_Method.Invoke(manager, null);
+                    return;
+                }
+            }
+        }
+
+        private static bool TryGetMember<T>(object obj, out T value, params string[] names)
+        {
+            value = default;
+            if (obj == null)
+                return false;
+
+            var l_Type = obj.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Name = names[l_I];
+                var l_Field = l_Type.GetField(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Field != null && l_Field.GetValue(obj) is T l_FieldValue)
+                {
+                    value = l_FieldValue;
+                    return true;
+                }
+
+                var l_Prop = l_Type.GetProperty(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Prop != null && l_Prop.GetValue(obj) is T l_PropValue)
+                {
+                    value = l_PropValue;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

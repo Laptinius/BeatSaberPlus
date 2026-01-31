@@ -1,14 +1,20 @@
 ﻿using HarmonyLib;
 
+using System.Reflection;
+
 namespace BeatSaberPlus_GameTweaker.Patches
 {
     /// <summary>
     /// Cut ribbon remover
     /// </summary>
-    [HarmonyPatch(typeof(NoteCutCoreEffectsSpawner))]
-    [HarmonyPatch(nameof(NoteCutCoreEffectsSpawner.Start))]
-    public class PNoteCutCoreEffectsSpawner : NoteCutCoreEffectsSpawner
+[HarmonyPatch(typeof(NoteCutCoreEffectsSpawner))]
+public class PNoteCutCoreEffectsSpawner
+{
+    private static MethodBase TargetMethod()
     {
+        return AccessTools.Method(typeof(NoteCutCoreEffectsSpawner), "Start");
+    }
+
         /// <summary>
         /// NoteCutParticlesEffect instance
         /// </summary>

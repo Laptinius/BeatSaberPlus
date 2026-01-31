@@ -1,14 +1,20 @@
 ﻿using HarmonyLib;
 
+using System.Reflection;
+
 namespace BeatSaberPlus_GameTweaker.Patches
 {
     /// <summary>
     /// SaberBurnMarkSparkles remover
     /// </summary>
-    [HarmonyPatch(typeof(SaberBurnMarkSparkles))]
-    [HarmonyPatch(nameof(SaberBurnMarkSparkles.Start))]
-    public class PSaberBurnMarkSparkles : SaberBurnMarkSparkles
+[HarmonyPatch(typeof(SaberBurnMarkSparkles))]
+public class PSaberBurnMarkSparkles
+{
+    private static MethodBase TargetMethod()
     {
+        return AccessTools.Method(typeof(SaberBurnMarkSparkles), "Start");
+    }
+
         /// <summary>
         /// SaberBurnMarkSparkles instance
         /// </summary>

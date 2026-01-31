@@ -2,6 +2,7 @@ using CP_SDK.Chat.Interfaces;
 using System;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace ChatPlexMod_MenuMusic
@@ -71,8 +72,8 @@ namespace ChatPlexMod_MenuMusic
             /// Backup original settings
             if (m_PreviewPlayer != null)
             {
-                m_OriginalMenuMusic             = m_PreviewPlayer._defaultAudioClip;
-                m_OriginalAmbientVolumeScale    = m_PreviewPlayer._ambientVolumeScale;
+                m_OriginalMenuMusic             = PreviewPlayerAccess.GetDefaultAudioClip(m_PreviewPlayer);
+                m_OriginalAmbientVolumeScale    = PreviewPlayerAccess.GetAmbientVolumeScale(m_PreviewPlayer);
             }
 
             if (UpdateMusicProvider(true))
@@ -108,8 +109,8 @@ namespace ChatPlexMod_MenuMusic
             /// Restore original settings
             if (!m_WantsToQuit && m_PreviewPlayer != null && m_OriginalMenuMusic != null)
             {
-                m_PreviewPlayer._defaultAudioClip   = m_OriginalMenuMusic;
-                m_PreviewPlayer._ambientVolumeScale = m_OriginalAmbientVolumeScale;
+                PreviewPlayerAccess.SetDefaultAudioClip(m_PreviewPlayer, m_OriginalMenuMusic);
+                PreviewPlayerAccess.SetAmbientVolumeScale(m_PreviewPlayer, m_OriginalAmbientVolumeScale);
                 m_PreviewPlayer.CrossfadeToDefault();
             }
             else if (m_WantsToQuit && m_PreviewPlayer)
@@ -144,7 +145,7 @@ namespace ChatPlexMod_MenuMusic
             if (p_Scene != CP_SDK.EGenericScene.Menu)
             {
                 if (m_PreviewPlayer != null && m_PreviewPlayer && m_OriginalMenuMusic != null && m_OriginalMenuMusic)
-                    m_PreviewPlayer._defaultAudioClip = m_OriginalMenuMusic;
+                    PreviewPlayerAccess.SetDefaultAudioClip(m_PreviewPlayer, m_OriginalMenuMusic);
 
                 DestroyFloatingPlayer();
                 m_LastActiveScene = p_Scene;
@@ -155,8 +156,8 @@ namespace ChatPlexMod_MenuMusic
             if (MMConfig.Instance.ShowPlayer)
                 CreateFloatingPlayer();
 
-            m_PreviewPlayer._ambientVolumeScale = 0f;
-            m_PreviewPlayer._volumeScale        = 0f;
+            PreviewPlayerAccess.SetAmbientVolumeScale(m_PreviewPlayer, 0f);
+            PreviewPlayerAccess.SetVolumeScale(m_PreviewPlayer, 0f);
 
             /// Start a new music
             if (p_Scene != m_LastActiveScene && MMConfig.Instance.StartANewMusicOnSceneChange)
@@ -230,25 +231,27 @@ namespace ChatPlexMod_MenuMusic
 
             if (CP_SDK.ChatPlexSDK.GetModules().Any(x => x.Name == "Audio Tweaker"))
             {
-                var l_ChannelsController = m_PreviewPlayer._audioSourceControllers;
+                var l_ChannelsController = PreviewPlayerAccess.GetAudioSourceControllers(m_PreviewPlayer);
                 if (l_ChannelsController != null)
                 {
                     for (var l_I = 0; l_I < l_ChannelsController.Length; ++l_I)
                     {
-                        var l_ChannelController = l_ChannelsController[l_I];
-                        var l_Channel           = l_ChannelController.audioSource;
+                        var l_ChannelController = l_ChannelsController.GetValue(l_I);
+                        var l_Channel           = TryGetAudioSource(l_ChannelController);
+                        if (l_Channel == null)
+                            continue;
                         if (l_Channel.isPlaying && l_Channel.clip == m_CurrentMusicAudioClip)
                         {
-                            m_PreviewPlayer._ambientVolumeScale = 1.0f;
-                            m_PreviewPlayer._volumeScale        = 1.0f;
+                            PreviewPlayerAccess.SetAmbientVolumeScale(m_PreviewPlayer, 1.0f);
+                            PreviewPlayerAccess.SetVolumeScale(m_PreviewPlayer, 1.0f);
                         }
                     }
                 }
             }
             else
             {
-                m_PreviewPlayer._ambientVolumeScale = MMConfig.Instance.PlaybackVolume;
-                m_PreviewPlayer._volumeScale        = MMConfig.Instance.PlaybackVolume;
+                PreviewPlayerAccess.SetAmbientVolumeScale(m_PreviewPlayer, MMConfig.Instance.PlaybackVolume);
+                PreviewPlayerAccess.SetVolumeScale(m_PreviewPlayer, MMConfig.Instance.PlaybackVolume);
             }
 
             if (p_FromConfig && m_PlayerFloatingPanelView != null && m_PlayerFloatingPanelView)
@@ -517,7 +520,12 @@ namespace ChatPlexMod_MenuMusic
             if (p_OnSceneTransition)
             {
                 if (m_PreviewPlayer)
-                    m_PreviewPlayer.FadeOut(m_PreviewPlayer._crossFadeToDefaultSpeed);
+                {
+                    var l_CrossFadeSpeed = PreviewPlayerAccess.GetCrossFadeToDefaultSpeed(m_PreviewPlayer);
+                    if (l_CrossFadeSpeed <= 0f)
+                        l_CrossFadeSpeed = 1f;
+                    m_PreviewPlayer.FadeOut(l_CrossFadeSpeed);
+                }
 
                 yield return new WaitForSeconds(2f);
             }
@@ -554,14 +562,14 @@ namespace ChatPlexMod_MenuMusic
                             m_WaitAndPlayNextSongCoroutine = null;
                         }
 
-                        m_PreviewPlayer._defaultAudioClip = m_CurrentMusicAudioClip;
+                        PreviewPlayerAccess.SetDefaultAudioClip(m_PreviewPlayer, m_CurrentMusicAudioClip);
 
                         var l_Volume = MMConfig.Instance.PlaybackVolume;
                         if (CP_SDK.ChatPlexSDK.GetModules().Any(x => x.Name == "Audio Tweaker"))
                             l_Volume = 1.0f;
 
-                        m_PreviewPlayer._ambientVolumeScale = l_Volume;
-                        m_PreviewPlayer._volumeScale        = l_Volume;
+                        PreviewPlayerAccess.SetAmbientVolumeScale(m_PreviewPlayer, l_Volume);
+                        PreviewPlayerAccess.SetVolumeScale(m_PreviewPlayer, l_Volume);
 
                         float l_StartTime = (MMConfig.Instance.StartSongFromBeginning || m_CurrentMusicAudioClip.length < 60) ? 0f : Mathf.Max(UnityEngine.Random.Range(m_CurrentMusicAudioClip.length * 0.2f, m_CurrentMusicAudioClip.length * 0.8f), 0.0f);
 
@@ -619,18 +627,21 @@ namespace ChatPlexMod_MenuMusic
                     yield break;
                 }
 
-                var l_ChannelsController = m_PreviewPlayer._audioSourceControllers;
+                var l_ChannelsController = PreviewPlayerAccess.GetAudioSourceControllers(m_PreviewPlayer);
                 if (l_ChannelsController != null)
                 {
+                    var l_ActiveChannel = PreviewPlayerAccess.GetActiveChannelIndex(m_PreviewPlayer);
                     for (var l_I = 0; l_I < l_ChannelsController.Length; ++l_I)
                     {
-                        var l_ChannelController = l_ChannelsController[l_I];
-                        var l_Channel           = l_ChannelController.audioSource;
+                        var l_ChannelController = l_ChannelsController.GetValue(l_I);
+                        var l_Channel           = TryGetAudioSource(l_ChannelController);
+                        if (l_Channel == null)
+                            continue;
 
                         if (!m_IsPaused
                             && !l_Channel.isPlaying
                             && l_Channel.clip == m_CurrentMusicAudioClip
-                            && Array.IndexOf(l_ChannelsController, l_ChannelController) == m_PreviewPlayer._activeChannel)
+                            && (l_ActiveChannel < 0 || Array.IndexOf(l_ChannelsController, l_ChannelController) == l_ActiveChannel))
                         {
                             l_Channel.UnPause();
                         }
@@ -655,8 +666,8 @@ namespace ChatPlexMod_MenuMusic
                                 if (CP_SDK.ChatPlexSDK.GetModules().Any(x => x.Name == "Audio Tweaker"))
                                     l_Volume = 1.0f;
 
-                                m_PreviewPlayer._ambientVolumeScale = l_Volume;
-                                m_PreviewPlayer._volumeScale        = l_Volume;
+                                PreviewPlayerAccess.SetAmbientVolumeScale(m_PreviewPlayer, l_Volume);
+                                PreviewPlayerAccess.SetVolumeScale(m_PreviewPlayer, l_Volume);
                             }
 
                             if (Mathf.Abs(p_EndTime - l_Channel.time) < (MMConfig.Instance.LoopCurrentMusic ? l_Interval : 3f))
@@ -680,6 +691,196 @@ namespace ChatPlexMod_MenuMusic
                 yield return l_Waiter;
 
             } while (true);
+        }
+
+        ////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////
+
+        private static AudioSource TryGetAudioSource(object p_Controller)
+        {
+            if (p_Controller == null)
+                return null;
+
+            var l_Type = p_Controller.GetType();
+            var l_Field = l_Type.GetField("audioSource", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (l_Field != null)
+                return l_Field.GetValue(p_Controller) as AudioSource;
+
+            var l_Property = l_Type.GetProperty("audioSource", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            return l_Property?.GetValue(p_Controller) as AudioSource;
+        }
+
+        private static class PreviewPlayerAccess
+        {
+            private const BindingFlags k_BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            private static bool s_Initialized;
+            private static FieldInfo s_DefaultAudioClipField;
+            private static PropertyInfo s_DefaultAudioClipProperty;
+            private static FieldInfo s_AmbientVolumeScaleField;
+            private static PropertyInfo s_AmbientVolumeScaleProperty;
+            private static FieldInfo s_VolumeScaleField;
+            private static PropertyInfo s_VolumeScaleProperty;
+            private static FieldInfo s_AudioSourceControllersField;
+            private static PropertyInfo s_AudioSourceControllersProperty;
+            private static FieldInfo s_ActiveChannelField;
+            private static PropertyInfo s_ActiveChannelProperty;
+            private static FieldInfo s_CrossFadeToDefaultSpeedField;
+            private static PropertyInfo s_CrossFadeToDefaultSpeedProperty;
+
+            internal static AudioClip GetDefaultAudioClip(SongPreviewPlayer p_Player)
+            {
+                if (!TryInit(p_Player))
+                    return null;
+
+                return GetValue<AudioClip>(p_Player, s_DefaultAudioClipField, s_DefaultAudioClipProperty);
+            }
+
+            internal static void SetDefaultAudioClip(SongPreviewPlayer p_Player, AudioClip p_Value)
+            {
+                if (!TryInit(p_Player))
+                    return;
+
+                SetValue(p_Player, s_DefaultAudioClipField, s_DefaultAudioClipProperty, p_Value);
+            }
+
+            internal static float GetAmbientVolumeScale(SongPreviewPlayer p_Player)
+                => GetValue<float>(p_Player, s_AmbientVolumeScaleField, s_AmbientVolumeScaleProperty);
+
+            internal static void SetAmbientVolumeScale(SongPreviewPlayer p_Player, float p_Value)
+                => SetValue(p_Player, s_AmbientVolumeScaleField, s_AmbientVolumeScaleProperty, p_Value);
+
+            internal static float GetVolumeScale(SongPreviewPlayer p_Player)
+                => GetValue<float>(p_Player, s_VolumeScaleField, s_VolumeScaleProperty);
+
+            internal static void SetVolumeScale(SongPreviewPlayer p_Player, float p_Value)
+                => SetValue(p_Player, s_VolumeScaleField, s_VolumeScaleProperty, p_Value);
+
+            internal static Array GetAudioSourceControllers(SongPreviewPlayer p_Player)
+                => GetValue<Array>(p_Player, s_AudioSourceControllersField, s_AudioSourceControllersProperty);
+
+            internal static int GetActiveChannelIndex(SongPreviewPlayer p_Player)
+            {
+                if (!TryInit(p_Player))
+                    return -1;
+
+                if (TryGetValue(p_Player, s_ActiveChannelField, s_ActiveChannelProperty, out int l_Value))
+                    return l_Value;
+
+                return -1;
+            }
+
+            internal static float GetCrossFadeToDefaultSpeed(SongPreviewPlayer p_Player)
+            {
+                if (!TryInit(p_Player))
+                    return 0f;
+
+                if (TryGetValue(p_Player, s_CrossFadeToDefaultSpeedField, s_CrossFadeToDefaultSpeedProperty, out float l_Value))
+                    return l_Value;
+
+                return 0f;
+            }
+
+            private static bool TryInit(SongPreviewPlayer p_Player)
+            {
+                if (s_Initialized || p_Player == null)
+                    return s_Initialized;
+
+                var l_Type = p_Player.GetType();
+
+                s_DefaultAudioClipField          = FindField(l_Type, "_defaultAudioClip", "defaultAudioClip");
+                s_DefaultAudioClipProperty       = FindProperty(l_Type, "defaultAudioClip");
+                s_AmbientVolumeScaleField        = FindField(l_Type, "_ambientVolumeScale", "ambientVolumeScale");
+                s_AmbientVolumeScaleProperty     = FindProperty(l_Type, "ambientVolumeScale");
+                s_VolumeScaleField               = FindField(l_Type, "_volumeScale", "volumeScale");
+                s_VolumeScaleProperty            = FindProperty(l_Type, "volumeScale");
+                s_AudioSourceControllersField    = FindField(l_Type, "_audioSourceControllers", "audioSourceControllers");
+                s_AudioSourceControllersProperty = FindProperty(l_Type, "audioSourceControllers");
+                s_ActiveChannelField             = FindField(l_Type, "_activeChannel", "activeChannel");
+                s_ActiveChannelProperty          = FindProperty(l_Type, "activeChannel");
+                s_CrossFadeToDefaultSpeedField   = FindField(l_Type, "_crossFadeToDefaultSpeed", "crossFadeToDefaultSpeed");
+                s_CrossFadeToDefaultSpeedProperty= FindProperty(l_Type, "crossFadeToDefaultSpeed");
+
+                s_Initialized = true;
+                return true;
+            }
+
+            private static FieldInfo FindField(Type p_Type, params string[] p_Names)
+            {
+                foreach (var l_Name in p_Names)
+                {
+                    var l_Field = p_Type.GetField(l_Name, k_BindingFlags);
+                    if (l_Field != null)
+                        return l_Field;
+                }
+
+                return null;
+            }
+
+            private static PropertyInfo FindProperty(Type p_Type, params string[] p_Names)
+            {
+                foreach (var l_Name in p_Names)
+                {
+                    var l_Property = p_Type.GetProperty(l_Name, k_BindingFlags);
+                    if (l_Property != null)
+                        return l_Property;
+                }
+
+                return null;
+            }
+
+            private static T GetValue<T>(SongPreviewPlayer p_Player, FieldInfo p_Field, PropertyInfo p_Property)
+            {
+                if (!TryInit(p_Player))
+                    return default;
+
+                if (TryGetValue(p_Player, p_Field, p_Property, out T l_Value))
+                    return l_Value;
+
+                return default;
+            }
+
+            private static bool TryGetValue<T>(SongPreviewPlayer p_Player, FieldInfo p_Field, PropertyInfo p_Property, out T p_Value)
+            {
+                p_Value = default;
+
+                if (p_Field != null)
+                {
+                    var l_Value = p_Field.GetValue(p_Player);
+                    if (l_Value is T l_Cast)
+                    {
+                        p_Value = l_Cast;
+                        return true;
+                    }
+                }
+
+                if (p_Property != null)
+                {
+                    var l_Value = p_Property.GetValue(p_Player);
+                    if (l_Value is T l_Cast)
+                    {
+                        p_Value = l_Cast;
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            private static void SetValue<T>(SongPreviewPlayer p_Player, FieldInfo p_Field, PropertyInfo p_Property, T p_Value)
+            {
+                if (!TryInit(p_Player))
+                    return;
+
+                if (p_Field != null)
+                {
+                    p_Field.SetValue(p_Player, p_Value);
+                    return;
+                }
+
+                if (p_Property != null && p_Property.CanWrite)
+                    p_Property.SetValue(p_Player, p_Value);
+            }
         }
     }
 }

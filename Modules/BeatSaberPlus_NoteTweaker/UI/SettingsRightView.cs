@@ -2,6 +2,7 @@
 using CP_SDK.XUI;
 using IPA.Utilities;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace BeatSaberPlus_NoteTweaker.UI
@@ -66,30 +67,64 @@ namespace BeatSaberPlus_NoteTweaker.UI
 
             GameObject.DontDestroyOnLoad(m_Parent);
 
-            var l_MenuTransitionsHelper                  = Resources.FindObjectsOfTypeAll<MenuTransitionsHelper>().FirstOrDefault();
-            var l_StandardLevelScenesTransitionSetupData = l_MenuTransitionsHelper._standardLevelScenesTransitionSetupData;
-            var l_StandardGameplaySceneInfo              = l_StandardLevelScenesTransitionSetupData._standardGameplaySceneInfo;
-            var l_GameCoreSceneInfo                      = l_StandardLevelScenesTransitionSetupData._gameCoreSceneInfo;
+            var l_MenuTransitionsHelper = Resources.FindObjectsOfTypeAll<MenuTransitionsHelper>().FirstOrDefault();
+            if (l_MenuTransitionsHelper == null)
+                return;
 
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(l_GameCoreSceneInfo.sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive).completed += (_) =>
+            if (!TryGetMember(l_MenuTransitionsHelper, out StandardLevelScenesTransitionSetupDataSO l_StandardLevelScenesTransitionSetupData,
+                              "_standardLevelScenesTransitionSetupData", "standardLevelScenesTransitionSetupData"))
+                return;
+
+            if (!TryGetMember(l_StandardLevelScenesTransitionSetupData, out object l_StandardGameplaySceneInfo,
+                              "_standardGameplaySceneInfo", "standardGameplaySceneInfo"))
+                return;
+
+            if (!TryGetMember(l_StandardLevelScenesTransitionSetupData, out object l_GameCoreSceneInfo,
+                              "_gameCoreSceneInfo", "gameCoreSceneInfo"))
+                return;
+
+            if (!TryGetMember(l_StandardGameplaySceneInfo, out string l_StandardGameplaySceneName, "sceneName", "_sceneName"))
+                return;
+
+            if (!TryGetMember(l_GameCoreSceneInfo, out string l_GameCoreSceneName, "sceneName", "_sceneName"))
+                return;
+
+            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(l_GameCoreSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive).completed += (_) =>
             {
-                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(l_StandardGameplaySceneInfo.sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive).completed += (__) =>
+                UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(l_StandardGameplaySceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive).completed += (__) =>
                 {
-                    var l_BeatmapObjectsInstaller   = Resources.FindObjectsOfTypeAll<BeatmapObjectsInstaller>().FirstOrDefault();
-                    var l_OriginalNotePrefab        = l_BeatmapObjectsInstaller._normalBasicNotePrefab;
+                    var l_BeatmapObjectsInstaller = Resources.FindObjectsOfTypeAll<BeatmapObjectsInstaller>().FirstOrDefault();
+                    if (l_BeatmapObjectsInstaller == null)
+                        return;
+
+                    var l_OriginalNotePrefabObj = GetPrefabMember(l_BeatmapObjectsInstaller,
+                                                                  "_normalBasicNotePrefab", "normalBasicNotePrefab", "basicNotePrefab", "notePrefab");
+                    var l_OriginalNotePrefab = GetPrefabRoot(l_OriginalNotePrefabObj);
+                    if (l_OriginalNotePrefab == null || l_OriginalNotePrefab.transform.childCount == 0)
+                        return;
 
                     m_NoteTemplate = GameObject.Instantiate(l_OriginalNotePrefab.transform.GetChild(0).gameObject);
                     m_NoteTemplate.gameObject.SetActive(false);
 
                     GameObject.DontDestroyOnLoad(m_NoteTemplate);
 
-                    var l_OriginalBombPrefab = l_BeatmapObjectsInstaller._bombNotePrefab;
+                    var l_OriginalBombPrefabObj = GetPrefabMember(l_BeatmapObjectsInstaller,
+                                                                  "_bombNotePrefab", "bombNotePrefab", "bombPrefab");
+                    var l_OriginalBombPrefab = GetPrefabRoot(l_OriginalBombPrefabObj);
+                    if (l_OriginalBombPrefab == null || l_OriginalBombPrefab.transform.childCount == 0)
+                        return;
+
                     m_BombTemplate = GameObject.Instantiate(l_OriginalBombPrefab.transform.GetChild(0).gameObject);
                     m_BombTemplate.gameObject.SetActive(false);
 
                     GameObject.DontDestroyOnLoad(m_BombTemplate);
 
-                    var l_OriginalBurstSliderPrefab = l_BeatmapObjectsInstaller._burstSliderNotePrefab;
+                    var l_OriginalBurstSliderPrefabObj = GetPrefabMember(l_BeatmapObjectsInstaller,
+                                                                         "_burstSliderNotePrefab", "burstSliderNotePrefab", "burstSliderPrefab");
+                    var l_OriginalBurstSliderPrefab = GetPrefabRoot(l_OriginalBurstSliderPrefabObj);
+                    if (l_OriginalBurstSliderPrefab == null || l_OriginalBurstSliderPrefab.transform.childCount == 0)
+                        return;
+
                     m_BurstSliderTemplate = GameObject.Instantiate(l_OriginalBurstSliderPrefab.transform.GetChild(0).gameObject);
                     m_BurstSliderTemplate.gameObject.SetActive(false);
 
@@ -97,8 +132,8 @@ namespace BeatSaberPlus_NoteTweaker.UI
 
                     CreatePreview(m_NoteTemplate, m_BombTemplate, m_BurstSliderTemplate);
 
-                    UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(l_StandardGameplaySceneInfo.sceneName);
-                    UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(l_GameCoreSceneInfo.sceneName);
+                    UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(l_StandardGameplaySceneName);
+                    UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(l_GameCoreSceneName);
                 };
             };
         }
@@ -496,6 +531,49 @@ namespace BeatSaberPlus_NoteTweaker.UI
         private void PatchBomb(GameObject p_Object, Color p_Color)
         {
             p_Object.GetComponent<Renderer>().material.SetColor("_SimpleColor", p_Color);
+        }
+
+        private static bool TryGetMember<T>(object obj, out T value, params string[] names)
+        {
+            value = default;
+            if (obj == null)
+                return false;
+
+            var l_Type = obj.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Name = names[l_I];
+                var l_Field = l_Type.GetField(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Field != null && l_Field.GetValue(obj) is T l_FieldValue)
+                {
+                    value = l_FieldValue;
+                    return true;
+                }
+
+                var l_Prop = l_Type.GetProperty(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Prop != null && l_Prop.GetValue(obj) is T l_PropValue)
+                {
+                    value = l_PropValue;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static Object GetPrefabMember(object obj, params string[] names)
+        {
+            return TryGetMember(obj, out Object l_Value, names) ? l_Value : null;
+        }
+
+        private static GameObject GetPrefabRoot(Object prefab)
+        {
+            if (prefab is GameObject l_GameObject)
+                return l_GameObject;
+            if (prefab is Component l_Component)
+                return l_Component.gameObject;
+
+            return null;
         }
     }
 }

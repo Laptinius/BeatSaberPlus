@@ -18,6 +18,7 @@
     <ReferencePath>$(SolutionDir)Refs</ReferencePath>
     <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
     <PathMap>$(AppOutputBase)=X:\$(AssemblyName)\</PathMap>
+    <DisableZipRelease>True</DisableZipRelease>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

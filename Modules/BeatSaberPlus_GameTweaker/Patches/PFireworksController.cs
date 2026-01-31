@@ -1,14 +1,20 @@
 ﻿using HarmonyLib;
 
+using System.Reflection;
+
 namespace BeatSaberPlus_GameTweaker.Patches
 {
     /// <summary>
     /// FireworksController disabler
     /// </summary>
-    [HarmonyPatch(typeof(FireworksController))]
-    [HarmonyPatch(nameof(FireworksController.OnEnable))]
-    public class PFireworksController : FireworksController
+[HarmonyPatch(typeof(FireworksController))]
+public class PFireworksController
+{
+    private static MethodBase TargetMethod()
     {
+        return AccessTools.Method(typeof(FireworksController), "OnEnable");
+    }
+
         /// <summary>
         /// Prefix
         /// </summary>

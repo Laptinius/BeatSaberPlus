@@ -1,14 +1,20 @@
 ﻿using HarmonyLib;
 
+using System.Reflection;
+
 namespace BeatSaberPlus_GameTweaker.Patches
 {
     /// <summary>
     /// ObstacleSaberSparkleEffect remover
     /// </summary>
-    [HarmonyPatch(typeof(ObstacleSaberSparkleEffectManager))]
-    [HarmonyPatch(nameof(ObstacleSaberSparkleEffectManager.Start))]
-    public class PObstacleSaberSparkleEffectManager : ObstacleSaberSparkleEffect
+[HarmonyPatch(typeof(ObstacleSaberSparkleEffectManager))]
+public class PObstacleSaberSparkleEffectManager
+{
+    private static MethodBase TargetMethod()
     {
+        return AccessTools.Method(typeof(ObstacleSaberSparkleEffectManager), "Start");
+    }
+
         /// <summary>
         /// ObstacleSaberSparkleEffect instances
         /// </summary>

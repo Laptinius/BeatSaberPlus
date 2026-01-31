@@ -4,6 +4,7 @@ using IPA.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
@@ -637,7 +638,8 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         l_NewValue = l_EventInput;
                     }
 
-                    l_AudioTimeSyncController._audioSource.volume = l_NewValue;
+                    if (BeatSaberReflection.TryGetMember(l_AudioTimeSyncController, out AudioSource l_AudioSource, "_audioSource", "audioSource"))
+                        l_AudioSource.volume = l_NewValue;
 
                     if (Model.SendChatMessage && p_Context.ChatService != null && p_Context.Channel != null && p_Context.User != null)
                         p_Context.ChatService.SendTextMessage(p_Context.Channel, $"! @{p_Context.User.DisplayName} гучність музики встановлено на {Mathf.RoundToInt(l_NewValue * 100f)}%");
@@ -1150,7 +1152,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                 {
                     var l_PauseMenuManager = Resources.FindObjectsOfTypeAll<PauseMenuManager>().FirstOrDefault();
                     if (l_PauseMenuManager != null && l_PauseMenuManager)
-                        l_PauseMenuManager.MenuButtonPressed();
+                        BeatSaberReflection.TryCall(l_PauseMenuManager, "MenuButtonPressed", "MenuButtonWasPressed", "HandleMenuButtonPressed");
                 }
             }
             else
@@ -1183,7 +1185,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                 {
                     var l_PauseMenuManager = Resources.FindObjectsOfTypeAll<PauseMenuManager>().FirstOrDefault();
                     if (l_PauseMenuManager != null && l_PauseMenuManager)
-                        l_PauseMenuManager.RestartButtonPressed();
+                        BeatSaberReflection.TryCall(l_PauseMenuManager, "RestartButtonPressed", "RestartButtonWasPressed", "HandleRestartButtonPressed");
                 }
             }
             else
@@ -1216,7 +1218,7 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                 {
                     var l_PauseMenuManager = Resources.FindObjectsOfTypeAll<PauseMenuManager>().FirstOrDefault();
                     if (l_PauseMenuManager != null && l_PauseMenuManager)
-                        l_PauseMenuManager.ContinueButtonPressed();
+                        BeatSaberReflection.TryCall(l_PauseMenuManager, "ContinueButtonPressed", "ContinueButtonWasPressed", "HandleContinueButtonPressed");
                 }
             }
             else
@@ -1352,14 +1354,14 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         for (int l_S = 0; l_S < l_SpawnList.Count; ++l_S)
                         {
                             var l_Current = l_SpawnList[l_S];
-                            l_BeatmapObjectSpawnController.HandleNoteDataCallback(NoteData.CreateBombNoteData(
+                            var l_NoteData = NoteData.CreateBombNoteData(
                                 l_AudioTimeSyncController.songTime + l_Time,
                                 0.0f /* TODO */,
                                 0,
                                 l_Current.Item1,
                                 (NoteLineLayer)l_Current.Item2
-                                )
                             );
+                            BeatSaberReflection.TryCall(l_BeatmapObjectSpawnController, new object[] { l_NoteData }, "HandleNoteDataCallback", "HandleNoteData");
                         }
 
                         l_Time += Model.Interval;
@@ -1442,9 +1444,10 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                     float l_Time = 2f;
                     for (int l_I = 0; l_I < Model.Count; ++l_I)
                     {
-                        l_BeatmapObjectSpawnController.HandleObstacleDataCallback(new ObstacleData(
+                        var l_ObstacleData = new ObstacleData(
                             l_AudioTimeSyncController.songTime + l_Time, 0.0f /* TODO */, 0.0f /* TODO */, 0, 4, NoteLineLayer.Top, 0.3f, -4, 3
-                        ));
+                        );
+                        BeatSaberReflection.TryCall(l_BeatmapObjectSpawnController, new object[] { l_ObstacleData }, "HandleObstacleDataCallback", "HandleObstacleData");
                         l_Time += Model.Interval;
                     }
                 }
@@ -1524,21 +1527,21 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Toggle:
                             if (l_NoteCutScoreSpawner.gameObject.activeSelf)
                             {
-                                l_NoteCutScoreSpawner.OnDestroy();
+                                BeatSaberReflection.TryCall(l_NoteCutScoreSpawner, "OnDestroy");
                                 l_NoteCutScoreSpawner.gameObject.SetActive(false);
                             }
                             else
                             {
                                 l_NoteCutScoreSpawner.gameObject.SetActive(true);
-                                l_NoteCutScoreSpawner.Start();
+                                BeatSaberReflection.TryCall(l_NoteCutScoreSpawner, "Start");
                             }
                             break;
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Enable:
                             l_NoteCutScoreSpawner.gameObject.SetActive(true);
-                            l_NoteCutScoreSpawner.Start();
+                            BeatSaberReflection.TryCall(l_NoteCutScoreSpawner, "Start");
                             break;
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Disable:
-                            l_NoteCutScoreSpawner.OnDestroy();
+                            BeatSaberReflection.TryCall(l_NoteCutScoreSpawner, "OnDestroy");
                             l_NoteCutScoreSpawner.gameObject.SetActive(false);
                             break;
                     }
@@ -1552,21 +1555,21 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Toggle:
                             if (l_BadNoteCutEffectSpawner.gameObject.activeSelf)
                             {
-                                l_BadNoteCutEffectSpawner.OnDestroy();
+                                BeatSaberReflection.TryCall(l_BadNoteCutEffectSpawner, "OnDestroy");
                                 l_BadNoteCutEffectSpawner.gameObject.SetActive(false);
                             }
                             else
                             {
                                 l_BadNoteCutEffectSpawner.gameObject.SetActive(true);
-                                l_BadNoteCutEffectSpawner.Start();
+                                BeatSaberReflection.TryCall(l_BadNoteCutEffectSpawner, "Start");
                             }
                             break;
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Enable:
                             l_BadNoteCutEffectSpawner.gameObject.SetActive(true);
-                            l_BadNoteCutEffectSpawner.Start();
+                            BeatSaberReflection.TryCall(l_BadNoteCutEffectSpawner, "Start");
                             break;
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Disable:
-                            l_BadNoteCutEffectSpawner.OnDestroy();
+                            BeatSaberReflection.TryCall(l_BadNoteCutEffectSpawner, "OnDestroy");
                             l_BadNoteCutEffectSpawner.gameObject.SetActive(false);
                             break;
                     }
@@ -1580,21 +1583,21 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Toggle:
                             if (l_MissedNoteEffectSpawner.gameObject.activeSelf)
                             {
-                                l_MissedNoteEffectSpawner.OnDestroy();
+                                BeatSaberReflection.TryCall(l_MissedNoteEffectSpawner, "OnDestroy");
                                 l_MissedNoteEffectSpawner.gameObject.SetActive(false);
                             }
                             else
                             {
                                 l_MissedNoteEffectSpawner.gameObject.SetActive(true);
-                                l_MissedNoteEffectSpawner.Start();
+                                BeatSaberReflection.TryCall(l_MissedNoteEffectSpawner, "Start");
                             }
                             break;
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Enable:
                             l_MissedNoteEffectSpawner.gameObject.SetActive(true);
-                            l_MissedNoteEffectSpawner.Start();
+                            BeatSaberReflection.TryCall(l_MissedNoteEffectSpawner, "Start");
                             break;
                         case ChatPlexMod_ChatIntegrations.Enums.Toggle.E.Disable:
-                            l_MissedNoteEffectSpawner.OnDestroy();
+                            BeatSaberReflection.TryCall(l_MissedNoteEffectSpawner, "OnDestroy");
                             l_MissedNoteEffectSpawner.gameObject.SetActive(false);
                             break;
                     }
@@ -1604,6 +1607,71 @@ namespace BeatSaberPlus_ChatIntegrations.BeatSaber.Actions
                 p_Context.HasActionFailed = true;
 
             yield return null;
+        }
+    }
+
+    internal static class BeatSaberReflection
+    {
+        internal static bool TryGetMember<T>(object obj, out T value, params string[] names)
+        {
+            value = default;
+            if (obj == null)
+                return false;
+
+            var l_Type = obj.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Name = names[l_I];
+                var l_Field = l_Type.GetField(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Field != null && l_Field.GetValue(obj) is T l_FieldValue)
+                {
+                    value = l_FieldValue;
+                    return true;
+                }
+
+                var l_Prop = l_Type.GetProperty(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Prop != null && l_Prop.GetValue(obj) is T l_PropValue)
+                {
+                    value = l_PropValue;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        internal static void TryCall(object obj, params string[] names)
+        {
+            if (obj == null)
+                return;
+
+            var l_Type = obj.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Method = l_Type.GetMethod(names[l_I], BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Method != null)
+                {
+                    l_Method.Invoke(obj, null);
+                    return;
+                }
+            }
+        }
+
+        internal static void TryCall(object obj, object[] args, params string[] names)
+        {
+            if (obj == null)
+                return;
+
+            var l_Type = obj.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Method = l_Type.GetMethod(names[l_I], BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Method != null)
+                {
+                    l_Method.Invoke(obj, args);
+                    return;
+                }
+            }
         }
     }
 }

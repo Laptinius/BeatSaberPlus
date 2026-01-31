@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,6 +57,10 @@ namespace ChatPlexMod_Chat
         private Button      m_ModerationButton      = null;
 
         private CP_SDK.Misc.RingBuffer<(IChatService, IChatUser)>   m_LastChatUsers     = null;
+
+#if BEATSABER
+        private static readonly FieldInfo s_ImageViewSkewField = typeof(HMUI.ImageView).GetField("_skew", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+#endif
 
         ////////////////////////////////////////////////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////
@@ -308,7 +313,10 @@ namespace ChatPlexMod_Chat
             var l_Images = m_ModerationButton.GetComponentsInChildren<HMUI.ImageView>();
             foreach (var l_Image in l_Images)
             {
-                l_Image._skew = 0f;
+#if BEATSABER
+                if (s_ImageViewSkewField != null)
+                    s_ImageViewSkewField.SetValue(l_Image, 0f);
+#endif
                 l_Image.SetAllDirty();
             }
 

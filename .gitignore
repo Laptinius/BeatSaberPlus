@@ -4,6 +4,8 @@ packages/
 BeatSaberPlus/obj/
 BeatSaberPlus/bin/
 
+build/
+
 Modules/BeatSaberPlus_Chat/obj/
 Modules/BeatSaberPlus_Chat/bin/
 Modules/BeatSaberPlus_ChatEmoteRain/obj/
@@ -72,3 +74,5 @@ ChatEmoteRainUnity/[Aa]ssets/Plugins/Editor/JetBrains*
 
 *.user
 *.tmp
+# Local junction to submodule path expected by the solution
+ChatPlexSDK_BS/

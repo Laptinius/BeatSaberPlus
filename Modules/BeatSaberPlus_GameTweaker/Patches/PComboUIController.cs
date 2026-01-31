@@ -1,14 +1,21 @@
 ﻿using HarmonyLib;
 
+using System.Reflection;
+
 namespace BeatSaberPlus_GameTweaker.Patches
 {
     /// <summary>
     /// ComboUIController full combo loss animation remover
     /// </summary>
-    [HarmonyPatch(typeof(ComboUIController))]
-    [HarmonyPatch(nameof(ComboUIController.HandleComboBreakingEventHappened))]
-    public class PComboUIController : ComboUIController
+[HarmonyPatch(typeof(ComboUIController))]
+public class PComboUIController
+{
+    private static MethodBase TargetMethod()
     {
+        return AccessTools.Method(typeof(ComboUIController), "HandleComboBreakingEventHappened")
+            ?? AccessTools.Method(typeof(ComboUIController), "HandleComboBreakingEvent");
+    }
+
         /// <summary>
         /// Prefix
         /// </summary>

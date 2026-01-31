@@ -12,6 +12,8 @@ namespace BeatSaberPlus_NoteTweaker.Patches
     [HarmonyPatch(nameof(ColorNoteVisuals.HandleNoteControllerDidInit))]
     public class PColorNoteVisuals : ColorNoteVisuals
     {
+        private static readonly int s_ColorId = Shader.PropertyToID("_Color");
+
         private static ColorManager m_ColorManager;
 
         private static bool     m_Enabled               = false;
@@ -66,7 +68,7 @@ namespace BeatSaberPlus_NoteTweaker.Patches
                 var l_Color = l_ColorType == ColorType.ColorA ? m_LeftBlockColor : m_RightBlockColor;
                 foreach (var l_Block in ____materialPropertyBlockControllers)
                 {
-                    l_Block.materialPropertyBlock.SetColor(_colorId, l_Color);
+                    l_Block.materialPropertyBlock.SetColor(s_ColorId, l_Color);
                     l_Block.ApplyChanges();
                 }
 
@@ -82,7 +84,7 @@ namespace BeatSaberPlus_NoteTweaker.Patches
                             for (int l_MBI = 0; l_MBI < m_ComponentsCache.Count; ++l_MBI)
                             {
                                 var l_CurrentBlock = m_ComponentsCache[l_MBI];
-                                l_CurrentBlock.materialPropertyBlock.SetColor(_colorId, ColorU.WithAlpha(l_Color, 0.6f));
+                                l_CurrentBlock.materialPropertyBlock.SetColor(s_ColorId, ColorU.WithAlpha(l_Color, 0.6f));
                                 l_CurrentBlock.ApplyChanges();
                             }
                         }
@@ -120,7 +122,7 @@ namespace BeatSaberPlus_NoteTweaker.Patches
                     for (int l_MBI = 0; l_MBI < m_ComponentsCache.Count; ++l_MBI)
                     {
                         var l_CurrentBlock = m_ComponentsCache[l_MBI];
-                        l_CurrentBlock.materialPropertyBlock.SetColor(_colorId, l_ArrowColor);
+                        l_CurrentBlock.materialPropertyBlock.SetColor(s_ColorId, l_ArrowColor);
                         l_CurrentBlock.ApplyChanges();
                     }
                 }
@@ -139,7 +141,7 @@ namespace BeatSaberPlus_NoteTweaker.Patches
                 for (int l_MBI = 0; l_MBI < m_ComponentsCache.Count; ++l_MBI)
                 {
                     var l_CurrentBlock = m_ComponentsCache[l_MBI];
-                    l_CurrentBlock.materialPropertyBlock.SetColor(_colorId, l_DotColor);
+                    l_CurrentBlock.materialPropertyBlock.SetColor(s_ColorId, l_DotColor);
                     l_CurrentBlock.ApplyChanges();
                 }
             }

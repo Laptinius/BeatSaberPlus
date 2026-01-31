@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 using UnityEngine;
+using System.Reflection;
 
 namespace BeatSaberPlus_GameTweaker.Managers
 {
@@ -103,11 +104,7 @@ namespace BeatSaberPlus_GameTweaker.Managers
             try
             {
                 if (m_MenuLightsManager && m_DefaultPreset)
-                {
-                    m_MenuLightsManager._preset = m_DefaultPreset;
-                    m_MenuLightsManager.enabled = true;
-                    m_MenuLightsManager.RefreshColors();
-                }
+                    SetMenuLightsPreset(m_DefaultPreset);
             }
             catch
             {
@@ -125,11 +122,7 @@ namespace BeatSaberPlus_GameTweaker.Managers
             try
             {
 	            if (m_MenuLightsManager && m_DefaultPreset)
-                {
-                    m_MenuLightsManager._preset = m_DefaultPreset;
-                    m_MenuLightsManager.enabled = true;
-                    m_MenuLightsManager.RefreshColors();
-                }
+                    SetMenuLightsPreset(m_DefaultPreset);
             }
             catch
             {
@@ -147,11 +140,7 @@ namespace BeatSaberPlus_GameTweaker.Managers
             try
             {
                 if (m_MenuLightsManager && m_LevelClearedPreset)
-                {
-                    m_MenuLightsManager._preset = m_LevelClearedPreset;
-                    m_MenuLightsManager.enabled = true;
-                    m_MenuLightsManager.RefreshColors();
-                }
+                    SetMenuLightsPreset(m_LevelClearedPreset);
             }
             catch
             {
@@ -169,11 +158,7 @@ namespace BeatSaberPlus_GameTweaker.Managers
             try
             {
                 if (m_MenuLightsManager && m_LevelFailedPreset)
-                {
-                    m_MenuLightsManager._preset = m_LevelFailedPreset;
-                    m_MenuLightsManager.enabled = true;
-                    m_MenuLightsManager.RefreshColors();
-                }
+                    SetMenuLightsPreset(m_LevelFailedPreset);
             }
             catch
             {
@@ -193,19 +178,23 @@ namespace BeatSaberPlus_GameTweaker.Managers
             yield return new WaitUntil(() => GameObject.FindObjectOfType<MenuLightsManager>());
             m_MenuLightsManager = GameObject.FindObjectOfType<MenuLightsManager>();
 
-            m_DefaultPreset         = m_MenuLightsManager._defaultPreset;
-            m_DefaultPresetBackup   = m_DefaultPreset.lightIdColorPairs.Select(x => (x.intensity, x.baseColor)).ToArray();
+            if (!TryGetMember(m_MenuLightsManager, out m_DefaultPreset, "_defaultPreset", "defaultPreset"))
+                yield break;
+
+            m_DefaultPresetBackup = m_DefaultPreset.lightIdColorPairs.Select(x => (x.intensity, x.baseColor)).ToArray();
 
             UpdateFromConfig();
 
             yield return new WaitUntil(() => GameObject.FindObjectOfType<SoloFreePlayFlowCoordinator>());
             var l_SoloFreePlayFlowCoordinator = GameObject.FindObjectOfType<SoloFreePlayFlowCoordinator>();
 
-            m_LevelClearedPreset    = l_SoloFreePlayFlowCoordinator._resultsClearedLightsPreset;
-            m_LevelFailedPreset     = l_SoloFreePlayFlowCoordinator._resultsFailedLightsPreset;
+            TryGetMember(l_SoloFreePlayFlowCoordinator, out m_LevelClearedPreset, "_resultsClearedLightsPreset", "resultsClearedLightsPreset");
+            TryGetMember(l_SoloFreePlayFlowCoordinator, out m_LevelFailedPreset, "_resultsFailedLightsPreset", "resultsFailedLightsPreset");
 
-            m_LevelClearedPresetBackup  = m_LevelClearedPreset.lightIdColorPairs.Select(x => (x.intensity, x.baseColor)).ToArray();
-            m_LevelFailedPresetBackup   = m_LevelFailedPreset.lightIdColorPairs.Select(x => (x.intensity, x.baseColor)).ToArray();
+            if (m_LevelClearedPreset)
+                m_LevelClearedPresetBackup = m_LevelClearedPreset.lightIdColorPairs.Select(x => (x.intensity, x.baseColor)).ToArray();
+            if (m_LevelFailedPreset)
+                m_LevelFailedPresetBackup = m_LevelFailedPreset.lightIdColorPairs.Select(x => (x.intensity, x.baseColor)).ToArray();
 
             UpdateFromConfig();
         }
@@ -227,6 +216,73 @@ namespace BeatSaberPlus_GameTweaker.Managers
                 return preset;
 
             return m_DefaultPreset;
+        }
+
+        private static void SetMenuLightsPreset(MenuLightsPresetSO preset)
+        {
+            if (!m_MenuLightsManager || !preset)
+                return;
+
+            if (TrySetMember(m_MenuLightsManager, preset, "_preset", "preset"))
+            {
+                m_MenuLightsManager.enabled = true;
+                m_MenuLightsManager.RefreshColors();
+            }
+        }
+
+        private static bool TryGetMember<T>(object obj, out T value, params string[] names)
+        {
+            value = default;
+            if (obj == null)
+                return false;
+
+            var l_Type = obj.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Name = names[l_I];
+                var l_Field = l_Type.GetField(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Field != null && l_Field.GetValue(obj) is T l_FieldValue)
+                {
+                    value = l_FieldValue;
+                    return true;
+                }
+
+                var l_Prop = l_Type.GetProperty(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Prop != null && l_Prop.GetValue(obj) is T l_PropValue)
+                {
+                    value = l_PropValue;
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool TrySetMember(object obj, object value, params string[] names)
+        {
+            if (obj == null)
+                return false;
+
+            var l_Type = obj.GetType();
+            for (int l_I = 0; l_I < names.Length; ++l_I)
+            {
+                var l_Name = names[l_I];
+                var l_Field = l_Type.GetField(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Field != null)
+                {
+                    l_Field.SetValue(obj, value);
+                    return true;
+                }
+
+                var l_Prop = l_Type.GetProperty(l_Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (l_Prop != null && l_Prop.CanWrite)
+                {
+                    l_Prop.SetValue(obj, value);
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

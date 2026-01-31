@@ -1,15 +1,21 @@
 ﻿using HarmonyLib;
 using TMPro;
+using System.Reflection;
 
 namespace BeatSaberPlus_GameTweaker.Patches
 {
     /// <summary>
     /// PlayerHeightSettingsController remover
     /// </summary>
-    [HarmonyPatch(typeof(PlayerHeightSettingsController))]
-    [HarmonyPatch(nameof(PlayerHeightSettingsController.RefreshUI))]
-    public class PPlayerHeightSettingsController : PlayerHeightSettingsController
+[HarmonyPatch(typeof(PlayerHeightSettingsController))]
+public class PPlayerHeightSettingsController
+{
+    private static MethodBase TargetMethod()
     {
+        return AccessTools.Method(typeof(PlayerHeightSettingsController), "RefreshUI")
+            ?? AccessTools.Method(typeof(PlayerHeightSettingsController), "UpdateUI");
+    }
+
         /// <summary>
         /// Prefix
         /// </summary>

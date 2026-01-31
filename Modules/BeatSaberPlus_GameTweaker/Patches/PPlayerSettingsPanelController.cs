@@ -88,7 +88,7 @@ namespace BeatSaberPlus_GameTweaker.Patches
                     if (m_NoteJumpFixedDurationSettingsController)
                     {
                         m_NoteJumpFixedDurationSettingsController.values = l_NewReactionTimeList.ToArray();
-                        m_NoteJumpFixedDurationSettingsController.GetInitValues(out var _, out var __);
+                        CallGetInitValues(m_NoteJumpFixedDurationSettingsController);
                         m_NoteJumpFixedDurationSettingsController.transform.GetChild(2).transform.localScale = Vector3.zero;
 
                         m_CustomReactionTime = CP_SDK.UI.UISystem.SliderFactory.Create("", m_NoteJumpFixedDurationSettingsController.transform);
@@ -143,6 +143,19 @@ namespace BeatSaberPlus_GameTweaker.Patches
 
                 }
             }
+        }
+
+        private static void CallGetInitValues(FormattedFloatListSettingsController controller)
+        {
+            if (controller == null)
+                return;
+
+            var l_Method = AccessTools.Method(controller.GetType(), "GetInitValues");
+            if (l_Method == null)
+                return;
+
+            var l_Params = new object[] { 0, 0 };
+            l_Method.Invoke(controller, l_Params);
         }
 
         ////////////////////////////////////////////////////////////////////////////

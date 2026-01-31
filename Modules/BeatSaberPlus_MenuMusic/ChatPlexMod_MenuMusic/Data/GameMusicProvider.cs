@@ -1,8 +1,10 @@
 ﻿using BeatSaberPlus_MenuMusic;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using UnityEngine;
 
 namespace ChatPlexMod_MenuMusic.Data
@@ -203,7 +205,7 @@ namespace ChatPlexMod_MenuMusic.Data
             for (var l_I = 0; l_I < m_Musics.Count; ++l_I)
             {
                 var l_Swapped = m_Musics[l_I];
-                var l_NewIndex = Random.Range(l_I, m_Musics.Count);
+                var l_NewIndex = UnityEngine.Random.Range(l_I, m_Musics.Count);
 
                 m_Musics[l_I] = m_Musics[l_NewIndex];
                 m_Musics[l_NewIndex] = l_Swapped;
@@ -227,14 +229,18 @@ namespace ChatPlexMod_MenuMusic.Data
                 if (!(l_Current.Value.previewMediaData is FileSystemPreviewMediaData l_FileSystemPreviewMediaData))
                     continue;
 
-                var l_Extension = Path.GetExtension(l_FileSystemPreviewMediaData._previewAudioClipPath).ToLower();
+                var l_PreviewAudioClipPath = PreviewMediaDataAccess.GetPreviewAudioClipPath(l_FileSystemPreviewMediaData);
+                if (string.IsNullOrEmpty(l_PreviewAudioClipPath))
+                    continue;
+
+                var l_Extension = Path.GetExtension(l_PreviewAudioClipPath).ToLower();
                 if (l_Extension != ".egg" && l_Extension != ".ogg")
                     continue;
 
                 m_Musics.Add(new Music(
                     this,
-                    l_FileSystemPreviewMediaData._previewAudioClipPath,
-                    l_FileSystemPreviewMediaData._coverSpritePath,
+                    l_PreviewAudioClipPath,
+                    PreviewMediaDataAccess.GetCoverSpritePath(l_FileSystemPreviewMediaData),
                     l_Current.Value.songName,
                     l_Current.Value.songAuthorName
                 ));
@@ -246,6 +252,105 @@ namespace ChatPlexMod_MenuMusic.Data
 #endif
 
             m_IsLoading = false;
+        }
+
+        private static class PreviewMediaDataAccess
+        {
+            private const BindingFlags k_BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            private static bool s_Initialized;
+            private static FieldInfo s_PreviewAudioClipPathField;
+            private static PropertyInfo s_PreviewAudioClipPathProperty;
+            private static FieldInfo s_CoverSpritePathField;
+            private static PropertyInfo s_CoverSpritePathProperty;
+
+            internal static string GetPreviewAudioClipPath(FileSystemPreviewMediaData p_Data)
+            {
+                if (!TryInit(p_Data))
+                    return null;
+
+                if (TryGetValue(p_Data, s_PreviewAudioClipPathField, s_PreviewAudioClipPathProperty, out string l_Value))
+                    return l_Value;
+
+                return null;
+            }
+
+            internal static string GetCoverSpritePath(FileSystemPreviewMediaData p_Data)
+            {
+                if (!TryInit(p_Data))
+                    return null;
+
+                if (TryGetValue(p_Data, s_CoverSpritePathField, s_CoverSpritePathProperty, out string l_Value))
+                    return l_Value;
+
+                return null;
+            }
+
+            private static bool TryInit(FileSystemPreviewMediaData p_Data)
+            {
+                if (s_Initialized || p_Data == null)
+                    return s_Initialized;
+
+                var l_Type = p_Data.GetType();
+                s_PreviewAudioClipPathField    = FindField(l_Type, "_previewAudioClipPath", "previewAudioClipPath");
+                s_PreviewAudioClipPathProperty = FindProperty(l_Type, "previewAudioClipPath");
+                s_CoverSpritePathField         = FindField(l_Type, "_coverSpritePath", "coverSpritePath");
+                s_CoverSpritePathProperty      = FindProperty(l_Type, "coverSpritePath");
+
+                s_Initialized = true;
+                return true;
+            }
+
+            private static FieldInfo FindField(Type p_Type, params string[] p_Names)
+            {
+                foreach (var l_Name in p_Names)
+                {
+                    var l_Field = p_Type.GetField(l_Name, k_BindingFlags);
+                    if (l_Field != null)
+                        return l_Field;
+                }
+
+                return null;
+            }
+
+            private static PropertyInfo FindProperty(Type p_Type, params string[] p_Names)
+            {
+                foreach (var l_Name in p_Names)
+                {
+                    var l_Property = p_Type.GetProperty(l_Name, k_BindingFlags);
+                    if (l_Property != null)
+                        return l_Property;
+                }
+
+                return null;
+            }
+
+            private static bool TryGetValue<T>(FileSystemPreviewMediaData p_Data, FieldInfo p_Field, PropertyInfo p_Property, out T p_Value)
+            {
+                p_Value = default;
+
+                if (p_Field != null)
+                {
+                    var l_Value = p_Field.GetValue(p_Data);
+                    if (l_Value is T l_Cast)
+                    {
+                        p_Value = l_Cast;
+                        return true;
+                    }
+                }
+
+                if (p_Property != null)
+                {
+                    var l_Value = p_Property.GetValue(p_Data);
+                    if (l_Value is T l_Cast)
+                    {
+                        p_Value = l_Cast;
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
     }
 }

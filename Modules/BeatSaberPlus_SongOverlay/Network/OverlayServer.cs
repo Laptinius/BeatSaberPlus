@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -386,7 +387,7 @@ namespace BeatSaberPlus_SongOverlay.Network
             m_ScoreController.scoreDidChangeEvent           += ScoreController_scoreDidChangeEvent;
             m_GameEnergyCounter.gameEnergyDidChangeEvent    += GameEnergyCounter_gameEnergyDidChangeEvent;
 
-            var l_BeatmapObjectManager = m_ScoreController._beatmapObjectManager;
+            var l_BeatmapObjectManager = ReflectionUtils.GetMember<BeatmapObjectManager>(m_ScoreController, "_beatmapObjectManager", "beatmapObjectManager");
             if (l_BeatmapObjectManager != null)
             {
                 l_BeatmapObjectManager.noteWasCutEvent += ScoreController_noteWasCutEvent;
@@ -410,7 +411,7 @@ namespace BeatSaberPlus_SongOverlay.Network
                     m_ResumeEventQueued         = true;
                 };
 
-                m_IsPaused = m_PauseController._paused == PauseController.PauseState.Paused;
+                m_IsPaused = ReflectionUtils.IsPaused(m_PauseController);
             }
             else
                 m_IsPaused = false;
@@ -514,6 +515,72 @@ namespace BeatSaberPlus_SongOverlay.Network
 #endif
 
             m_HttpServer.Stop();
+        }
+
+        private static class ReflectionUtils
+        {
+            private const BindingFlags k_BindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
+
+            internal static T GetMember<T>(object p_Instance, params string[] p_Names) where T : class
+            {
+                if (p_Instance == null)
+                    return null;
+
+                var l_Type = p_Instance.GetType();
+                foreach (var l_Name in p_Names)
+                {
+                    var l_Field = l_Type.GetField(l_Name, k_BindingFlags);
+                    if (l_Field != null && l_Field.GetValue(p_Instance) is T l_FieldValue)
+                        return l_FieldValue;
+
+                    var l_Property = l_Type.GetProperty(l_Name, k_BindingFlags);
+                    if (l_Property != null && l_Property.GetValue(p_Instance) is T l_PropertyValue)
+                        return l_PropertyValue;
+                }
+
+                return null;
+            }
+
+            internal static bool IsPaused(PauseController p_Controller)
+            {
+                if (p_Controller == null)
+                    return false;
+
+                if (TryGetMember(p_Controller, out PauseController.PauseState l_State, "_paused", "pauseState", "_pauseState"))
+                    return l_State == PauseController.PauseState.Paused;
+
+                if (TryGetMember(p_Controller, out bool l_Bool, "paused", "_paused", "isPaused"))
+                    return l_Bool;
+
+                return false;
+            }
+
+            private static bool TryGetMember<T>(object p_Instance, out T p_Value, params string[] p_Names)
+            {
+                p_Value = default;
+                if (p_Instance == null)
+                    return false;
+
+                var l_Type = p_Instance.GetType();
+                foreach (var l_Name in p_Names)
+                {
+                    var l_Field = l_Type.GetField(l_Name, k_BindingFlags);
+                    if (l_Field != null && l_Field.GetValue(p_Instance) is T l_FieldValue)
+                    {
+                        p_Value = l_FieldValue;
+                        return true;
+                    }
+
+                    var l_Property = l_Type.GetProperty(l_Name, k_BindingFlags);
+                    if (l_Property != null && l_Property.GetValue(p_Instance) is T l_PropertyValue)
+                    {
+                        p_Value = l_PropertyValue;
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
     }
 }

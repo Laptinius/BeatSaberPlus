@@ -70,7 +70,7 @@ namespace BeatSaberPlus_GameTweaker.Patches.Lights
         [HarmonyPrefix, HarmonyPriority(Priority.First)]
         internal static void Prefix_SetColorL(ref Color newColor) => ImplSetColor(ref newColor);
         [HarmonyPatch(typeof(LightmapLightWithIds))]
-        [HarmonyPatch(nameof(LightmapLightWithIds.SetDataToShaders))]
+        [HarmonyPatch("SetDataToShaders")]
         [HarmonyPrefix, HarmonyPriority(Priority.First)]
         internal static void Prefix_SetColorM(ref Color lightmapColor, ref Color probeColor)
         {

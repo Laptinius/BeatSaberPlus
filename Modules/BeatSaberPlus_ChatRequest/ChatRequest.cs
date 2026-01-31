@@ -1,6 +1,7 @@
 ﻿using IPA.Utilities;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ namespace BeatSaberPlus_ChatRequest
     /// </summary>
     public partial class ChatRequest : CP_SDK.ModuleBase<ChatRequest>
     {
+        private static readonly FieldInfo s_ImageViewSkewField = typeof(HMUI.ImageView).GetField("_skew", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
         public override CP_SDK.EIModuleBaseType             Type                => CP_SDK.EIModuleBaseType.Integrated;
         public override string                              Name                => "Chat Request";
         public override string                              Description         => "Приймає запити пісень із чату!";
@@ -306,13 +308,15 @@ namespace BeatSaberPlus_ChatRequest
             var l_Images = m_ManagerButtonP.GetComponentsInChildren<HMUI.ImageView>();
             foreach (var l_Image in l_Images)
             {
-                l_Image._skew = 0f;
+                if (s_ImageViewSkewField != null)
+                    s_ImageViewSkewField.SetValue(l_Image, 0f);
                 l_Image.SetAllDirty();
             }
             l_Images = m_ManagerButtonS.GetComponentsInChildren<HMUI.ImageView>();
             foreach (var l_Image in l_Images)
             {
-                l_Image._skew = 0f;
+                if (s_ImageViewSkewField != null)
+                    s_ImageViewSkewField.SetValue(l_Image, 0f);
                 l_Image.SetAllDirty();
             }
 
