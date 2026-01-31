@@ -1,88 +1,81 @@
 # BeatSaberPlus (BS+)
 
-**Discord** https://discord.gg/63ebPMC (**Download, Support, Testing, Early releases** and cool new mods coming soon)  
-**Patreon** https://www.patreon.com/BeatSaberPlus **if you want to support this project development!**  
+**Twitch** https://www.twitch.tv/calypsopaw  
+**Подяка** https://base.monobank.ua/calypsopaw  
 
-**[READ THE PATCH NOTES ! 🥖](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Patchnotes)**
+**[ПРОЧИТАЙТЕ НОТАТКИ ДО ОНОВЛЕНЬ! 🥖](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Patchnotes)**
 
-Current version : 6.2.2
+Поточна версія: 1.0.0
 
-BeatSaber compatibility : 1.25.0 to 1.29.1 AND 1.34.2
+Сумісність BeatSaber: 1.25.0 до 1.29.1 та 1.34.2
 
-**Important:** Most modules are disabled by default. Enable them in BeatSaberPlus -> Settings.  
-*   If you enable the Chat module, it will open a page in your browser for configuration.
-*   To use the Multiplayer+ module, go to BeatSaberPlus -> Multiplayer+ and set it up. Use the **Multiplayer+** button on the left panel instead of the **Online** button.  
+**Важливо:** Більшість модулів вимкнено за замовчуванням. Увімкніть їх у BeatSaberPlus -> Settings.  
+*   Якщо увімкнути модуль Chat, відкриється сторінка у вашому браузері для налаштування.
+*   Щоб використовувати Multiplayer+, перейдіть у BeatSaberPlus -> Multiplayer+ та налаштуйте його. Використовуйте кнопку **Multiplayer+** на лівій панелі замість **Online**.
 
-## Main features
-- **Chat:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat))
-	- Kick/Twitch/Youtube chat support.
-	- 7TV/FFZ/BTTV Emotes support
-	- See subs, follows, raids, bits and channel redeems
-	- Polls, Predictions and HypeTrains.
-	- Viewer count.
-	- Lots of customization options
-- **ChatEmoteRain:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat-Emote-Rain))
-	- See emotes used in chat raining in-game
-	- Support for GIF / APNG / PNG / WEBP files
-	- Custom emote rain when someone subs
-	- Advanced configuration options
-- **ChatIntegrations:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat-Integrations))
-	- Script and automatize your game with powerfull integrations
-	- Control your game and mods
-	- Control your OBS instance
-	- Interact and control your games
-	- Voice commands with VoiceAttack
-- **ChatRequest:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat-Request))
-	- Let the viewers request their favorite map!
-	- A powerfull !link command that let your viewers known what map you are playing
-	- History and Blacklist support
-	- Commands for moderation
-	- OBS overlay
-- **GameTweaker:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Game-Tweaker))  
-	- Customize game visuals and effects!
-	- Precise reaction time and player height
-	- Change the light intensity of any map
-	- Improve base game UI
-- **MenuMusic:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Menu-Music))
-	- Replaces menu ambient sounds with music!
-	- Plays any songs from your custom levels or your own selection of music
-	- Controllable player interface with songs covers
-	- A command for viewers to get info about the current song
-- **Multiplayer+:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Multiplayer-Plus))  
-	- A better multiplayer with custom songs support!
-	- BeatLeader and ScoreSaber support!
-	- Chroma, Noodle, 360, 90 maps support
-	- See players avatar
-	- Democracy and FFA mode
-- **NoteTweaker:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Note-Tweaker))
-	- Complete customisation of the game notes and bombs with multi profile system!
-	- Precision dots feature
-	- Haptics and Arcs customisation
-- **SongChartVisualizer:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Song-Chart-Visualizer))
-	- Preview map difficulty with a graph that shows NPS (Notes Per Second) in-game!
-	- Supports 90 and 360 levels
-	- Lots of customization options
- - **SongOverlay:** ([Documentation](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Song-Overlay))
-	- Let your viewers known in real time your progress and score during a map
-	- Multiple free OBS overlays made by the community
+## Основні можливості
+- **Chat:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat))
+	- Підтримка чату Kick/Twitch/YouTube.
+	- Підтримка емотів 7TV/FFZ/BTTV.
+	- Перегляд підписок, фолоу, рейдів, бітсів і викупів каналу.
+	- Опитування, передбачення та HypeTrain.
+	- Лічильник глядачів.
+	- Багато опцій кастомізації.
+- **ChatEmoteRain:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat-Emote-Rain))
+	- Показ емотів із чату у вигляді дощу в грі.
+	- Підтримка файлів GIF / APNG / PNG / WEBP.
+	- Користувацький дощ емотів, коли хтось підписується.
+	- Розширені параметри конфігурації.
+- **ChatIntegrations:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat-Integrations))
+	- Скрипти та автоматизація гри завдяки потужним інтеграціям.
+	- Керування грою та модами.
+	- Керування OBS.
+	- Взаємодія та контроль ігор.
+	- Голосові команди через VoiceAttack.
+- **ChatRequest:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Chat-Request))
+	- Дозволяє глядачам замовляти улюблені карти.
+	- Потужна команда !link, яка повідомляє глядачам, яку карту ви зараз граєте.
+	- Підтримка історії та чорного списку.
+	- Команди для модерації.
+	- OBS оверлей.
+- **GameTweaker:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Game-Tweaker))
+	- Налаштування візуалу та ефектів гри.
+	- Точний час реакції та зріст гравця.
+	- Зміна інтенсивності світла будь-якої карти.
+	- Поліпшення базового UI гри.
+- **MenuMusic:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Menu-Music))
+	- Замінює фонові звуки меню на музику.
+	- Відтворює будь-які треки з користувацьких рівнів або вашої добірки музики.
+	- Керований інтерфейс плеєра з обкладинками треків.
+	- Команда для глядачів, щоб отримати інформацію про поточну пісню.
+- **Multiplayer+:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Multiplayer-Plus))
+	- Кращий мультиплеєр із підтримкою кастомних пісень.
+	- Підтримка BeatLeader та ScoreSaber.
+	- Підтримка карт Chroma, Noodle, 360, 90.
+	- Показ аватарів гравців.
+	- Режими Democracy та FFA.
+- **NoteTweaker:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Note-Tweaker))
+	- Повна кастомізація нот і бомб із мультипрофільною системою.
+	- Функція precision dots.
+	- Налаштування haptics та arcs.
+- **SongChartVisualizer:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Song-Chart-Visualizer))
+	- Попередній перегляд складності карти з графіком NPS (Notes Per Second) у грі.
+	- Підтримка рівнів 90 та 360.
+	- Багато опцій кастомізації.
+- **SongOverlay:** ([Документація](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Song-Overlay))
+	- Показує глядачам ваш прогрес і рахунок у реальному часі під час карти.
+	- Багато безкоштовних OBS оверлеїв від спільноти.
 
-## **Dependencies & Licenses**
-### **[Licenses](https://github.com/hardcpp/BeatSaberPlus/wiki#licenses)**
+## **Залежності та ліцензії**
+### **[Ліцензії](https://github.com/hardcpp/BeatSaberPlus/wiki#licenses)**
 
 - SongCore [https://github.com/Kylemc1413/SongCore](https://github.com/Kylemc1413/SongCore)
 
-### **[How to install](https://github.com/hardcpp/BeatSaberPlus/wiki#2---How-to-Install)**
-### **[See the FAQ](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-FAQ)**
-### **[READ THE PATCH NOTES ! 🥖](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Patchnotes)**
+### **[Як встановити](https://github.com/hardcpp/BeatSaberPlus/wiki#2---How-to-Install)**
+### **[FAQ](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-FAQ)**
+### **[ПРОЧИТАЙТЕ НОТАТКИ ДО ОНОВЛЕНЬ! 🥖](https://github.com/hardcpp/BeatSaberPlus/wiki/%5BEN%5D-Patchnotes)**
 
-## **Special Thanks**:
-- **Vred#0001** For art & documentation
-- **Brase#6969** For documentation
-- **Crafang#8040** For documentation & translation
-- **Lucy#9197** For documentation
-- **redegg89#9290** For Documentation syntax/grammar
-
-## **Screenshots**
+## **Скриншоти**
 ![](https://puu.sh/GO6tf/81ff167aab.png)
 ![](https://puu.sh/GKKJJ/7a481941c5.png)
 ![](https://puu.sh/GKPcD/ecee2e5d86.png)

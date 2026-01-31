@@ -2,16 +2,16 @@
   "$schema": "https://raw.githubusercontent.com/beat-saber-modding-group/BSIPA-MetadataFileSchema/master/Schema.json",
   "id": "BeatSaberPlus_SongOverlay",
   "name": "BeatSaberPlus_SongOverlay",
-  "author": "HardCPP",
-  "version": "6.4.2",
-  "description": "BeatSaberPlus song overlay module.",
+  "author": "Laptinius",
+  "version": "1.0.0",
+  "description": "Модуль оверлею пісні BeatSaberPlus.",
   "gameVersion": "1.40.0",
   "dependsOn": {
     "BSIPA": "^4.3.0",
     "ChatPlexSDK_BS": "^6.4.2"
   },
   "links": {
-    "project-home": "https://discord.chatplex.org",
-    "donate": "https://donate.chatplex.org"
+    "project-home": "https://www.twitch.tv/calypsopaw",
+    "donate": "https://base.monobank.ua/calypsopaw"
   }
 }

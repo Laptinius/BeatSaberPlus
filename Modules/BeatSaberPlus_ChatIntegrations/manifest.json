@@ -2,8 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/beat-saber-modding-group/BSIPA-MetadataFileSchema/master/Schema.json",
   "id": "BeatSaberPlus_ChatIntegrations",
   "name": "BeatSaberPlus_ChatIntegrations",
-  "author": "HardCPP",
-  "version": "6.4.2",
+  "author": "Laptinius",
+  "version": "1.0.0",
   "description": "",
   "gameVersion": "1.40.0",
   "dependsOn": {
@@ -22,7 +22,7 @@
     "BeatSaberPlus_SongOverlay"
   ],
   "links": {
-    "project-home": "https://discord.chatplex.org",
-    "donate": "https://donate.chatplex.org"
+    "project-home": "https://www.twitch.tv/calypsopaw",
+    "donate": "https://base.monobank.ua/calypsopaw"
   }
 }
