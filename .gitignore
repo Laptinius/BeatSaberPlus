@@ -76,3 +76,4 @@ ChatEmoteRainUnity/[Aa]ssets/Plugins/Editor/JetBrains*
 *.tmp
 # Local junction to submodule path expected by the solution
 ChatPlexSDK_BS/
+/runtime/
