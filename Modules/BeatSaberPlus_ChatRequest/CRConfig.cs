@@ -295,6 +295,12 @@ namespace BeatSaberPlus_ChatRequest
             if (ContainsAnyInvariant(Commands.BSRCommand_RequestOK, "requested by", "added to queue"))
                 Commands.BSRCommand_RequestOK = "(bsr $BSRKey) $SongName / $LevelAuthorName $Vote% запитано @$UserName, додано до черги.";
 
+            if (ContainsAnyInvariant(Commands.BSRCommand_AlreadyQueued, "already in queue"))
+                Commands.BSRCommand_AlreadyQueued = "@$UserName (bsr $BSRKey) $SongName / $LevelAuthorName уже в черзі!";
+
+            if (ContainsAllInvariant(Commands.BSRCommand_NotFound, "map", "not found"))
+                Commands.BSRCommand_NotFound = "@$UserName мапу $BSRKey не знайдено.";
+
             if (ContainsAnyInvariant(Messages.OnCooldown, "command is on cooldown"))
                 Messages.OnCooldown = "@$UserName команда на перезарядці!";
         }
@@ -311,6 +317,20 @@ namespace BeatSaberPlus_ChatRequest
             }
 
             return false;
+        }
+
+        private static bool ContainsAllInvariant(string source, params string[] needles)
+        {
+            if (string.IsNullOrEmpty(source) || needles == null || needles.Length == 0)
+                return false;
+
+            foreach (var needle in needles)
+            {
+                if (string.IsNullOrEmpty(needle) || source.IndexOf(needle, StringComparison.OrdinalIgnoreCase) < 0)
+                    return false;
+            }
+
+            return true;
         }
     }
 }
